@@ -49,7 +49,7 @@ export default function LandingPage() {
               </button>
             </div>
           </div>
-          <div className="col-6">
+          <div className="col-6 col-m-6">
             <img
               src="/images/city.png"
               alt="City"

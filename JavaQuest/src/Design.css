@@ -27,11 +27,9 @@ body,
 
 .mincity {
   height: auto;
-  width: clamp(
-    50vh,
-    400vh,
-    400vh
-  ); /* Min 200px, fluid at 50% viewport height, max 600px */
+  width: clamp(50vh, 400vh, 400vh);
+  /* width: 100%; */
+  /* Min 200px, fluid at 50% viewport height, max 600px */
 }
 
 @font-face {
@@ -48,7 +46,7 @@ body,
 }
 .titlefont {
   font-family: "DeadlyAdvance";
-  font-size: clamp(5rem + 50%, 8vw, 16rem);
+  font-size: clamp(2.5rem, 10vw, 8rem);
 }
 
 .gradient {
@@ -62,7 +60,6 @@ body,
   font-family: "F1";
 }
 
-
 .btn.glow-on-hover {
   position: relative;
   overflow: hidden;
@@ -71,13 +68,13 @@ body,
 }
 
 .btn.glow-on-hover:before {
-  content: '';
+  content: "";
   position: absolute;
   top: 50%;
   left: 50%;
   width: 300%;
   height: 300%;
- 
+
   transition: width 0.4s, height 0.4s, top 0.4s, left 0.4s;
   border-radius: 50%;
   transform: translate(-50%, -50%);
@@ -95,25 +92,25 @@ body,
 }
 
 .navbar-nav .nav-link {
-  text-decoration: none; 
+  text-decoration: none;
   position: relative;
 }
 
 .navbar-nav .nav-link:hover {
-  color: #fff; 
+  color: #fff;
 }
 
 .navbar-nav .nav-link::after {
-  content: '';
+  content: "";
   position: absolute;
   bottom: 0;
   left: 0;
   width: 0;
   height: 2px;
-  background-color: white; 
-  transition: width 0.3s ease; 
+  background-color: white;
+  transition: width 0.3s ease;
 }
 
 .navbar-nav .nav-link:hover::after {
-  width: 100%; 
+  width: 100%;
 }
