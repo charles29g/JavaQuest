@@ -1,0 +1,25 @@
+html,
+body,
+#root {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.backgroundimg {
+  background-image: url("/images/bg.png");
+  background-size: cover !important;
+  background-position: center !important;
+  background-repeat: no-repeat !important;
+}
+
+.color {
+  background-color: aqua;
+}
+
+.cityimg {
+ 
+    background-color: #00000000; 
+    background-blend-mode: color-burn;
+  }
+  
