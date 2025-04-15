@@ -15,7 +15,15 @@ body,
   background-repeat: no-repeat !important;
   background-blend-mode: color-burn;
 }
-
+.backgroundimg2 {
+  /* height: 100vh;
+  width: 100vw; */
+  background-image: url("/images/bg2.png");
+  background-size: cover !important;
+  background-position: center !important;
+  background-repeat: no-repeat !important;
+  background-blend-mode: color-burn;
+}
 .color {
   background-color: aqua;
 }
@@ -28,8 +36,6 @@ body,
 .mincity {
   height: auto;
   width: clamp(50vh, 400vh, 400vh);
-  /* width: 100%; */
-  /* Min 200px, fluid at 50% viewport height, max 600px */
 }
 
 @font-face {
@@ -48,6 +54,10 @@ body,
   font-family: "DeadlyAdvance";
   font-size: clamp(2.5rem, 10vw, 8rem);
 }
+.titlefont2 {
+  font-family: "DeadlyAdvance";
+  font-size: clamp(2.5rem, 2vw, 2rem);
+}
 
 .gradient {
   width: 30vh;
@@ -55,7 +65,20 @@ body,
   background: linear-gradient(135deg, #0097b2, #7ed957);
   border: none;
 }
+.gradient2 {
+  height: calc(100vh - 25rem);
 
+  background: linear-gradient(
+    90deg,
+    rgba(0, 74, 173, 0.8),
+    rgba(203, 108, 230, 0.5)
+  );
+  border: none;
+}
+.gradient3 {
+  background: linear-gradient(90deg, #8c52ff, #00bf63) !important;
+  border: none;
+}
 .descfont {
   font-family: "F1";
 }
@@ -113,4 +136,76 @@ body,
 
 .navbar-nav .nav-link:hover::after {
   width: 100%;
+}
+
+.imgsize {
+  width: clamp(1vh, 72vh, 100vh) !important;
+  height: 100% !important;
+  padding: 0;
+}
+
+.imgsize2 {
+  width: 100%;
+  height: auto;
+  max-width: clamp(200px, 72vh, 100%);
+}
+
+.nopad {
+  padding: 0 !important;
+}
+.slow-bounce {
+  animation-duration: 2s !important;
+}
+.corner {
+  border-radius: 58px !important;
+}
+.shadow-card {
+  box-shadow: 20px 20px 0px #3a2779;
+}
+.shadow-button {
+  box-shadow: 8px 8px 0px #0c4daa;
+  color: white;
+  justify-content: left;
+  text-justify: start;
+}
+.btn-mod {
+  background-color: #2e78e5;
+  border: none;
+  border-radius: 50px;
+  height: auto;
+  min-height: 3rem;
+  padding: 0.5rem 1rem;
+  white-space: normal;
+}
+
+.btn-mod:hover {
+  background-color: #29e4bc;
+  color: white;
+}
+
+@media (min-width: 768px) {
+  .btn-mod {
+    height: 15vh !important;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    margin-bottom: 2vh;
+    font-size: 5vh;
+    padding-left: 5vh;
+  }
+}
+.flying-car {
+  animation: hoverEffect 2s infinite ease-in-out;
+}
+
+@keyframes hoverEffect {
+  0% {
+    transform: translateX(0%) translateY(0); 
+  }
+  50% {
+    transform: translateX(0%) translateY(-20px);
+  }
+  100% {
+    transform: translateX(0%) translateY(0);
+  }
 }

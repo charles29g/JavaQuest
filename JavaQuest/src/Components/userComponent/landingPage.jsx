@@ -1,4 +1,4 @@
-export default function LandingPage() {
+export default function LandingPage({ setPage }) {
   return (
     <div className="backgroundimg">
       <div className="container">
@@ -44,7 +44,10 @@ export default function LandingPage() {
               accessible and enjoyable for everyone.
             </p>
             <div className="d-flex justify-content-center">
-              <button className="btn gradient descfont fs-1 text-white p-0 glow-on-hover">
+              <button
+                className="btn gradient descfont fs-1 text-white p-0 glow-on-hover"
+                onClick={() => setPage("modulePage")}
+              >
                 <i className="fas fa-running me-3 p-0"></i>Start
               </button>
             </div>
