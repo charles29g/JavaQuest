@@ -200,7 +200,7 @@ body,
 
 @keyframes hoverEffect {
   0% {
-    transform: translateX(0%) translateY(0); 
+    transform: translateX(0%) translateY(0);
   }
   50% {
     transform: translateX(0%) translateY(-20px);
@@ -208,4 +208,119 @@ body,
   100% {
     transform: translateX(0%) translateY(0);
   }
+}
+
+.glow-text {
+  animation: glow 2s ease-in-out infinite alternate;
+}
+
+@keyframes glow {
+  from {
+    text-shadow: 0 0 5px #8c52ff, 0 0 10px #8c52ff, 0 0 15px #00bf63;
+  }
+  to {
+    text-shadow: 0 0 10px #8c52ff, 0 0 20px #8c52ff, 0 0 30px #00bf63;
+  }
+}
+.transition-container {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  overflow: hidden;
+}
+
+.portal {
+  position: absolute;
+  top: 50%;
+  left: 80%;
+  width: 480px;
+  transform: translate(-50%, -50%) scale(1);
+  animation: spin 2s linear infinite;
+  z-index: 2;
+}
+
+.car {
+  position: absolute;
+  bottom: 30%;
+  left: 5%;
+  width: 400px;
+  transition: left 2.5s ease-in-out, transform 2.5s ease-in-out;
+  z-index: 15;
+}
+
+.transition-container.animate .car {
+  left: 65%;
+  transform: scale(0.4) rotate(15deg);
+  animation: pop-out 0.4s ease-in 2.1s forwards;
+}
+
+@keyframes spin {
+  0% {
+    transform: translate(-50%, -50%) scale(1) rotate(0deg);
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(1) rotate(360deg);
+  }
+}
+
+@keyframes pop-out {
+  0% {
+    transform: scale(0.4) rotate(15deg);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(0) rotate(15deg);
+    opacity: 0;
+  }
+}
+.transition-text-container {
+  position: absolute;
+  top: 20%;
+  left: 10%;
+  max-width: 40%;
+  z-index: 4;
+  animation: fade-in 1s ease-in-out;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.transition-title {
+  position: absolute;
+  top: 32.43%;
+  z-index: 10;
+  width: max-content;
+}
+
+.transition-title h1 {
+  margin: 0;
+}
+.transition-title-description {
+  position: absolute;
+  left: 10%;
+  max-width: 500px;
+  z-index: 10;
+  animation: fade-in 1s ease-in-out;
+  
+}
+
+.transition-title-description h1 {
+  margin-bottom: 0.5rem;
+}
+
+.transition-title-description p {
+  font-size: 1.1rem;
+  word-break: break-word;
+  white-space: normal;
+  margin-top: 4px !important;
+  margin-bottom: 1rem !important;
+  padding-top: 1vh;
+  top:100%;
 }
