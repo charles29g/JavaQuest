@@ -39,8 +39,8 @@ export default function Transition({ onComplete }) {
                 <h1 className="titlefont text-white glow-text">JavaQuest</h1>
                 <p className="text-white mt-2">
                   JavaQuest is an engaging online platform designed to help
-                  individuals learn the basics of <br/> Java programming in a fun and
-                  interactive way...
+                  individuals learn the basics of <br /> Java programming in a
+                  fun and interactive way...
                 </p>
               </div>
             </div>
@@ -49,7 +49,9 @@ export default function Transition({ onComplete }) {
         </div>
       </div>
 
-      <img src="/images/portal.png" className="portal " alt="Portal" />
+      <div className="portal-wrapper">
+        <img src="/images/portal.png" className="portal" alt="Portal" />
+      </div>
       <img src="/images/Module/c1.png" className="car z-10" alt="Car" />
     </div>
   );

@@ -229,15 +229,41 @@ body,
   overflow: hidden;
 }
 
-.portal {
+.portal-wrapper {
   position: absolute;
   top: 50%;
   left: 80%;
-  width: 480px;
-  transform: translate(-50%, -50%) scale(1);
+  transform: translate(-50%, -50%);
   animation: spin 2s linear infinite;
   z-index: 2;
 }
+
+.portal {
+  width: 480px;
+  opacity: 0;
+  animation: fadeInPortal 1.5s ease-out forwards;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes fadeInPortal {
+  0% {
+    opacity: 0;
+    transform: scale(0);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
 
 .car {
   position: absolute;
@@ -308,7 +334,6 @@ body,
   max-width: 500px;
   z-index: 10;
   animation: fade-in 1s ease-in-out;
-  
 }
 
 .transition-title-description h1 {
@@ -322,5 +347,5 @@ body,
   margin-top: 4px !important;
   margin-bottom: 1rem !important;
   padding-top: 1vh;
-  top:100%;
+  top: 100%;
 }
