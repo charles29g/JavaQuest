@@ -1,6 +1,5 @@
 import ModuleList from "./moduleList.jsx";
-
-export default function ModulePage({ ModuleItems, setPage }) {
+export default function ModulePage({ ModuleItems, setPage, setModuleID }) {
   return (
     <div className="backgroundimg2">
       <nav className="nav navbar d-flex justify-content-between align-items-center px-3">
@@ -42,7 +41,8 @@ export default function ModulePage({ ModuleItems, setPage }) {
         </div>
         <h2 className="text-white text-center mt-4">Modules</h2>
 
-        <ModuleList ModuleItems={ModuleItems} />
+        <ModuleList ModuleItems={ModuleItems} setPage={setPage} setModuleID={setModuleID} />
+
       </div>
     </div>
   );

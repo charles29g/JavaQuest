@@ -1,5 +1,5 @@
 import { useState } from "react";
-import Transition from "./transitionPage.jsx"; // <- make sure this exists
+import Transition from "./transitionPage.jsx"; 
 
 export default function LandingPage({ setPage }) {
   const [startTransition, setStartTransition] = useState(false);
@@ -16,7 +16,7 @@ export default function LandingPage({ setPage }) {
     <>
       <div className="backgroundimg" style={{ display: startTransition ? "none" : "block" }}>
         <div className="container">
-          <nav className="navbar navbar-expand-lg bg-transparent text-white px-4">
+          <nav className="navbar navbar-expand-lg bg-transparent text-white px-4 ">
             <button
               className="navbar-toggler"
               type="button"

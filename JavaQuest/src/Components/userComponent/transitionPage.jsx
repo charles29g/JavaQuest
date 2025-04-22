@@ -50,7 +50,7 @@ export default function Transition({ onComplete }) {
       </div>
 
       <div className="portal-wrapper">
-        <img src="/images/portal.png" className="portal" alt="Portal" />
+        <img src="/images/portal.png" className="portal  b-0" alt="Portal" />
       </div>
       <img src="/images/Module/c1.png" className="car z-10" alt="Car" />
     </div>
