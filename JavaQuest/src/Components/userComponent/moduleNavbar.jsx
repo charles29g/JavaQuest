@@ -1,5 +1,9 @@
 import ModuleNavItems from "./moduleItem.jsx";
+import { useNavigate } from "react-router-dom";
+
 export default function ModuleNavbar({ activeSection, ModuleContents }) {
+  const navigate = useNavigate();
+
   return (
     <nav className="nav-color sticky-navbar bg-transparent text-white navbar navbar-expand-lg p-0 m-0">
       <button
@@ -18,6 +22,13 @@ export default function ModuleNavbar({ activeSection, ModuleContents }) {
         <div className="row gap-5">
           <div className="d-flex flex-column flex-lg-row w-100 gap-5 justify-content-center align-items-center p-0 m-0">
             <div className="w-100 w-lg-auto text-center title d-flex flex-column justify-content-center align-items-center p-0 m-0">
+              <button
+                className="btn"
+                onClick={() => navigate("/modules")}
+                value="landingPage"
+              >
+                <i className="fa fa-arrow-left text-white"> Go Back</i>
+              </button>
               Module 1: Introduction to Java & Syntax
             </div>
 

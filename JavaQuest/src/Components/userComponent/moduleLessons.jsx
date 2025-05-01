@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+
 import ModuleNavbar from "./moduleNavbar.jsx";
 import ModuleLessonContents from "./moduleLessonsContent";
 import { useLayoutEffect } from "react";
@@ -7,12 +9,13 @@ import KCPage from "./kcPage.jsx";
 export default function ModuleLessons({
   ModuleContents,
   moduleID,
-  setPage,
   KCQA,
   selectedAnswers,
   setSelectedAnswers,
   KCCheckQA,
 }) {
+  const navigate = useNavigate();
+
   const [activeSection, setActiveSection] = useState(null);
   useLayoutEffect(() => {
     document.documentElement.scrollTop = 0;
@@ -82,10 +85,7 @@ export default function ModuleLessons({
             <div className="alert nolesson alert-info text-center shadow-sm p-4 mx-auto d-flex justify-content-center align-items-center min-vh-75">
               <div className="row text-center   d-flex justify-content-center align-items-center ">
                 <strong>No lessons available for this module.</strong>
-                <button
-                  className="gradient"
-                  onClick={() => setPage("modulePage")}
-                >
+                <button className="gradient" onClick={() => navigate("/modules")}>
                   Go Back
                 </button>
               </div>

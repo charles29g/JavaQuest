@@ -34,25 +34,73 @@ body,
   background-blend-mode: color-burn;
 }
 .backgroundimg4 {
-  background-image: url("/images/quizbg.png");
+  background-image: url("/images/platform2.png");
   background-repeat: no-repeat !important;
-  background-position: center !important;
-  background-size: cover !important;  
+  background-position: center 17%; /* Moves the background 100px down */
+  background-size: cover !important;
   background-blend-mode: color-burn;
-  width: 100%;  
-  height: 3000px; 
+  width: 100% !important;
+  min-height: 220vh !important;
+  display: flex !important;
   padding: 0 !important;
   margin: 0 !important;
 }
-
+.glass {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(3.7px);
+  -webkit-backdrop-filter: blur(3.7px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+.absolute {
+  position: absolute;
+}
 @media (max-width: 767px) {
   .backgroundimg4 {
-    height: 100vh !important; 
+    height: 290vh !important;
   }
+}
+@media (max-width: 767px) {
+  .mt{
+    margin-top:4vh !important;;
+  }
+}
+.mt{
+  margin-top:25vh;
+}
+
+.battery-container {
+  width: 120px;
+  height: 50px;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 5px;
+  top:1in;
+}
+
+.battery-meter {
+  width: 100%;
+  height: 10px;
+  background-color: #bbb;
+  border-radius: 5px;
+  overflow: hidden;
+  margin-bottom: 5px;
 }
 
 
+.battery-level {
+  height: 100%;
+  background-color: #4caf50; 
+  transition: width 0.5s ease-in-out;
+}
 
+.battery-text {
+  font-size: 12px;
+  font-weight: bold;
+}
 .color {
   background-color: aqua;
 }
@@ -116,6 +164,12 @@ body,
   height: 4rem;
   margin-top: -2vh;
 }
+.gradient6 {
+  width: 15vh;
+  height: 4vh;
+  background: linear-gradient(135deg, #0097b2, #7ed957);
+  border: none;
+}
 
 @media (min-width: 992px) {
   .square-box {
@@ -141,8 +195,7 @@ body,
   width: 100%;
 }
 
-.padding{
-
+.padding {
   padding-top: 20vh;
 }
 .active-navbar-item {
@@ -153,17 +206,15 @@ body,
   height: 4rem;
   margin-top: -2vh;
   color: white;
-  box-shadow: 0 0 15px rgba(61, 86, 177, 0.8); 
-  transition: all 0.3s ease; 
+  box-shadow: 0 0 15px rgba(61, 86, 177, 0.8);
+  transition: all 0.3s ease;
 }
 
 .gradient4:hover {
-  box-shadow: 0 0 25px rgba(61, 86, 177, 1); 
-  transform: scale(1.1); 
-  transition: all 0.6s ease; 
-
+  box-shadow: 0 0 25px rgba(61, 86, 177, 1);
+  transform: scale(1.1);
+  transition: all 0.6s ease;
 }
-
 
 .descfont {
   font-family: "F1";
@@ -333,7 +384,7 @@ body,
 }
 
 .portal {
-  width: 480px;
+  width: 880px;
   opacity: 0;
   animation: fadeInPortal 1.5s ease-out forwards;
 }
@@ -456,11 +507,11 @@ body,
     padding-right: 0;
   }
 }
-.nolesson{
+.nolesson {
   width: 350px;
-  max-Width: 600px;
-  border-Radius: 10px;
+  max-width: 600px;
+  border-radius: 10px;
   height: auto;
   padding: 40px;
-  top:300px;
+  top: 300px;
 }

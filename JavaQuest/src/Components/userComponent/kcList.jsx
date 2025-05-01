@@ -1,43 +1,64 @@
+import { useEffect, useRef } from "react";
 import KCItems from "./kcItems";
-export default function KCList({ KCQA, moduleID, KCCheckQA }) {
-  const module1Questions = KCQA.filter((item) => item.moduleid === moduleID);
+
+export default function KCList({
+  KCQA,
+  moduleID,
+  setSelectedAnswers,
+  incorrectAnswers,
+  correctAnswers,
+  KCCheckQA,
+}) {
+  const refs = useRef({}); // Store refs for each question
+
+  // Scroll to first incorrect item after submit
+  useEffect(() => {
+    if (incorrectAnswers.length > 0) {
+      const firstWrongId = incorrectAnswers[0];
+      const el = refs.current[firstWrongId];
+      if (el) {
+        el.scrollIntoView({ behavior: "smooth", block: "center" });
+      }
+    }
+  }, [incorrectAnswers]);
+
+  const handleAnswerSelected = (id, answer) => {
+    setSelectedAnswers((prev) => ({
+      ...prev,
+      [id]: answer,
+    }));
+  };
+
+  const moduleQuestions = KCQA.filter((item) => item.moduleid === moduleID);
 
   return (
-    <div className="container d-flex flex-column align-items-center px-0">
-      <div
-        className="w-100"
-        style={{ maxWidth: "800px", textAlign: "justify" }}
-      >
+    <div className="container px-3 px-md-5 d-flex flex-column align-items-center">
+      <div className="w-100">
         <h3 className="text-white text-center">Knowledge Checkpoint</h3>
+        <hr className="text-white mx-auto d-block" />
+        <p className="text-white text-center">
+          Now that you’ve journeyed through the lesson, it’s time to take a
+          quick breather and check how much you've absorbed...
+        </p>
 
-        <hr className="text-white w-50 mx-auto d-block" />
-
-        <div className="d-flex justify-content-center">
-          <p className="text-white text-center w-100 w-md-50 mx-auto px-3 text-break">
-            Now that you’ve journeyed through the lesson, it’s time to take a
-            quick breather and check how much you've absorbed. This fun
-            checkpoint is here to reinforce what you’ve learned, highlight key
-            concepts, and give you a clearer picture of your understanding
-            before you level up. Think of each correct answer as a power-up —
-            the more you get right, the more energy you will get to recharge
-            your batteries for the road ahead. Give it your best shot!
-          </p>
-        </div>
-
-        {module1Questions.map((item) => (
-          <KCItems
-            key={item.id}
-            id={item.id}
-            question={item.question}
-            answer={item.answer}
-            choices={item.choices}
-            on
-          />
+        {moduleQuestions.map((item) => (
+          <div key={item.id} ref={(el) => (refs.current[item.id] = el)}>
+            <KCItems
+              id={item.id}
+              question={item.question}
+              choices={item.choices}
+              onAnswerSelected={handleAnswerSelected}
+              isIncorrect={incorrectAnswers.includes(item.id)}
+              isCorrect={correctAnswers.includes(item.id)} 
+            />
+          </div>
         ))}
       </div>
 
       <div className="text-center mt-4">
-        <button className="gradient">Submit</button>
+        <button className="gradient" onClick={KCCheckQA}>
+          Submit
+        </button>
       </div>
     </div>
   );
