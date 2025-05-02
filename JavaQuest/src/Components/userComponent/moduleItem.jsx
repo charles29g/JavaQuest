@@ -31,7 +31,7 @@ export default function ModuleItem({ id, name, quiz, img, setModuleID }) {
             <button
               className="btn btn-light shadow-button btn-mod text-start w-100 w-md-75 fs-md-5"
               onClick={() => {
-                navigate("/quiz");
+                navigate("/quizInstructions");
                 setModuleID(id);
               }}
             >

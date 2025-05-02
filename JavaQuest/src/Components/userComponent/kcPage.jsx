@@ -77,7 +77,7 @@ export default function KCPage({ KCQA, moduleID }) {
                 {score !== null && score / KCQA.length >= 0.7 ? (
                   <button
                     className="gradient6 btn text-white"
-                    onClick={() => navigate("/quiz")}
+                    onClick={() => navigate("/quizInstructions")}
                   >
                     Take Quiz!
                   </button>

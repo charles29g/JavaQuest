@@ -4,10 +4,11 @@ import "./Design.css";
 
 import LandingPage from "./Components/userComponent/landingPage";
 import ModulePage from "./Components/userComponent/modulePage";
-import ModuleLessons from "./Components/userComponent/moduleLessons.jsx";
-import QuizPageInstructions from "./Components/userComponent/quizPageInstructions.jsx";
+import ModuleLessons from "./Components/userComponent/moduleLessons";
+import QuizPageInstructions from "./Components/userComponent/quizPageInstructions";
+import Quiz from "./Components/userComponent/quiz";
 
-import { ModuleItems, ModuleContents, KCQA } from "./Components/data.js";
+import { ModuleItems, ModuleContents, KCQA, Q1 } from "./Components/data.js";
 
 export default function App() {
   const [moduleID, setModuleID] = useState(1);
@@ -32,8 +33,9 @@ export default function App() {
             />
           }
         />
+        {/* Quiz Section */}
         <Route
-          path="/quiz"
+          path="/quizInstructions"
           element={
             <QuizPageInstructions
               moduleID={moduleID}
@@ -41,7 +43,8 @@ export default function App() {
             />
           }
         />
-
+        <Route path="/quiz" element={<Quiz moduleID={moduleID} />} />
+        {/* Page not found */}
         <Route path="*" element={<h2>Page Not Found</h2>} />
       </Routes>
     </Router>

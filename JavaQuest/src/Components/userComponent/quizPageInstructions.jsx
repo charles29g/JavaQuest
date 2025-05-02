@@ -1,10 +1,13 @@
+import { useNavigate } from "react-router-dom";
 export default function QuizPageInstructions({ moduleID, ModuleItems }) {
   console.log("moduleID:", moduleID);
   console.log("ModuleItems:", ModuleItems);
 
   const module = ModuleItems.find((m) => m.id === moduleID);
-
-  const handleStartQuiz = () => {};
+  const navigate = useNavigate();
+  const handleStartQuiz = () => {
+    navigate(`/quiz`);
+  };
 
   return (
     <div className="backgroundimg5">
@@ -13,11 +16,7 @@ export default function QuizPageInstructions({ moduleID, ModuleItems }) {
           <h2 className="text-center mb-4 text-white">🚀 Quiz Instructions</h2>
           <ul className="fs-5 text-white">
             <li>
-              This quiz is based on{" "}
-              <strong>
-                {module.name} (Module {module.id})
-              </strong>
-              .
+              This quiz is based on <strong>({module.moduleName})</strong>.
             </li>
             <li>Answer all questions carefully.</li>
             <li>No going back once you submit.</li>

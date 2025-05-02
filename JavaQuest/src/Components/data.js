@@ -207,3 +207,61 @@ export const KCQA = [
 ];
 
 //export default { ModuleItems, ModuleContents };
+
+export const Q1 = [
+  {
+    id: 1,
+    moduleid: 1,
+    question: 'What does "Lorem Ipsum" primarily represent?',
+    choices: [
+      "A real Latin passage",
+      "A famous poet’s work",
+      "A placeholder text",
+      "An ancient legal document",
+    ],
+    answer: "A placeholder text",
+  },
+  {
+    id: 2,
+    moduleid: 1,
+    question: 'Where did "Lorem Ipsum" originate from?',
+    choices: [
+      "18th-century English texts",
+      "Cicero's writings",
+      "William Shakespeare",
+      "Roman scrolls",
+    ],
+    answer: "Cicero's writings",
+  },
+  {
+    id: 3,
+    moduleid: 1,
+    question: "Which of the following is a typical phrase in Lorem Ipsum?",
+    choices: [
+      "Et tu, Brute?",
+      "Lorem ipsum dolor sit amet",
+      "Veni, vidi, vici",
+      "Carpe diem",
+    ],
+    answer: "Lorem ipsum dolor sit amet",
+  },
+  {
+    id: 4,
+    moduleid: 1,
+    question: "What is the main purpose of using Lorem Ipsum in design?",
+    choices: [
+      "For SEO ranking",
+      "To confuse readers",
+      "To simulate text layout",
+      "To replace final content permanently",
+    ],
+    answer: "To simulate text layout",
+  },
+  {
+    id: 5,
+    moduleid: 1,
+    question: "Which tool commonly uses Lorem Ipsum for layout testing?",
+    choices: ["Adobe Photoshop", "Excel", "Visual Studio Code", "Calculator"],
+    answer: "Adobe Photoshop",
+  },
+];
