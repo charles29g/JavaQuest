@@ -204,6 +204,13 @@ export const KCQA = [
     choices: ["Adobe Photoshop", "Excel", "Visual Studio Code", "Calculator"],
     answer: "Adobe Photoshop",
   },
+  {
+    id: 6,
+    moduleid: 2,
+    question: "Which tool commonly uses Lorem Ipsum for layout testing?",
+    choices: ["Adobe Photoshop", "Excel", "Visual Studio Code", "Calculator"],
+    answer: "Adobe Photoshop",
+  },
 ];
 
 //export default { ModuleItems, ModuleContents };

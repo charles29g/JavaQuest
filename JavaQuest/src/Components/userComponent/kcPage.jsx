@@ -6,6 +6,7 @@ export default function KCPage({ KCQA, moduleID }) {
   const [incorrectAnswers, setIncorrectAnswers] = useState([]);
   const [score, setScore] = useState(null);
   const [correctAnswers, setCorrectAnswers] = useState([]);
+  const moduleQuestions = KCQA.filter((item) => item.moduleid === moduleID);
 
   function KCCheckQA() {
     let calculatedScore = 0;
@@ -27,7 +28,7 @@ export default function KCPage({ KCQA, moduleID }) {
   }
 
   const batteryPercent =
-    score !== null ? `${(score / KCQA.length) * 100}%` : "0%";
+    score !== null ? `${(score / moduleQuestions.length) * 100}%` : "0%";
 
   return (
     <div className="backgroundimg4 min-vh-100 d-flex">
@@ -67,12 +68,12 @@ export default function KCPage({ KCQA, moduleID }) {
                 </div>
                 <span className="battery-text text-white">
                   {score !== null
-                    ? `${Math.round((score / KCQA.length) * 100)}%`
+                    ? `${Math.round((score / moduleQuestions.length) * 100)}%`
                     : "0%"}
                 </span>
               </div>
               <div className="text-center mt-4 animate__animated animate__infinite flying-car">
-                {score !== null && score / KCQA.length >= 0.7 ? (
+                {score !== null && score / moduleQuestions.length >= 0.7 ? (
                   <button className="gradient6 btn text-white ">
                     Take Quiz!
                   </button>
