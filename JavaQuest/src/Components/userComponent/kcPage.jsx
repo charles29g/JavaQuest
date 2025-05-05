@@ -1,12 +1,17 @@
 import { useState } from "react";
 import KCList from "./kcList";
+import { useNavigate } from "react-router-dom";
 
 export default function KCPage({ KCQA, moduleID }) {
   const [selectedAnswers, setSelectedAnswers] = useState({});
   const [incorrectAnswers, setIncorrectAnswers] = useState([]);
   const [score, setScore] = useState(null);
   const [correctAnswers, setCorrectAnswers] = useState([]);
+<<<<<<< HEAD
   const moduleQuestions = KCQA.filter((item) => item.moduleid === moduleID);
+=======
+  const navigate = useNavigate();
+>>>>>>> 97f7cfe3dc4db225e83e15089ec512f5d0cce2ca
 
   function KCCheckQA() {
     let calculatedScore = 0;
@@ -73,8 +78,16 @@ export default function KCPage({ KCQA, moduleID }) {
                 </span>
               </div>
               <div className="text-center mt-4 animate__animated animate__infinite flying-car">
+<<<<<<< HEAD
                 {score !== null && score / moduleQuestions.length >= 0.7 ? (
                   <button className="gradient6 btn text-white ">
+=======
+                {score !== null && score / KCQA.length >= 0.7 ? (
+                  <button
+                    className="gradient6 btn text-white"
+                    onClick={() => navigate("/quizInstructions")}
+                  >
+>>>>>>> 97f7cfe3dc4db225e83e15089ec512f5d0cce2ca
                     Take Quiz!
                   </button>
                 ) : (
