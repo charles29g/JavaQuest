@@ -3,11 +3,15 @@ export default function QuizQuestion({
   question,
   choices,
   onSelect,
+  selected,
   isCorrect,
   isIncorrect,
+  disabled, // ✅ NEW
 }) {
   const handleChange = (e) => {
-    onSelect(id, e.target.value);
+    if (!disabled) {
+      onSelect(id, e.target.value);
+    }
   };
 
   return (
@@ -28,8 +32,10 @@ export default function QuizQuestion({
             name={`quiz-q-${id}`}
             id={`quiz-q-${id}-c${idx}`}
             value={choice}
+            checked={selected === choice}
             onChange={handleChange}
             className="form-check-input"
+            disabled={disabled} // ✅ disable input
           />
           <label
             htmlFor={`quiz-q-${id}-c${idx}`}
