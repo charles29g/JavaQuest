@@ -8,6 +8,7 @@ export default function KCPage({ KCQA, moduleID }) {
   const [score, setScore] = useState(null);
   const [correctAnswers, setCorrectAnswers] = useState([]);
 <<<<<<< HEAD
+
   const moduleQuestions = KCQA.filter((item) => item.moduleid === moduleID);
 =======
 
@@ -82,6 +83,8 @@ export default function KCPage({ KCQA, moduleID }) {
               <div className="text-center mt-4 animate__animated animate__infinite flying-car">
 <<<<<<< HEAD
 =======
+
+
                 {score !== null && score / KCQA.length >= 0.7 ? (
                   <button
                     className="gradient6 btn text-white"
