@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const { getModules } = require("../controllers/ModuleController");
+const { getModules } = require("../controllers/moduleController");
 
 router.get("/", getModules);
 
