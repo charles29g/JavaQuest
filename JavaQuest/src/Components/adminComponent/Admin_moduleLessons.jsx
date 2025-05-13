@@ -70,7 +70,7 @@ export default function Admin_ModuleLessons({
                     setModuleContents={setModuleContents}
                     name={item.sectionName}
                     description={item.sectionDescription}
-                    key={item.id}
+                    key={item._id}
                     id={item.id}
                     imgpath={item.sectionImage}
                   />

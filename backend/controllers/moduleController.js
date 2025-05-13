@@ -55,7 +55,7 @@ exports.deleteModule = async (req, res) => {
   console.log("Attempting to delete module with id:", id); // Add logging to track the ID
 
   try {
-    const deletedModule = await Module.findOneAndDelete(id);
+    const deletedModule = await Module.findByIdAndDelete(id);
 
     if (!deletedModule) {
       return res.status(404).json({ error: "Module not found" });
