@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { Trash2, Pencil } from "lucide-react";
+import Swal from "sweetalert2";
 
 export default function Admin_ModuleItem({
   _id,
@@ -13,12 +14,17 @@ export default function Admin_ModuleItem({
   const navigate = useNavigate();
 
   const handleDelete = async () => {
-    console.log("ID to be deleted:" + _id);
+    const confirmResult = await Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#d33",
+      cancelButtonColor: "#3085d6",
+      confirmButtonText: "Yes, delete it!",
+    });
 
-    const confirmDelete = window.confirm(
-      "Are you sure you want to delete this module?"
-    );
-    if (!confirmDelete) return;
+    if (!confirmResult.isConfirmed) return;
 
     try {
       const response = await fetch(`http://localhost:5000/api/modules/${_id}`, {
@@ -31,9 +37,8 @@ export default function Admin_ModuleItem({
         throw new Error(result.error || "Failed to delete module");
       }
 
-      console.log("✅ Module deleted:", result);
+      Swal.fire("Deleted!", "The module has been deleted.", "success");
 
-      // Optional: trigger parent to update UI
       if (setModuleItems) {
         setModuleItems((prevItems) =>
           prevItems.filter((item) => item._id !== _id)
@@ -41,7 +46,7 @@ export default function Admin_ModuleItem({
       }
     } catch (err) {
       console.error("❌ Error deleting module:", err.message);
-      alert("Error deleting module. Please try again.");
+      Swal.fire("Error", "Failed to delete module. Please try again.", "error");
     }
   };
 

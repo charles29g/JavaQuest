@@ -1,4 +1,5 @@
 import { useState } from "react";
+import Swal from "sweetalert2";
 
 export default function Admin_ModuleLessonContents({
   _id,
@@ -19,10 +20,17 @@ export default function Admin_ModuleLessonContents({
 
   // ✅ Handle server update
   const handleUpdateContent = async (updatedContent) => {
-    const confirmUpdate = window.confirm(
-      "Are you sure you want to update this module content?"
-    );
-    if (!confirmUpdate) return;
+    const confirmUpdate = await Swal.fire({
+      title: "Are you sure?",
+      text: "This will update the module content.",
+      icon: "question",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, update it!",
+    });
+
+    if (!confirmUpdate.isConfirmed) return;
 
     try {
       const response = await fetch(
@@ -51,10 +59,19 @@ export default function Admin_ModuleLessonContents({
         )
       );
 
-      alert("Module content updated successfully!");
+      await Swal.fire({
+        title: "Updated!",
+        text: "Module content updated successfully.",
+        icon: "success",
+        confirmButtonColor: "#3085d6",
+      });
     } catch (err) {
       console.error("❌ Error updating module content:", err.message);
-      alert("Error updating module content. Please try again.");
+      Swal.fire(
+        "Error",
+        "Failed to update module content. Please try again.",
+        "error"
+      );
     }
   };
 
@@ -89,6 +106,53 @@ export default function Admin_ModuleLessonContents({
   const handleDeleteImage = (index) => {
     const newPaths = imgpath2.filter((_, i) => i !== index);
     setimgpath(newPaths);
+  };
+
+  const handleDeleteContent = async () => {
+    const confirmDelete = await Swal.fire({
+      title: "Are you sure?",
+      text: "This will permanently delete the module section.",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#d33",
+      cancelButtonColor: "#3085d6",
+      confirmButtonText: "Yes, delete it!",
+    });
+
+    if (!confirmDelete.isConfirmed) return;
+
+    try {
+      const response = await fetch(
+        `http://localhost:5000/api/modulecontents/${_id}`,
+        {
+          method: "DELETE",
+        }
+      );
+
+      const result = await response.json();
+
+      if (!response.ok) {
+        throw new Error(result.error || "Failed to delete module content");
+      }
+
+      // ✅ Remove section from local state
+      setModuleContents((prevContents) =>
+        prevContents.filter((content) => content._id !== _id)
+      );
+
+      await Swal.fire({
+        title: "Deleted!",
+        text: "Module section has been deleted.",
+        icon: "success",
+      });
+    } catch (err) {
+      console.error("❌ Error deleting module content:", err.message);
+      Swal.fire(
+        "Error",
+        "Failed to delete module content. Please try again.",
+        "error"
+      );
+    }
   };
 
   return (
@@ -199,6 +263,12 @@ export default function Admin_ModuleLessonContents({
             onClick={handleSave}
           >
             Save
+          </button>
+          <button
+            className="btn btn-danger mb-4 w-25 mx-auto d-block"
+            onClick={handleDeleteContent}
+          >
+            Delete Section
           </button>
         </div>
       </div>

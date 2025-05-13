@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { useLocation } from "react-router-dom";
 import { Undo2 } from "lucide-react";
+import Swal from "sweetalert2";
 
 export default function Admin_ModuleItem({ setModuleItems }) {
   const { state } = useLocation();
@@ -21,10 +22,17 @@ export default function Admin_ModuleItem({ setModuleItems }) {
   console.log(id);
 
   const handleUpdate = async () => {
-    const confirmUpdate = window.confirm(
-      "Are you sure you want to update this module?"
-    );
-    if (!confirmUpdate) return;
+    const confirmResult = await Swal.fire({
+      title: "Are you sure?",
+      text: "This will update the module information.",
+      icon: "question",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, update it!",
+    });
+
+    if (!confirmResult.isConfirmed) return;
 
     try {
       const response = await fetch(`http://localhost:5000/api/modules/${_id}`, {
@@ -48,18 +56,24 @@ export default function Admin_ModuleItem({ setModuleItems }) {
 
       console.log("✅ Module updated:", result);
 
-      // 🔁 Update local module list
       setModuleItems((prevItems) =>
         prevItems.map((item) =>
           item._id === _id ? { ...item, ...result } : item
         )
       );
 
-      // Optional: navigate back or show a success message
-      alert("Module updated successfully!");
+      await Swal.fire({
+        title: "Updated!",
+        text: "The module has been successfully updated.",
+        icon: "success",
+        confirmButtonColor: "#3085d6",
+      });
+
+      // Optional: navigate back
+      navigate("/Adminmodules");
     } catch (err) {
       console.error("❌ Error updating module:", err.message);
-      alert("Error updating module. Please try again.");
+      Swal.fire("Error", "Failed to update module. Please try again.", "error");
     }
   };
 

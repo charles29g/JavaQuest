@@ -35,3 +35,20 @@ exports.updateModuleContent = async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 };
+
+exports.deleteModuleContent = async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const deletedModuleContent = await ModuleContent.findByIdAndDelete(id);
+
+    if (!deletedModuleContent) {
+      return res.status(404).json({ error: "Module content not found" });
+    }
+
+    res.status(200).json({ message: "Module content deleted successfully" });
+  } catch (err) {
+    console.error("❌ Delete failed:", err);
+    res.status(500).json({ error: err.message });
+  }
+};
