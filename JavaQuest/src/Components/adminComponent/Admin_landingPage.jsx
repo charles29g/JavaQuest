@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-export default function LandingPage() {
+export default function Admin_LandingPage() {
   const navigate = useNavigate();
 
   const [startTransition, setStartTransition] = useState(false);
@@ -10,13 +10,9 @@ export default function LandingPage() {
   const handleStartClick = () => {
     setStartTransition(true);
     setTimeout(() => setStartAnimation(true), 100); 
-    setTimeout(() => navigate("/modules"), 3000); 
-  };
-  const handleStartClick2 = () => {
-    setStartTransition(true);
-    setTimeout(() => setStartAnimation(true), 100); 
     setTimeout(() => navigate("/Adminmodules"), 3000); 
   };
+
   return (
     <div className={`transition-container ${startAnimation ? "animate" : ""}`}>
       <div className="backgroundimg">
@@ -68,17 +64,6 @@ export default function LandingPage() {
                     }}
                   >
                     <i className="fas fa-running me-3 p-0"></i>Start
-                  </button>
-                         <button
-                    className="btn gradient descfont fs-1 text-white p-0 glow-on-hover"
-                    onClick={handleStartClick2}
-                    style={{
-                      opacity: startTransition ? 0 : 1,
-                      visibility: startTransition ? "hidden" : "visible", 
-                      pointerEvents: startTransition ? "none" : "auto", 
-                    }}
-                  >
-                    <i className="fas fa-running me-3 p-0"></i>Admin
                   </button>
                 </div>
             </div>

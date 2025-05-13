@@ -30,6 +30,8 @@ connectDB();
 app.use("/api/modules", require("./routes/moduleRoutes")); // Module endpoints
 app.use("/api/questions", require("./routes/questionRoutes")); // Quiz/KC endpoints
 
+app.use("/api/modulecontents", require("./routes/moduleContentRoutes")); // Quiz/KC endpoints
+
 // Serve Frontend in Production (if React app is built)
 if (process.env.NODE_ENV === "production") {
   app.use(express.static(path.join(__dirname, "../frontend/build")));
