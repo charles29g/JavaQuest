@@ -2,7 +2,6 @@ const mongoose = require("mongoose");
 
 const ModuleSchema = new mongoose.Schema(
   {
-    _id: { type: String, required: false },
     moduleid: { type: Number, required: true },
     id: { type: Number, required: true },
     sectionName: { type: String, required: true },

@@ -51,11 +51,11 @@ exports.addModule = async (req, res) => {
 };
 exports.deleteModule = async (req, res) => {
   const { id } = req.params;
-  
+
   console.log("Attempting to delete module with id:", id); // Add logging to track the ID
-  
+
   try {
-    const deletedModule = await Module.findOneAndDelete({ id: numericId });
+    const deletedModule = await Module.findOneAndDelete(id);
 
     if (!deletedModule) {
       return res.status(404).json({ error: "Module not found" });

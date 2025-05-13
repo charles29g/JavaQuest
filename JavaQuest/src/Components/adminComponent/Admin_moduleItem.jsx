@@ -13,6 +13,8 @@ export default function Admin_ModuleItem({
   const navigate = useNavigate();
 
   const handleDelete = async () => {
+    console.log("ID to be deleted:" + _id);
+
     const confirmDelete = window.confirm(
       "Are you sure you want to delete this module?"
     );
