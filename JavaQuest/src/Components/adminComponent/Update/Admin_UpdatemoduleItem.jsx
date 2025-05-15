@@ -7,19 +7,17 @@ import Swal from "sweetalert2";
 export default function Admin_ModuleItem({ setModuleItems }) {
   const { state } = useLocation();
   const _id = state._id;
-  console.log(_id);
   const navigate = useNavigate();
 
-  // State for inputs
+  // States for inputs
   const [name, setName] = useState(state.moduleName);
   const [quiz, setQuiz] = useState(state.moduleQuiz);
   const [image, setImage] = useState(state.img_path);
-
   const [id, setCustomId] = useState(state.id);
+  const [publish, setPublish] = useState(state.publish || false);
 
-  console.log(name);
-  console.log(quiz);
-  console.log(id);
+  // New QuizConfig state, default from state.quizConfig or 'lock'
+  const [QuizConfig, setQuizConfig] = useState(state.quizConfig || "lock");
 
   const handleUpdate = async () => {
     const confirmResult = await Swal.fire({
@@ -45,6 +43,8 @@ export default function Admin_ModuleItem({ setModuleItems }) {
           moduleName: name,
           moduleQuiz: quiz,
           img_path: image,
+          publish: publish,
+          quizConfig: QuizConfig,
         }),
       });
 
@@ -53,8 +53,6 @@ export default function Admin_ModuleItem({ setModuleItems }) {
       if (!response.ok) {
         throw new Error(result.error || "Failed to update module");
       }
-
-      console.log("✅ Module updated:", result);
 
       setModuleItems((prevItems) =>
         prevItems.map((item) =>
@@ -69,7 +67,6 @@ export default function Admin_ModuleItem({ setModuleItems }) {
         confirmButtonColor: "#3085d6",
       });
 
-      // Optional: navigate back
       navigate("/Adminmodules");
     } catch (err) {
       console.error("❌ Error updating module:", err.message);
@@ -117,6 +114,7 @@ export default function Admin_ModuleItem({ setModuleItems }) {
                 className="form-control"
                 placeholder="Module Name"
               />
+
               <label className="form-label descfont text-white">
                 Module Quiz Name
               </label>
@@ -127,6 +125,7 @@ export default function Admin_ModuleItem({ setModuleItems }) {
                 className="form-control"
                 placeholder="Module Quiz"
               />
+
               <label className="form-label descfont text-white">
                 Module Number
               </label>
@@ -137,6 +136,7 @@ export default function Admin_ModuleItem({ setModuleItems }) {
                 className="form-control"
                 placeholder="Module ID"
               />
+
               <label className="form-label descfont text-white">
                 Module Image Link
               </label>
@@ -147,6 +147,81 @@ export default function Admin_ModuleItem({ setModuleItems }) {
                 className="form-control"
                 placeholder="Module Image Link"
               />
+
+              {/* Publish Checkbox */}
+              <div className="form-check mt-3">
+                <input
+                  className="form-check-input"
+                  type="checkbox"
+                  id="publishCheck"
+                  checked={publish}
+                  onChange={(e) => setPublish(e.target.checked)}
+                />
+                <label
+                  className="form-check-label descfont text-white"
+                  htmlFor="publishCheck"
+                >
+                  Publish
+                </label>
+              </div>
+
+              {/* QuizConfig Radio Buttons */}
+              <label className="form-label descfont text-white mt-3">
+                Quiz Configuration
+              </label>
+              <div className="form-check">
+                <input
+                  className="form-check-input"
+                  type="radio"
+                  name="quizConfig"
+                  id="lockQuiz"
+                  value="lock"
+                  checked={QuizConfig === "lock"}
+                  onChange={(e) => setQuizConfig(e.target.value)}
+                />
+                <label
+                  className="form-check-label descfont text-white"
+                  htmlFor="lockQuiz"
+                >
+                  Lock Module Quiz
+                </label>
+              </div>
+
+              <div className="form-check">
+                <input
+                  className="form-check-input"
+                  type="radio"
+                  name="quizConfig"
+                  id="openQuiz"
+                  value="open"
+                  checked={QuizConfig === "open"}
+                  onChange={(e) => setQuizConfig(e.target.value)}
+                />
+                <label
+                  className="form-check-label descfont text-white"
+                  htmlFor="openQuiz"
+                >
+                  Open Module Quiz
+                </label>
+              </div>
+
+              <div className="form-check">
+                <input
+                  className="form-check-input"
+                  type="radio"
+                  name="quizConfig"
+                  id="openUponCompletion"
+                  value="openUponCompletion"
+                  checked={QuizConfig === "openUponCompletion"}
+                  onChange={(e) => setQuizConfig(e.target.value)}
+                />
+                <label
+                  className="form-check-label descfont text-white"
+                  htmlFor="openUponCompletion"
+                >
+                  Open Upon Module Completion
+                </label>
+              </div>
 
               <div className="d-flex justify-content-center mt-3">
                 <button

@@ -73,6 +73,7 @@ export default function Admin_ModuleLessons({
                     key={item._id}
                     id={item.id}
                     imgpath={item.sectionImage}
+                    codeInit = {item.code}
                   />
                 ))}
               </div>

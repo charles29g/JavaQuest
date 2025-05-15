@@ -1,7 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { useState, useEffect } from "react";
 import "./Design.css";
-
 import LandingPage from "./Components/userComponent/landingPage";
 import ModulePage from "./Components/userComponent/modulePage";
 
@@ -42,6 +41,7 @@ export default function App() {
   return (
     <Router>
       <Routes>
+        
         <Route path="/" element={<LandingPage />} />
         <Route
           path="/Admin_UpdatemoduleItem"

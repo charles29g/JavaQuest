@@ -70,6 +70,7 @@ export default function ModuleLessons({
                     key={item.id}
                     id={item.id}
                     imgpath={item.sectionImage}
+                    codeInit = {item.code}
                   />
                 ))}
               </div>

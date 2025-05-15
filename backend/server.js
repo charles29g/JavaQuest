@@ -31,6 +31,7 @@ app.use("/api/modules", require("./routes/moduleRoutes")); // Module endpoints
 app.use("/api/questions", require("./routes/questionRoutes")); // Quiz/KC endpoints
 
 app.use("/api/modulecontents", require("./routes/moduleContentRoutes")); // Quiz/KC endpoints
+app.use("/api/jdoodle", require("./routes/JDoodleRoutes"));
 
 // Serve Frontend in Production (if React app is built)
 if (process.env.NODE_ENV === "production") {

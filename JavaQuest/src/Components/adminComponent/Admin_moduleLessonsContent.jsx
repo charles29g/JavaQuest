@@ -1,5 +1,6 @@
 import { useState } from "react";
 import Swal from "sweetalert2";
+import JDoodleAPICompiler from "../JDoodleCompiler.jsx";
 
 export default function Admin_ModuleLessonContents({
   _id,
@@ -8,10 +9,12 @@ export default function Admin_ModuleLessonContents({
   name,
   description,
   imgpath,
+  codeInit
 }) {
   const carouselId = `carousel-${id}`;
+  const [code, setCode] = useState(codeInit); // new code field
 
-  const [id2] = useState(id); // ID is immutable
+  const [id2, setID] = useState(id); // ID is immutable
   const [name2, setname] = useState(name);
   const [description2, setdescription] = useState(description);
   const [imgpath2, setimgpath] = useState(
@@ -82,6 +85,7 @@ export default function Admin_ModuleLessonContents({
       sectionName: name2,
       sectionDescription: description2,
       sectionImage: imgpath2.filter((img) => img.trim() !== ""),
+      code: code.trim(),
     };
 
     setModuleContents((prevContents) =>
@@ -164,8 +168,8 @@ export default function Admin_ModuleLessonContents({
           <input
             type="number"
             value={id2}
+            onChange={(e) => setID(e.target.value)}
             className="form-control mb-2"
-            disabled
           />
           <label className="form-label">Section Name</label>
           <input
@@ -256,6 +260,16 @@ export default function Admin_ModuleLessonContents({
                 </button>
               </>
             )}
+          </div>
+          <label className="form-label">Module Compiler Java Code</label>
+          <div className="code-editor-container">
+            <textarea
+              rows={10}
+              className="code-editor"
+              placeholder="Enter Java code here..."
+              value={code}
+              onChange={(e) => setCode(e.target.value)}
+            ></textarea>
           </div>
 
           <button
