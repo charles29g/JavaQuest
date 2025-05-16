@@ -30,7 +30,7 @@ const GoogleLoginButton = () => {
         if (user.role === "admin") {
           navigate("/Admin");
         } else {
-          navigate("/");
+          navigate("/modules");
         }
       } else {
         console.error("Login failed", data.error);
@@ -44,7 +44,6 @@ const GoogleLoginButton = () => {
     <GoogleLogin
       onSuccess={handleSuccess}
       onError={() => console.log("Login Failed")}
-      
     />
   );
 };

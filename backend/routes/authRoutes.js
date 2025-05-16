@@ -2,9 +2,13 @@ import express from "express";
 import bcrypt from "bcrypt";
 import User from "../models/userModel.js"; // Use your updated unified model
 import jwt from "jsonwebtoken";
+import { googleAuth } from "../controllers/authController.js";
 
 const router = express.Router();
 const JWT_SECRET = process.env.JWT_SECRET || "your_secret";
+
+// Google route
+router.post("/google", googleAuth);
 
 // Register route
 router.post("/register", async (req, res) => {
