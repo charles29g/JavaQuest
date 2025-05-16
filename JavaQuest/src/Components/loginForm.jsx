@@ -1,77 +1,250 @@
-import React from "react";
-import {
-  MDBContainer,
-  MDBCol,
-  MDBRow,
-  MDBBtn,
-  MDBIcon,
-  MDBInput,
-  MDBCheckbox,
-} from "mdb-react-ui-kit";
-
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom"; // <-- import this for redirect
 import GoogleLoginButton from "./GoogleLoginButton";
-export default function LoginForm() {
-  return (
-    <MDBContainer fluid style={{ height: "80vh" }}>
-      <MDBRow className="h-100 align-items-center gap gx-7">
-        {/* Intro Section (smaller width) */}
-        <MDBCol md="5" className="text-center text-md-start mb-5 mb-md-0">
-          <h1 className="titlefont text-white glow-text">JavaQuest</h1>
-          <p className="text-white small">
-            JavaQuest is an engaging and dynamic online platform designed to
-            empower individuals in learning the fundamentals of Java
-            programming. Whether you're a complete beginner or looking to
-            strengthen your coding foundation, JavaQuest offers interactive
-            lessons, hands-on challenges, and a fun, game-like experience that
-            makes learning Java both effective and enjoyable.
-          </p>
-        </MDBCol>
 
-        {/* Form Section */}
-        <MDBCol md="4">
-          <div
-            className="p-4 rounded shadow"
-            style={{
-              backgroundColor: "#fff",
-              maxWidth: "100%",
-              minWidth: "280px",
-            }}
-          >
-            <MDBInput
-              wrapperClass="mb-3"
-              label="Email address"
-              id="formEmail"
-              type="email"
-              size="sm"
-            />
-            <MDBInput
-              wrapperClass="mb-3"
-              label="Password"
-              id="formPassword"
-              type="password"
-              size="sm"
-            />
-            <div className="d-flex justify-content-between mb-3">
-              <MDBCheckbox
-                name="rememberMe"
-                id="rememberMe"
-                label="Remember me"
-              />
-              <a href="#!" className="small text-primary">
-                Forgot password?
-              </a>
-            </div>
-            <MDBBtn className="mb-3 w-100" size="sm">
-              Sign in
-            </MDBBtn>
-            <p className="text-center fw-bold mx-3 mb-0">OR</p>
-            {/* Google Login Button Component */}
-            <div className="d-flex justify-content-center mt-3 ">
-              <GoogleLoginButton />
+export default function LoginForm() {
+  const [isSignup, setIsSignup] = useState(false);
+  const [formData, setFormData] = useState({
+    email: "",
+    password: "",
+    name: "",
+    confirmPassword: "",
+  });
+  const [message, setMessage] = useState("");
+
+  const navigate = useNavigate(); // <-- initialize navigate
+
+  const toggleSignup = () => setIsSignup(!isSignup);
+
+  const handleChange = (e) =>
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+
+  const handleLoginSubmit = async (e) => {
+    e.preventDefault();
+    setMessage("");
+    try {
+      const res = await fetch("http://localhost:5000/api/auth/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          email: formData.email,
+          password: formData.password,
+        }),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) throw new Error(data.message || "Login failed");
+
+      setMessage("✅ Login successful!");
+      sessionStorage.setItem("token", data.token);
+
+      // Redirect to /modules after successful login
+      navigate("/modules");
+    } catch (err) {
+      setMessage("❌ " + err.message);
+    }
+  };
+
+  const handleSignupSubmit = async (e) => {
+    e.preventDefault();
+
+    if (formData.password !== formData.confirmPassword) {
+      alert("Passwords do not match");
+      return;
+    }
+
+    try {
+      const response = await fetch("http://localhost:5000/api/auth/register", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          password: formData.password,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.message || "Signup failed");
+      }
+
+      alert("✅ Registration successful! You can now log in.");
+      setIsSignup(false);
+    } catch (error) {
+      alert(error.message);
+      console.error("Signup error:", error);
+    }
+  };
+
+  return (
+    <div style={{ minHeight: "80vh" }} className="d-flex align-items-center">
+      <div className="container">
+        <div className="row gx-7 align-items-center">
+          {/* Left Intro Section */}
+          <div className="col-md-5 text-center text-md-start mb-5 mb-md-0">
+            <h1 className="titlefont text-white glow-text">JavaQuest</h1>
+            <p className="text-white small">
+              JavaQuest is an engaging and dynamic online platform designed to
+              empower individuals in learning the fundamentals of Java
+              programming. Whether you're a complete beginner or looking to
+              strengthen your coding foundation, JavaQuest offers interactive
+              lessons, hands-on challenges, and a fun, game-like experience that
+              makes learning Java both effective and enjoyable.
+            </p>
+          </div>
+
+          {/* Right Form Section */}
+          <div className="col-md-4 offset-md-3">
+            <div
+              style={{
+                backgroundColor: "#fff",
+                padding: "2rem",
+                borderRadius: "8px",
+                maxWidth: "100%",
+                minWidth: "280px",
+              }}
+              className={isSignup ? "signup-mode" : ""}
+            >
+              {message && (
+                <div className="alert alert-info text-center mb-3" role="alert">
+                  {message}
+                </div>
+              )}
+              {!isSignup ? (
+                <>
+                  <h2 className="mb-4">Login</h2>
+                  <form onSubmit={handleLoginSubmit}>
+                    <label className="form-label w-100 mb-2">
+                      <span>Email</span>
+                      <input
+                        type="email"
+                        name="email"
+                        className="form-control"
+                        value={formData.email}
+                        onChange={handleChange}
+                        required
+                      />
+                    </label>
+                    <label className="form-label w-100 mb-2">
+                      <span>Password</span>
+                      <input
+                        type="password"
+                        name="password"
+                        className="form-control"
+                        value={formData.password}
+                        onChange={handleChange}
+                        required
+                      />
+                    </label>
+                    <div className="d-flex justify-content-between align-items-center mb-3">
+                      <label className="form-check-label">
+                        <input
+                          type="checkbox"
+                          name="rememberMe"
+                          className="form-check-input me-2"
+                        />
+                        Remember me
+                      </label>
+                      <a href="#!" className="small text-primary">
+                        Forgot password?
+                      </a>
+                    </div>
+                    <button
+                      type="submit"
+                      className="btn btn-primary w-100 mb-3"
+                    >
+                      Sign in
+                    </button>
+                    <p className="text-center fw-bold my-3">OR</p>
+                    <div className="d-flex justify-content-center mb-3">
+                      <GoogleLoginButton />
+                    </div>
+                    <p className="text-center">
+                      New here?{" "}
+                      <button
+                        type="button"
+                        onClick={toggleSignup}
+                        className="btn btn-link p-0"
+                      >
+                        Create an account
+                      </button>
+                    </p>
+                  </form>
+                </>
+              ) : (
+                <>
+                  <h2 className="mb-4">Create New Account</h2>
+                  <form onSubmit={handleSignupSubmit}>
+                    <label className="form-label w-100 mb-2">
+                      <span>Name</span>
+                      <input
+                        type="text"
+                        name="name"
+                        className="form-control"
+                        value={formData.name}
+                        onChange={handleChange}
+                        required
+                      />
+                    </label>
+                    <label className="form-label w-100 mb-2">
+                      <span>Email</span>
+                      <input
+                        type="email"
+                        name="email"
+                        className="form-control"
+                        value={formData.email}
+                        onChange={handleChange}
+                        required
+                      />
+                    </label>
+                    <label className="form-label w-100 mb-2">
+                      <span>Password</span>
+                      <input
+                        type="password"
+                        name="password"
+                        className="form-control"
+                        value={formData.password}
+                        onChange={handleChange}
+                        required
+                      />
+                    </label>
+                    <label className="form-label w-100 mb-2">
+                      <span>Confirm Password</span>
+                      <input
+                        type="password"
+                        name="confirmPassword"
+                        className="form-control"
+                        value={formData.confirmPassword}
+                        onChange={handleChange}
+                        required
+                      />
+                    </label>
+                    <button
+                      type="submit"
+                      className="btn btn-primary w-100 mb-3"
+                    >
+                      Create Account
+                    </button>
+                    <p className="text-center">
+                      Already have an account?{" "}
+                      <button
+                        type="button"
+                        onClick={toggleSignup}
+                        className="btn btn-link p-0"
+                      >
+                        Login here
+                      </button>
+                    </p>
+                  </form>
+                </>
+              )}
             </div>
           </div>
-        </MDBCol>
-      </MDBRow>
-    </MDBContainer>
+        </div>
+      </div>
+    </div>
   );
 }
