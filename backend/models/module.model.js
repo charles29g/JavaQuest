@@ -7,6 +7,7 @@ const ModuleSchema = new mongoose.Schema(
     moduleQuiz: { type: String, required: true },
     img_path: { type: String, required: true },
     publish: { type: Boolean, required: true },
+    quizConfig: { type: String, required: true },
   },
   { collection: "moduleData" }
 );

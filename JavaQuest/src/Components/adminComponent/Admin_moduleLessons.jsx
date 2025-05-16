@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 
 import Admin_ModuleNavbar from "./Admin_moduleNavbar.jsx";
 import Admin_ModuleLessonContents from "./Admin_moduleLessonsContent.jsx";
+import AddModuleContentModal from "./Create/Admin_AddModuleContentModal.jsx";
 import { useLayoutEffect } from "react";
 import Admin_KCPage from "./Admin_kcPage.jsx";
 
@@ -16,6 +17,7 @@ export default function Admin_ModuleLessons({
   KCCheckQA,
 }) {
   const navigate = useNavigate();
+  const modalRef = useRef();
 
   const [activeSection, setActiveSection] = useState(null);
   useLayoutEffect(() => {
@@ -56,49 +58,60 @@ export default function Admin_ModuleLessons({
   return (
     <>
       <div className="backgroundimg3">
-        <div className="container-fluid pb-5">
-          {filteredContents.length > 0 ? (
-            <>
-              <Admin_ModuleNavbar
-                activeSection={activeSection}
-                ModuleContents={filteredContents}
-              />
-              <div className="bg-light">
-                {filteredContents.map((item) => (
-                  <Admin_ModuleLessonContents
-                    _id={item._id}
-                    setModuleContents={setModuleContents}
-                    name={item.sectionName}
-                    description={item.sectionDescription}
-                    key={item._id}
-                    id={item.id}
-                    imgpath={item.sectionImage}
-                    codeInit = {item.code}
-                  />
-                ))}
-              </div>
-              <Admin_KCPage
-                KCQA={KCQA}
-                moduleID={moduleID}
-                selectedAnswers={selectedAnswers}
-                setSelectedAnswers={setSelectedAnswers}
-                KCCheckQA={KCCheckQA}
-              ></Admin_KCPage>
-            </>
-          ) : (
-            <div className="alert nolesson alert-info text-center shadow-sm p-4 mx-auto d-flex justify-content-center align-items-center min-vh-75">
-              <div className="row text-center   d-flex justify-content-center align-items-center ">
-                <strong>No lessons available for this module.</strong>
-                <button
-                  className="gradient"
-                  onClick={() => navigate("/Adminmodules")}
-                >
-                  Go Back
-                </button>
-              </div>
-            </div>
-          )}
+        <div
+          className="container-fluid d-flex justify-content-center pb-5"
+          style={{ background: "transparent" }}
+        >
+          <button
+            style={{ marginTop: "20vh" }}
+            className="btn btn-info "
+            onClick={() => modalRef.current.openModal()}
+          >
+            Add Another Section
+          </button>
         </div>
+
+        {filteredContents.length > 0 ? (
+          <>
+            <Admin_ModuleNavbar
+              activeSection={activeSection}
+              ModuleContents={filteredContents}
+            />
+            <div className="bg-light">
+              {filteredContents.map((item) => (
+                <Admin_ModuleLessonContents
+                  _id={item._id}
+                  setModuleContents={setModuleContents}
+                  name={item.sectionName}
+                  description={item.sectionDescription}
+                  key={item._id}
+                  id={item.id}
+                  imgpath={item.sectionImage}
+                  codeInit={item.code}
+                />
+              ))}
+            </div>
+            <Admin_KCPage
+              KCQA={KCQA}
+              moduleID={moduleID}
+              selectedAnswers={selectedAnswers}
+              setSelectedAnswers={setSelectedAnswers}
+              KCCheckQA={KCCheckQA}
+            ></Admin_KCPage>
+          </>
+        ) : (
+          <div className="alert nolesson alert-info text-center shadow-sm p-4 mx-auto d-flex justify-content-center align-items-center min-vh-75">
+            <div className="row text-center   d-flex justify-content-center align-items-center ">
+              <strong>No lessons available for this module.</strong>
+              <button
+                className="gradient"
+                onClick={() => navigate("/Adminmodules")}
+              >
+                Go Back
+              </button>
+            </div>
+          </div>
+        )}
       </div>
     </>
   );

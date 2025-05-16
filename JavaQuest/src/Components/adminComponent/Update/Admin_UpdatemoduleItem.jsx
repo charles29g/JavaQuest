@@ -14,11 +14,12 @@ export default function Admin_ModuleItem({ setModuleItems }) {
   const [quiz, setQuiz] = useState(state.moduleQuiz);
   const [image, setImage] = useState(state.img_path);
   const [id, setCustomId] = useState(state.id);
-  const [publish, setPublish] = useState(state.publish || false);
+  const [publish, setPublish] = useState(Boolean(state.publish));
+
+  // console.log(publish);
 
   // New QuizConfig state, default from state.quizConfig or 'lock'
   const [QuizConfig, setQuizConfig] = useState(state.quizConfig || "lock");
-
   const handleUpdate = async () => {
     const confirmResult = await Swal.fire({
       title: "Are you sure?",
@@ -32,20 +33,25 @@ export default function Admin_ModuleItem({ setModuleItems }) {
 
     if (!confirmResult.isConfirmed) return;
 
+    const updatedData = {
+      id: Number(id),
+      moduleName: name,
+      moduleQuiz: quiz,
+      img_path: image,
+      publish: publish,
+      quizConfig: QuizConfig,
+    };
+
+    // ✅ Log what you're about to send
+    console.log("📤 Updating with data:", updatedData);
+
     try {
       const response = await fetch(`http://localhost:5000/api/modules/${_id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({
-          id: Number(id),
-          moduleName: name,
-          moduleQuiz: quiz,
-          img_path: image,
-          publish: publish,
-          quizConfig: QuizConfig,
-        }),
+        body: JSON.stringify(updatedData),
       });
 
       const result = await response.json();
@@ -53,6 +59,9 @@ export default function Admin_ModuleItem({ setModuleItems }) {
       if (!response.ok) {
         throw new Error(result.error || "Failed to update module");
       }
+
+      // ✅ Log what the server responded with
+      console.log("✅ Server responded with updated module:", result);
 
       setModuleItems((prevItems) =>
         prevItems.map((item) =>
@@ -66,8 +75,6 @@ export default function Admin_ModuleItem({ setModuleItems }) {
         icon: "success",
         confirmButtonColor: "#3085d6",
       });
-
-      navigate("/Adminmodules");
     } catch (err) {
       console.error("❌ Error updating module:", err.message);
       Swal.fire("Error", "Failed to update module. Please try again.", "error");

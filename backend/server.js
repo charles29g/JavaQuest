@@ -29,9 +29,9 @@ connectDB();
 // API Routes
 app.use("/api/modules", require("./routes/moduleRoutes")); // Module endpoints
 app.use("/api/questions", require("./routes/questionRoutes")); // Quiz/KC endpoints
-
 app.use("/api/modulecontents", require("./routes/moduleContentRoutes")); // Quiz/KC endpoints
-app.use("/api/jdoodle", require("./routes/JDoodleRoutes"));
+app.use("/api/jdoodle", require("./routes/JDoodleRoutes")); //Online IDE
+app.use("/api/auth", require("./routes/authRoutes")); // ✅ New Google Auth
 
 // Serve Frontend in Production (if React app is built)
 if (process.env.NODE_ENV === "production") {

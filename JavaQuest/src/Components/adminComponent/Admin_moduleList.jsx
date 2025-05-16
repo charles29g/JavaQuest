@@ -6,6 +6,10 @@ export default function Admin_ModuleList({
   setModuleID,
   setModuleItems
 }) {
+
+
+
+
   return (
     <div className="container-fluid backgroundimg2 px-0">
       {ModuleItems.sort((a, b) => a.id - b.id).map((item) => (
@@ -19,9 +23,19 @@ export default function Admin_ModuleList({
           setPage={setPage}
           setModuleID={setModuleID}
           setModuleItems={setModuleItems}
+          publish={item.publish}
           
         />
-      ))}
+
+    
+    
+    
+      )
+    
+    )
+      
+      
+      }
     </div>
   );
 }

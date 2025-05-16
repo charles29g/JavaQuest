@@ -10,8 +10,11 @@ export default function Admin_ModuleItem({
   img, // image path
   setModuleID, // state setter for selected module ID
   setModuleItems,
+  publish,
 }) {
   const navigate = useNavigate();
+
+console.log(publish)
 
   const handleDelete = async () => {
     const confirmResult = await Swal.fire({
@@ -72,6 +75,7 @@ export default function Admin_ModuleItem({
                 moduleName: name,
                 moduleQuiz: quiz,
                 img_path: img,
+                publish:publish
               },
             })
           }

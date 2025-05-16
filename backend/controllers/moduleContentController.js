@@ -52,3 +52,14 @@ exports.deleteModuleContent = async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 };
+exports.addModuleContent = async (req, res) => {
+  try {
+    const newContent = new ModuleContent(req.body);
+    const savedContent = await newContent.save();
+    console.log("Module content created:", savedContent);
+    res.status(201).json(savedContent);
+  } catch (err) {
+    console.error("❌ Create failed:", err);
+    res.status(500).json({ error: err.message });
+  }
+};

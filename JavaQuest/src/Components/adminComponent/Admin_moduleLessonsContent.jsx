@@ -1,6 +1,6 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import Swal from "sweetalert2";
-import JDoodleAPICompiler from "../JDoodleCompiler.jsx";
+import AddModuleContentModal from "../adminComponent/Create/Admin_AddModuleContentModal";
 
 export default function Admin_ModuleLessonContents({
   _id,
@@ -9,7 +9,7 @@ export default function Admin_ModuleLessonContents({
   name,
   description,
   imgpath,
-  codeInit
+  codeInit,
 }) {
   const carouselId = `carousel-${id}`;
   const [code, setCode] = useState(codeInit); // new code field
@@ -20,6 +20,8 @@ export default function Admin_ModuleLessonContents({
   const [imgpath2, setimgpath] = useState(
     Array.isArray(imgpath) ? imgpath : [imgpath]
   );
+
+  const modalRef = useRef();
 
   // ✅ Handle server update
   const handleUpdateContent = async (updatedContent) => {
@@ -271,7 +273,12 @@ export default function Admin_ModuleLessonContents({
               onChange={(e) => setCode(e.target.value)}
             ></textarea>
           </div>
-
+          
+            <AddModuleContentModal
+              ref={modalRef}
+              setModuleContents={setModuleContents}
+            />
+  
           <button
             className="btn btn-success mt-4 mb-4 w-25 mx-auto d-block"
             onClick={handleSave}

@@ -2,7 +2,9 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { useState, useEffect } from "react";
 import "./Design.css";
 import LandingPage from "./Components/userComponent/landingPage";
+import Admin_LandingPage from "./Components/adminComponent/Admin_landingPage.jsx";
 import ModulePage from "./Components/userComponent/modulePage";
+import LoginPage from "./Components/loginPage.jsx";
 
 import ModuleLessons from "./Components/userComponent/moduleLessons";
 import QuizPageInstructions from "./Components/userComponent/quizPageInstructions";
@@ -15,6 +17,7 @@ import Admin_ModuleLessons from "./Components/adminComponent/Admin_moduleLessons
 import Admin_QuizPageInstructions from "./Components/adminComponent/Admin_quizPageInstructions";
 import Admin_Quiz from "./Components/adminComponent/Admin_quiz";
 import Admin_UpdatemoduleItem from "./Components/adminComponent/Update/Admin_UpdatemoduleItem";
+import GoogleLoginButton from "./Components/GoogleLoginButton.jsx";
 export default function App() {
   const [ModuleItems, setModuleItems] = useState([]);
   const [ModuleContents, setModuleContents] = useState([]);
@@ -41,8 +44,20 @@ export default function App() {
   return (
     <Router>
       <Routes>
-        
-        <Route path="/" element={<LandingPage />} />
+        <Route
+          path="/Login"
+          element={<LoginPage GoogleLoginButton={GoogleLoginButton} />}
+        />
+
+        <Route
+          path="/"
+          element={<LandingPage GoogleLoginButton={GoogleLoginButton} />}
+        />
+        <Route
+          path="/Admin"
+          element={<Admin_LandingPage GoogleLoginButton={GoogleLoginButton} />}
+        />
+
         <Route
           path="/Admin_UpdatemoduleItem"
           element={<Admin_UpdatemoduleItem setModuleItems={setModuleItems} />}

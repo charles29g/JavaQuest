@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-export default function LandingPage() {
+export default function LandingPage({ GoogleLoginButton }) {
   const navigate = useNavigate();
 
   const [startTransition, setStartTransition] = useState(false);
@@ -9,13 +9,13 @@ export default function LandingPage() {
 
   const handleStartClick = () => {
     setStartTransition(true);
-    setTimeout(() => setStartAnimation(true), 100); 
-    setTimeout(() => navigate("/modules"), 3000); 
+    setTimeout(() => setStartAnimation(true), 100);
+    setTimeout(() => navigate("/modules"), 3000);
   };
   const handleStartClick2 = () => {
     setStartTransition(true);
-    setTimeout(() => setStartAnimation(true), 100); 
-    setTimeout(() => navigate("/Adminmodules"), 3000); 
+    setTimeout(() => setStartAnimation(true), 100);
+    setTimeout(() => navigate("/Adminmodules"), 3000);
   };
   return (
     <div className={`transition-container ${startAnimation ? "animate" : ""}`}>
@@ -52,35 +52,37 @@ export default function LandingPage() {
             <div className="col-md-6 mb-4 mb-md-0">
               <h1 className="titlefont text-white glow-text">JavaQuest</h1>
               <p className="text-white">
-                JavaQuest is an engaging online platform designed to help
-                individuals learn the basics of <br /> Java programming in a fun
-                and interactive way...
+                JavaQuest is an engaging and dynamic online platform designed to
+                empower individuals in learning the fundamentals of Java
+                programming. Whether you're a complete beginner or looking to
+                strengthen your coding foundation, JavaQuest offers interactive
+                lessons, hands-on challenges, and a fun, game-like experience
+                that makes learning Java both effective and enjoyable.
               </p>
-
-                <div className="d-flex justify-content-center">
-                  <button
-                    className="btn gradient descfont fs-1 text-white p-0 glow-on-hover"
-                    onClick={handleStartClick}
-                    style={{
-                      opacity: startTransition ? 0 : 1,
-                      visibility: startTransition ? "hidden" : "visible", 
-                      pointerEvents: startTransition ? "none" : "auto", 
-                    }}
-                  >
-                    <i className="fas fa-running me-3 p-0"></i>Start
-                  </button>
-                         <button
-                    className="btn gradient descfont fs-1 text-white p-0 glow-on-hover"
-                    onClick={handleStartClick2}
-                    style={{
-                      opacity: startTransition ? 0 : 1,
-                      visibility: startTransition ? "hidden" : "visible", 
-                      pointerEvents: startTransition ? "none" : "auto", 
-                    }}
-                  >
-                    <i className="fas fa-running me-3 p-0"></i>Admin
-                  </button>
-                </div>
+              <div className="d-flex justify-content-center">
+                <button
+                  className="btn gradient descfont fs-1 text-white p-0 glow-on-hover"
+                  onClick={handleStartClick}
+                  style={{
+                    opacity: startTransition ? 0 : 1,
+                    visibility: startTransition ? "hidden" : "visible",
+                    pointerEvents: startTransition ? "none" : "auto",
+                  }}
+                >
+                  <i className="fas fa-running me-3 p-0"></i>Start
+                </button>
+                <button
+                  className="btn gradient descfont fs-1 text-white p-0 glow-on-hover"
+                  onClick={handleStartClick2}
+                  style={{
+                    opacity: startTransition ? 0 : 1,
+                    visibility: startTransition ? "hidden" : "visible",
+                    pointerEvents: startTransition ? "none" : "auto",
+                  }}
+                >
+                  <i className="fas fa-running me-3 p-0"></i>Admin
+                </button>
+              </div>
             </div>
 
             <div className="col-6 col-m-6">
