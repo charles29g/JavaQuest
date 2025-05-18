@@ -72,4 +72,55 @@ router.post("/login", async (req, res) => {
   }
 });
 
+// ✅ Mark a module as complete
+router.post("/complete-module", async (req, res) => {
+  const { token, moduleID } = req.body;
+
+  if (!token || !moduleID) {
+    return res.status(400).json({ message: "Token and moduleID are required" });
+  }
+
+  try {
+    const decoded = jwt.verify(token, JWT_SECRET);
+    const user = await User.findById(decoded.id);
+
+    if (!user) return res.status(404).json({ message: "User not found" });
+
+    if (!user.completedModules?.includes(moduleID)) {
+      user.completedModules = user.completedModules || [];
+      user.completedModules.push(moduleID);
+      await user.save();
+    }
+
+    res.status(200).json({
+      message: "Module marked as completed",
+      completedModules: user.completedModules,
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(401).json({ message: "Invalid token" });
+  }
+});
+
+// ✅ Get completed modules
+router.post("/completed-modules", async (req, res) => {
+  const { token } = req.body;
+
+  if (!token) {
+    return res.status(400).json({ message: "Token is required" });
+  }
+
+  try {
+    const decoded = jwt.verify(token, JWT_SECRET);
+    const user = await User.findById(decoded.id).select("completedModules");
+
+    if (!user) return res.status(404).json({ message: "User not found" });
+
+    res.status(200).json({ completedModules: user.completedModules });
+  } catch (err) {
+    console.error(err);
+    res.status(401).json({ message: "Invalid token" });
+  }
+});
+
 export default router;

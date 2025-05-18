@@ -17,9 +17,11 @@ export default function Admin_ModuleItem({ setModuleItems }) {
   const [publish, setPublish] = useState(Boolean(state.publish));
 
   // console.log(publish);
-
+console.log("Quiz Config : " + state.quizConfig)
   // New QuizConfig state, default from state.quizConfig or 'lock'
   const [QuizConfig, setQuizConfig] = useState(state.quizConfig || "lock");
+  console.log("Quiz Config : " + QuizConfig);
+console.log(state)
   const handleUpdate = async () => {
     const confirmResult = await Swal.fire({
       title: "Are you sure?",
@@ -32,7 +34,6 @@ export default function Admin_ModuleItem({ setModuleItems }) {
     });
 
     if (!confirmResult.isConfirmed) return;
-
     const updatedData = {
       id: Number(id),
       moduleName: name,

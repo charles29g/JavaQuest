@@ -10,7 +10,6 @@ function JDoodleAPICompiler({ codeInit }) {
 
   // Return nothing if code is empty or whitespace only
 
-
   async function runCode() {
     setLoading(true);
     setError("");
@@ -23,20 +22,55 @@ function JDoodleAPICompiler({ codeInit }) {
     };
 
     try {
+      const token = localStorage.getItem("token");
+
+      if (!token) {
+        console.error("No token found in localStorage");
+        setError("Authentication token missing.");
+        setLoading(false);
+        return;
+      }
+
+      console.log("Sending payload:", payload);
+      console.log("Token being sent:", token);
+
       const response = await fetch("http://localhost:5000/api/jdoodle/run", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`, // Make sure your backend expects this format
+        },
         body: JSON.stringify(payload),
       });
 
-      const data = await response.json();
+      console.log("Response status:", response.status);
+
+      const raw = await response.text();
+      console.log("Raw response body:", raw);
+
+      let data;
+      try {
+        data = JSON.parse(raw);
+      } catch (e) {
+        throw new Error("Failed to parse JSON response: " + e.message);
+      }
+
+      if (!response.ok) {
+        setError(
+          `Server responded with status ${response.status}: ${
+            data.message || "Unknown error"
+          }`
+        );
+        return;
+      }
 
       if (data.error) {
-        setError(data.error);
+        setError("Compiler error: " + data.error);
       } else {
         setOutput(data.output);
       }
     } catch (err) {
+      console.error("Error caught during fetch:", err);
       setError("Failed to compile: " + err.message);
     } finally {
       setLoading(false);
@@ -46,7 +80,10 @@ function JDoodleAPICompiler({ codeInit }) {
   return (
     <div className="container p-0 my-4">
       <h5 className="text-dark mb-3">Try Coding Here</h5>
-      <div className="card text-light shadow pt-4" style={{ backgroundColor: "#1e1e1e" }}>
+      <div
+        className="card text-light shadow pt-4"
+        style={{ backgroundColor: "#1e1e1e" }}
+      >
         <MonacoEditor
           height="200px"
           language="java"
@@ -86,9 +123,17 @@ function JDoodleAPICompiler({ codeInit }) {
 
       <div
         className="card bg-secondary text-light mt-4 p-3"
-        style={{ minHeight: "150px", whiteSpace: "pre-wrap", fontFamily: "monospace" }}
+        style={{
+          minHeight: "150px",
+          whiteSpace: "pre-wrap",
+          fontFamily: "monospace",
+        }}
       >
-        {error ? <span className="text-danger">{error}</span> : output || "Run to get the output."}
+        {error ? (
+          <span className="text-danger">{error}</span>
+        ) : (
+          output || "Run to get the output."
+        )}
       </div>
     </div>
   );

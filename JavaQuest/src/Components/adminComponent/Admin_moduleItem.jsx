@@ -11,10 +11,11 @@ export default function Admin_ModuleItem({
   setModuleID, // state setter for selected module ID
   setModuleItems,
   publish,
+  quizConfig,
 }) {
   const navigate = useNavigate();
 
-console.log(publish)
+  console.log("Quiz Config : " + quizConfig);
 
   const handleDelete = async () => {
     const confirmResult = await Swal.fire({
@@ -75,7 +76,8 @@ console.log(publish)
                 moduleName: name,
                 moduleQuiz: quiz,
                 img_path: img,
-                publish:publish
+                publish: publish,
+                quizConfig: quizConfig,
               },
             })
           }

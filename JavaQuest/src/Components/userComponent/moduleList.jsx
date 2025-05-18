@@ -7,6 +7,7 @@ export default function ModuleList({ ModuleItems, setPage, setModuleID }) {
         .sort((a, b) => a.id - b.id)
         .map((item) => (
           <ModuleItem
+        
             key={item.id}
             id={item.id}
             name={item.moduleName}
@@ -14,6 +15,7 @@ export default function ModuleList({ ModuleItems, setPage, setModuleID }) {
             img={item.img_path}
             setPage={setPage}
             setModuleID={setModuleID}
+            quizConfig={item.quizConfig}
           />
         ))}
     </div>
