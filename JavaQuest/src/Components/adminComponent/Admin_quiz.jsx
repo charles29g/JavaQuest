@@ -52,11 +52,11 @@ export default function Quiz({ moduleID }) {
     const incorrect = [];
 
     questions.forEach((q) => {
-      if (selectedAnswers[q._id] === q.answer) {
+      if (selectedAnswers[q.id] === q.answer) {
         newScore += 1;
-        correct.push(q._id);
+        correct.push(q.id);
       } else {
-        incorrect.push(q._id);
+        incorrect.push(q.id);
       }
     });
 
@@ -90,7 +90,7 @@ export default function Quiz({ moduleID }) {
           method: "DELETE",
         });
 
-        setQuestions((prev) => prev.filter((q) => q._id !== id));
+        setQuestions((prev) => prev.filter((q) => q.id !== id));
 
         Swal.fire("Deleted!", "Question has been removed.", "success");
       } catch (err) {
@@ -106,7 +106,7 @@ export default function Quiz({ moduleID }) {
 
   const handleUpdate = (updated) => {
     setQuestions((prev) =>
-      prev.map((q) => (q._id === updated._id ? updated : q))
+      prev.map((q) => (q.id === updated.id ? updated : q))
     );
   };
 
@@ -126,17 +126,17 @@ export default function Quiz({ moduleID }) {
 
         {questions.map((q) => (
           <Admin_QuizQuestion
-            key={q._id}
-            _id={q._id}
+            key={q.id}
+            _id={q.id}
             id={q.id}
             question={q.question}
             choices={q.choices}
-            selected={selectedAnswers[q._id]}
+            selected={selectedAnswers[q.id]}
             onSelect={handleSelect}
-            isCorrect={correctAnswers.includes(q._id)}
-            isIncorrect={incorrectAnswers.includes(q._id)}
+            isCorrect={correctAnswers.includes(q.id)}
+            isIncorrect={incorrectAnswers.includes(q.id)}
             disabled={disabled}
-            onDelete={() => handleDelete(q._id)}
+            onDelete={() => handleDelete(q.id)}
             onEdit={() => handleEdit(q)}
           />
         ))}
