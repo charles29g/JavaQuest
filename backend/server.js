@@ -42,6 +42,8 @@ app.use("/api/modulecontents", moduleContentRoutes);
 app.use("/api/jdoodle", JDoodleRoutes);
 app.use("/api/auth", authRoutes);
 app.use("/api/kc", kcRoutes);
+app.use("/api/questions", questionRoutes);
+
 // Serve frontend in production
 if (process.env.NODE_ENV === "production") {
   app.use(express.static(path.join(__dirname, "../frontend/build")));

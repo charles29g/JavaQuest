@@ -1,17 +1,34 @@
-import { useState } from "react";
-import { Q1 } from "../data.js";
+import { useEffect, useState, useRef } from "react";
 import Admin_QuizQuestion from "./Admin_quizQuestion.jsx";
 import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
+import UpdateQuestionModal from "./Update/Admin_UpdateQuizQuestion.jsx"; // create this next
 
 export default function Quiz({ moduleID }) {
+  const [questions, setQuestions] = useState([]);
   const [selectedAnswers, setSelectedAnswers] = useState({});
   const [correctAnswers, setCorrectAnswers] = useState([]);
   const [incorrectAnswers, setIncorrectAnswers] = useState([]);
   const [score, setScore] = useState(null);
-  const [disabled, setDisabled] = useState(false); // ✅
+  const [disabled, setDisabled] = useState(false);
 
   const navigate = useNavigate();
-  const questions = Q1.filter((q) => q.moduleid === moduleID);
+  const modalRef = useRef();
+
+  // Fetch questions from the backend
+  useEffect(() => {
+    async function fetchQuestions() {
+      try {
+        const res = await fetch(`http://localhost:5000/api/questions?moduleid=${moduleID}`);
+        const data = await res.json();
+        setQuestions(data);
+      } catch (error) {
+        console.error("Failed to fetch questions:", error);
+      }
+    }
+
+    fetchQuestions();
+  }, [moduleID]);
 
   const handleSelect = (id, answer) => {
     if (!disabled) {
@@ -28,18 +45,18 @@ export default function Quiz({ moduleID }) {
     const incorrect = [];
 
     questions.forEach((q) => {
-      if (selectedAnswers[q.id] === q.answer) {
+      if (selectedAnswers[q._id] === q.answer) {
         newScore += 1;
-        correct.push(q.id);
+        correct.push(q._id);
       } else {
-        incorrect.push(q.id);
+        incorrect.push(q._id);
       }
     });
 
     setScore(newScore);
     setCorrectAnswers(correct);
     setIncorrectAnswers(incorrect);
-    setDisabled(true); // ✅ lock answers
+    setDisabled(true);
   };
 
   const handleRetry = () => {
@@ -47,11 +64,46 @@ export default function Quiz({ moduleID }) {
     setCorrectAnswers([]);
     setIncorrectAnswers([]);
     setScore(null);
-    setDisabled(false); // ✅ unlock
+    setDisabled(false);
   };
 
-  const percentage =
-    score !== null ? Math.round((score / questions.length) * 100) : 0;
+  const handleDelete = async (id) => {
+    const result = await Swal.fire({
+      title: "Are you sure?",
+      text: "This question will be permanently deleted.",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#d33",
+      confirmButtonText: "Delete",
+    });
+
+    if (result.isConfirmed) {
+      try {
+        await fetch(`http://localhost:5000/api/questions/${id}`, {
+          method: "DELETE",
+        });
+
+        setQuestions((prev) => prev.filter((q) => q._id !== id));
+
+        Swal.fire("Deleted!", "Question has been removed.", "success");
+      } catch (err) {
+        console.error("Failed to delete:", err);
+        Swal.fire("Error", "Something went wrong.", "error");
+      }
+    }
+  };
+
+  const handleEdit = (question) => {
+    modalRef.current.openModal(question);
+  };
+
+  const handleUpdate = (updated) => {
+    setQuestions((prev) =>
+      prev.map((q) => (q._id === updated._id ? updated : q))
+    );
+  };
+
+  const percentage = score !== null ? Math.round((score / questions.length) * 100) : 0;
 
   return (
     <div className="backgroundimg4 min-vh-100 px-3 py-5">
@@ -60,15 +112,17 @@ export default function Quiz({ moduleID }) {
 
         {questions.map((q) => (
           <Admin_QuizQuestion
-            key={q.id}
-            id={q.id}
+            key={q._id}
+            id={q._id}
             question={q.question}
             choices={q.choices}
-            selected={selectedAnswers[q.id]}
+            selected={selectedAnswers[q._id]}
             onSelect={handleSelect}
-            isCorrect={correctAnswers.includes(q.id)}
-            isIncorrect={incorrectAnswers.includes(q.id)}
-            disabled={disabled} // ✅ pass prop
+            isCorrect={correctAnswers.includes(q._id)}
+            isIncorrect={incorrectAnswers.includes(q._id)}
+            disabled={disabled}
+            onDelete={() => handleDelete(q._id)}
+            onEdit={() => handleEdit(q)}
           />
         ))}
 
@@ -80,30 +134,24 @@ export default function Quiz({ moduleID }) {
           ) : (
             <>
               <h4 className="text-white mt-3">
-                Your Score: {percentage}%{" "}
-                {percentage >= 70 ? "✅ Passed!" : "❌ Not Yet"}
+                Your Score: {percentage}% {percentage >= 70 ? "✅ Passed!" : "❌ Not Yet"}
               </h4>
-              <p className="text-white">
-                Your answers are locked. Try again to retake the quiz.
-              </p>
+              <p className="text-white">Your answers are locked. Try again to retake the quiz.</p>
               <div className="d-flex justify-content-center">
-                <button
-                  className="btn gradient6 text-white mt-3 me-3" // ✅ me-3 for margin-right
-                  onClick={handleRetry}
-                >
+                <button className="btn gradient6 text-white mt-3 me-3" onClick={handleRetry}>
                   🔁 Try Again
                 </button>
-                <button
-                  className="btn btn-light mt-3"
-                  onClick={() => navigate("/")}
-                >
+                <button className="btn btn-light mt-3" onClick={() => navigate("/")}>
                   Back to Dashboard
                 </button>
               </div>
             </>
           )}
         </div>
+
       </div>
+              <UpdateQuestionModal ref={modalRef} onUpdate={handleUpdate} />
+
     </div>
   );
 }
