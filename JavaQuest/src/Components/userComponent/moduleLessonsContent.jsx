@@ -1,4 +1,5 @@
 import JDoodleAPICompiler from "../JDoodleCompiler.jsx";
+import { useState, useEffect } from "react";
 
 export default function ModuleLessonContents({
   id,
@@ -7,6 +8,13 @@ export default function ModuleLessonContents({
   imgpath,
   codeInit,
 }) {
+  const [hasRenderedCodeEditor, setHasRenderedCodeEditor] = useState();
+
+  useEffect(() => {
+    if (!hasRenderedCodeEditor && codeInit && codeInit.trim() !== "") {
+      setHasRenderedCodeEditor(true);
+    }
+  }, [codeInit, hasRenderedCodeEditor]);
   return (
     <section id={id}>
       <div className="row align-items-center justify-content-center padding">
@@ -63,8 +71,9 @@ export default function ModuleLessonContents({
               </button>
             </div>
           )}
-
-          <JDoodleAPICompiler codeInit={codeInit}></JDoodleAPICompiler>
+          {(hasRenderedCodeEditor || (codeInit && codeInit.trim() !== "")) && (
+            <JDoodleAPICompiler codeInit={codeInit}></JDoodleAPICompiler>
+          )}
         </div>
       </div>
     </section>

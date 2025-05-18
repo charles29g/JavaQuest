@@ -7,7 +7,7 @@ const ModuleSchema = new mongoose.Schema(
     sectionName: { type: String, required: true },
     sectionDescription: { type: String, required: true },
     sectionImage: { type: Array, required: true },
-    code: { type: String, required: true },
+    code: { type: String, required: false },
   },
   { collection: "moduleContentData" }
 );

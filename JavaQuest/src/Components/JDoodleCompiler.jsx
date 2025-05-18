@@ -9,9 +9,7 @@ function JDoodleAPICompiler({ codeInit }) {
   const [error, setError] = useState("");
 
   // Return nothing if code is empty or whitespace only
-  if (!code || code.trim() === "") {
-    return null;
-  }
+
 
   async function runCode() {
     setLoading(true);

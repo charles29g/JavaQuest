@@ -1,5 +1,5 @@
 import React, { forwardRef, useImperativeHandle, useState } from "react";
-
+import Swal from "sweetalert2";
 const AddModuleModal = forwardRef((props, ref) => {
   // Use Imperative Handle to control modal visibility
   useImperativeHandle(ref, () => ({
@@ -11,6 +11,9 @@ const AddModuleModal = forwardRef((props, ref) => {
     },
   }));
 
+  // console.log("props: " + props);
+  // console.log(props);
+
   // State for handling form inputs
   const [moduleName, setModuleName] = useState("");
   const [moduleQuizName, setModuleQuizName] = useState("");
@@ -21,46 +24,63 @@ const AddModuleModal = forwardRef((props, ref) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Gather the data to send to the backend
     const data = {
-      id: moduleID,
+      id: Number(moduleID),
       moduleName: moduleName,
       moduleQuiz: moduleQuizName,
       img_path: moduleImageLink,
+      publish: true,
+      quizConfig: "",
     };
 
-    try {
-      // Send a POST request to create a new module
-      const response = await fetch("http://localhost:5000/api/modules", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      });
+    // Show confirmation alert
+    const result = await Swal.fire({
+      title: "Are you sure?",
+      text: "Do you want to confirm adding this module?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonText: "Yes, add it!",
+      cancelButtonText: "No, cancel",
+    });
 
-      if (!response.ok) {
-        throw new Error("Failed to add new module");
+    if (result.isConfirmed) {
+      try {
+        const response = await fetch("http://localhost:5000/api/modules", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(data),
+        });
+
+        if (!response.ok) {
+          throw new Error("Failed to add new module");
+        }
+
+        const newModule = await response.json();
+        console.log("New module added:", newModule);
+
+        props.setModuleItems((prevModules) => [...prevModules, newModule]);
+
+        window.bootstrap.Modal.getInstance(
+          document.getElementById("addModuleModal")
+        ).hide();
+
+        setModuleName("");
+        setModuleQuizName("");
+        setModuleImageLink("");
+        setModuleID("");
+
+        Swal.fire(
+          "Added!",
+          "The module has been added successfully.",
+          "success"
+        );
+      } catch (error) {
+        console.error("Error adding new module:", error);
+        Swal.fire("Error", "There was an error adding the module.", "error");
       }
-
-      const newModule = await response.json();
-      console.log("New module added:", newModule);
-
-      // Update the parent state to include the new module
-      props.setModuleItems((prevModules) => [...prevModules, newModule]);
-
-      // Hide the modal after successful addition
-      window.bootstrap.Modal.getInstance(
-        document.getElementById("addModuleModal")
-      ).hide();
-
-      // Reset the form
-      setModuleName("");
-      setModuleQuizName("");
-      setModuleImageLink("");
-      setModuleID(""); // Reset moduleID as well
-    } catch (error) {
-      console.error("Error adding new module:", error);
+    } else {
+      // If cancelled, optionally show a cancellation message
+      Swal.fire("Cancelled", "Module addition was cancelled.", "info");
     }
   };
 
@@ -71,7 +91,6 @@ const AddModuleModal = forwardRef((props, ref) => {
       tabIndex="-1"
       aria-labelledby="addModuleModalLabel"
       aria-hidden="true"
-      
     >
       <div className="modal-dialog">
         <div className="modal-content glass corner">
@@ -94,11 +113,11 @@ const AddModuleModal = forwardRef((props, ref) => {
             <div className="modal-body descfont" style={{ color: "#fff" }}>
               <div className="mb-3">
                 <label className="form-label" style={{ fontSize: "1.2rem" }}>
-                  Module ID
+                  Module Number
                 </label>
                 <input
                   name="moduleID"
-                  type="text"
+                  type="number"
                   className="form-control glass"
                   value={moduleID}
                   onChange={(e) => setModuleID(e.target.value)}

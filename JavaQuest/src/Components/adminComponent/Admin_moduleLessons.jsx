@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 
 import Admin_ModuleNavbar from "./Admin_moduleNavbar.jsx";
 import Admin_ModuleLessonContents from "./Admin_moduleLessonsContent.jsx";
-import AddModuleContentModal from "./Create/Admin_AddModuleContentModal.jsx";
+import AddModuleContentModal from "../adminComponent/Create/Admin_AddModuleContentModal";
 import { useLayoutEffect } from "react";
 import Admin_KCPage from "./Admin_kcPage.jsx";
 
@@ -17,7 +17,7 @@ export default function Admin_ModuleLessons({
   KCCheckQA,
 }) {
   const navigate = useNavigate();
-  const modalRef = useRef();
+  const addModuleModalRef = useRef();
 
   const [activeSection, setActiveSection] = useState(null);
   useLayoutEffect(() => {
@@ -65,10 +65,16 @@ export default function Admin_ModuleLessons({
           <button
             style={{ marginTop: "20vh" }}
             className="btn btn-info "
-            onClick={() => modalRef.current.openModal()}
+            onClick={() => addModuleModalRef.current.openModal()} // Use the new ref here
           >
             Add Another Section
           </button>
+          <AddModuleContentModal
+            setModuleContents={setModuleContents}
+            ref={addModuleModalRef}
+            setModuleItems={setModuleContents}
+            moduleid={moduleID}
+          />
         </div>
 
         {filteredContents.length > 0 ? (
@@ -88,6 +94,7 @@ export default function Admin_ModuleLessons({
                   id={item.id}
                   imgpath={item.sectionImage}
                   codeInit={item.code}
+                  moduleid={moduleID}
                 />
               ))}
             </div>

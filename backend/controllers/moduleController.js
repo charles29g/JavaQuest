@@ -39,6 +39,7 @@ exports.addModule = async (req, res) => {
       moduleName: req.body.moduleName,
       moduleQuiz: req.body.moduleQuiz,
       img_path: req.body.img_path,
+      publish: true,
     });
 
     await newModule.save();

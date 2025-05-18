@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
 import AddModuleContentModal from "../adminComponent/Create/Admin_AddModuleContentModal";
 
@@ -10,18 +10,26 @@ export default function Admin_ModuleLessonContents({
   description,
   imgpath,
   codeInit,
+  moduleid,
 }) {
+  console.log("module ID(LessonContent): " + moduleid);
   const carouselId = `carousel-${id}`;
   const [code, setCode] = useState(codeInit); // new code field
 
   const [id2, setID] = useState(id); // ID is immutable
   const [name2, setname] = useState(name);
   const [description2, setdescription] = useState(description);
+  const [hasRenderedCodeEditor, setHasRenderedCodeEditor] = useState();
+
   const [imgpath2, setimgpath] = useState(
     Array.isArray(imgpath) ? imgpath : [imgpath]
   );
 
-  const modalRef = useRef();
+  useEffect(() => {
+    if (!hasRenderedCodeEditor && code && code.trim() !== "") {
+      setHasRenderedCodeEditor(true);
+    }
+  }, [code, hasRenderedCodeEditor]);
 
   // ✅ Handle server update
   const handleUpdateContent = async (updatedContent) => {
@@ -88,6 +96,7 @@ export default function Admin_ModuleLessonContents({
       sectionDescription: description2,
       sectionImage: imgpath2.filter((img) => img.trim() !== ""),
       code: code.trim(),
+      publish: true,
     };
 
     setModuleContents((prevContents) =>
@@ -263,22 +272,27 @@ export default function Admin_ModuleLessonContents({
               </>
             )}
           </div>
-          <label className="form-label">Module Compiler Java Code</label>
-          <div className="code-editor-container">
-            <textarea
-              rows={10}
-              className="code-editor"
-              placeholder="Enter Java code here..."
-              value={code}
-              onChange={(e) => setCode(e.target.value)}
-            ></textarea>
-          </div>
-          
-            <AddModuleContentModal
-              ref={modalRef}
-              setModuleContents={setModuleContents}
-            />
-  
+          {(hasRenderedCodeEditor || (code && code.trim() !== "")) && (
+            <>
+              <label className="form-label">Module Compiler Java Code</label>
+              <div className="code-editor-container">
+                <textarea
+                  rows={10}
+                  className="code-editor"
+                  placeholder="Enter Java code here..."
+                  value={code}
+                  onChange={(e) => {
+                    const newValue = e.target.value;
+                    setCode(newValue);
+                    if (!hasRenderedCodeEditor && newValue.trim() !== "") {
+                      setHasRenderedCodeEditor(true);
+                    }
+                  }}
+                ></textarea>
+              </div>
+            </>
+          )}
+
           <button
             className="btn btn-success mt-4 mb-4 w-25 mx-auto d-block"
             onClick={handleSave}

@@ -9,7 +9,7 @@ import questionRoutes from "./routes/questionRoutes.js";
 import moduleContentRoutes from "./routes/moduleContentRoutes.js";
 import JDoodleRoutes from "./routes/JDoodleRoutes.js";
 import authRoutes from "./routes/authRoutes.js";
-
+import kcRoutes from "./routes/KCRoutes.js";
 // Setup for __dirname in ES modules
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -41,7 +41,7 @@ app.use("/api/questions", questionRoutes);
 app.use("/api/modulecontents", moduleContentRoutes);
 app.use("/api/jdoodle", JDoodleRoutes);
 app.use("/api/auth", authRoutes);
-
+app.use("/api/kc", kcRoutes);
 // Serve frontend in production
 if (process.env.NODE_ENV === "production") {
   app.use(express.static(path.join(__dirname, "../frontend/build")));

@@ -157,6 +157,13 @@ body,
   overflow: hidden;
   margin-bottom: 5px;
 }
+#addQuestionModal.modal {
+  z-index: 1055 !important;
+}
+
+.modal-backdrop {
+  z-index: 1050 !important;
+}
 
 .battery-level {
   height: 100%;
