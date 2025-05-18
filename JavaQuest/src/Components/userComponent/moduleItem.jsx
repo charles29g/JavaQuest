@@ -1,6 +1,13 @@
 import { useNavigate } from "react-router-dom";
 
-export default function ModuleItem({ id, name, quiz, img, setModuleID }) {
+export default function ModuleItem({
+  id,
+  name,
+  quiz,
+  img,
+  setModuleID,
+  quizConfig,
+}) {
   const navigate = useNavigate();
 
   return (
@@ -24,20 +31,32 @@ export default function ModuleItem({ id, name, quiz, img, setModuleID }) {
               }}
             >
               {name}
-              {id}
             </button>
           </div>
+
           <div className="d-flex justify-content-md-end justify-content-center py-2">
             <button
               className="btn btn-light shadow-button btn-mod text-start w-100 w-md-75 fs-md-5"
               onClick={() => {
-                navigate("/quizInstructions");
-                setModuleID(id);
+                if (quizConfig === "open") {
+                  navigate("/quizInstructions");
+                  setModuleID(id);
+                }
               }}
+              disabled={quizConfig !== "open"}
             >
-              {quiz}
-              {id}
+              {quiz} {id}
             </button>
+          </div>
+          <div className="d-flex justify-content-md-end justify-content-center py-2">
+            <div>
+              {quizConfig !== "open" && (
+                <p className="text-danger mt-2 mb-0 small">
+                  🚫 This quiz is currently locked. Please wait for the
+                  administrator to open it.
+                </p>
+              )}
+            </div>
           </div>
         </div>
       </div>

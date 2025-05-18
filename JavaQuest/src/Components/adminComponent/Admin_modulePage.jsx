@@ -9,6 +9,10 @@ export default function ModulePage({
   setModuleID,
   setModuleItems,
 }) {
+
+
+  console.log("Module page:");
+  console.log(ModuleItems);
   const navigate = useNavigate();
   const modalRef = useRef();
 

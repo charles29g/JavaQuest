@@ -8,11 +8,8 @@ export default function KCPage({ KCQA, moduleID }) {
   const [score, setScore] = useState(null);
   const [correctAnswers, setCorrectAnswers] = useState([]);
 
-
-
   const moduleQuestions = KCQA.filter((item) => item.moduleid === moduleID);
   const navigate = useNavigate();
-
 
   function KCCheckQA() {
     let calculatedScore = 0;
@@ -79,11 +76,38 @@ export default function KCPage({ KCQA, moduleID }) {
                 </span>
               </div>
               <div className="text-center mt-4 animate__animated animate__infinite flying-car">
-
                 {score !== null && score / KCQA.length >= 0.7 ? (
                   <button
                     className="gradient6 btn text-white"
-                    onClick={() => navigate("/quizInstructions")}
+                    onClick={async () => {
+                      try {
+                        const token = localStorage.getItem("token");
+
+                        const res = await fetch(
+                          "http://localhost:5000/api/auth/complete-module",
+                          {
+                            method: "POST",
+                            headers: {
+                              "Content-Type": "application/json",
+                            },
+                            body: JSON.stringify({
+                              token,
+                              moduleId: moduleID,
+                            }),
+                          }
+                        );
+
+                        const data = await res.json();
+                        if (data.success) {
+                          navigate("/modules");
+                        } else {
+                          alert("Failed to record module completion.");
+                        }
+                      } catch (err) {
+                        console.error(err);
+                        alert("An error occurred.");
+                      }
+                    }}
                   >
                     Take Quiz!
                   </button>

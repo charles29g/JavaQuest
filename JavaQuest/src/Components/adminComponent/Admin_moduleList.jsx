@@ -8,7 +8,8 @@ export default function Admin_ModuleList({
 }) {
 
 
-
+console.log("Module Items: "+ ModuleItems)
+console.log(ModuleItems.quizConfig)
 
   return (
     <div className="container-fluid backgroundimg2 px-0">
@@ -24,6 +25,7 @@ export default function Admin_ModuleList({
           setModuleID={setModuleID}
           setModuleItems={setModuleItems}
           publish={item.publish}
+          quizConfig={item.quizConfig}
           
         />
 
@@ -33,7 +35,6 @@ export default function Admin_ModuleList({
       )
     
     )
-      
       
       }
     </div>

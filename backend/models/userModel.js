@@ -8,6 +8,7 @@ const userSchema = new mongoose.Schema(
     name: { type: String, required: true },
     picture: String,
     role: { type: String, enum: ["admin", "user"], default: "user" },
+    completedModules: [{ type: String }], // or Number if moduleID is numeric
   },
   { timestamps: true }
 );
