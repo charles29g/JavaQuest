@@ -5,6 +5,27 @@ import { useNavigate } from "react-router-dom";
 const GoogleLoginButton = () => {
   const navigate = useNavigate();
 
+  // Helper to fetch user info from /api/auth/me
+  const fetchUserInfo = async (token) => {
+    try {
+      const res = await fetch("http://localhost:5000/api/auth/me", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (!res.ok) {
+        throw new Error("Failed to fetch user info");
+      }
+
+      const data = await res.json();
+      return data.user;
+    } catch (error) {
+      console.error("Error fetching user info:", error);
+      return null;
+    }
+  };
+
   const handleSuccess = async (credentialResponse) => {
     const decoded = jwtDecode(credentialResponse.credential);
     console.log("Decoded Google User:", decoded);
@@ -20,13 +41,20 @@ const GoogleLoginButton = () => {
       console.log("Backend response:", data);
 
       if (res.ok) {
-        const { user } = data;
+        // ✅ Store your backend token
+        sessionStorage.setItem("token", data.token);
 
-        localStorage.setItem("token", data.token);
+        // ✅ Use the correct token here
+        const user = await fetchUserInfo(data.token);
 
-        // Debug before navigation
-        console.log("Navigating to:", user.role === "admin" ? "/Admin" : "/");
+        if (!user) {
+          console.error("Could not fetch user info after login");
+          return;
+        }
 
+        console.log("User info from /me:", user);
+
+        // Navigate based on role
         if (user.role === "admin") {
           navigate("/Admin");
         } else {

@@ -1,10 +1,42 @@
 import ModuleList from "./moduleList.jsx";
 import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
 
 export default function ModulePage({ ModuleItems, setPage, setModuleID }) {
   const navigate = useNavigate();
+  const [user, setUser] = useState(null);
+
+  // Fetch user info on mount
+  useEffect(() => {
+    const fetchUser = async () => {
+      const token = sessionStorage.getItem("token");
+      if (!token) {
+        navigate("/login"); // No token, redirect to login
+        return;
+      }
+      try {
+        const res = await fetch("http://localhost:5000/api/auth/me", {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        if (!res.ok) throw new Error("Failed to fetch user");
+        const data = await res.json();
+        setUser(data.user);
+      } catch (err) {
+        console.error(err);
+        sessionStorage.removeItem("token");
+        navigate("/login");
+      }
+    };
+    fetchUser();
+  }, [navigate]);
+
   const goBack = () => {
     navigate("/");
+  };
+
+  const handleSignOut = () => {
+    sessionStorage.removeItem("token");
+    navigate("/login");
   };
 
   return (
@@ -14,7 +46,25 @@ export default function ModulePage({ ModuleItems, setPage, setModuleID }) {
           <i className="fa fa-arrow-left text-white"> Go Back</i>
         </button>
         <h6 className="titlefont2 text-white m-0 typing mx-auto">JavaQuest</h6>
-        <div style={{ width: "42px" }}></div>
+        {/* User Tab */}
+        <div
+          className="d-flex align-items-center text-white"
+          style={{ minWidth: "150px", justifyContent: "flex-end" }}
+        >
+          {user ? (
+            <>
+              <span className="me-3">Hello, {user.name}</span>
+              <button
+                className="btn btn-sm btn-outline-light"
+                onClick={handleSignOut}
+              >
+                Sign Out
+              </button>
+            </>
+          ) : (
+            <span>Loading...</span>
+          )}
+        </div>
       </nav>
 
       <div className="container-fluid px-0 pt-2">

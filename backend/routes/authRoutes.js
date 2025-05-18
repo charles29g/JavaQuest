@@ -1,11 +1,13 @@
 import express from "express";
 import bcrypt from "bcrypt";
-import User from "../models/userModel.js"; // Use your updated unified model
+import User from "../models/userModel.js";
 import jwt from "jsonwebtoken";
 import { googleAuth } from "../controllers/authController.js";
+import { sendOTP } from "../utils/sendOTP.js";
+import OTP from "../models/otpModel.js";
 
 const router = express.Router();
-const JWT_SECRET = process.env.JWT_SECRET || "your_secret";
+const JWT_SECRET = process.env.JWT_SECRET;
 
 // Google route
 router.post("/google", googleAuth);
@@ -44,17 +46,14 @@ router.post("/login", async (req, res) => {
   const { email, password } = req.body;
 
   try {
-    // Find user
     const user = await User.findOne({ email });
     if (!user || !user.password)
       return res.status(400).json({ message: "Invalid credentials" });
 
-    // Compare passwords
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch)
       return res.status(400).json({ message: "Invalid credentials" });
 
-    // Create JWT
     const token = jwt.sign({ id: user._id, email: user.email }, JWT_SECRET, {
       expiresIn: "1d",
     });
@@ -70,9 +69,6 @@ router.post("/login", async (req, res) => {
 });
 
 // OTP route
-import { sendOTP } from "../utils/sendOTP.js";
-import OTP from "../models/otpModel.js";
-
 router.post("/send-otp", async (req, res) => {
   console.log("✅ /send-otp route hit");
   const { email } = req.body;
@@ -87,8 +83,8 @@ router.post("/send-otp", async (req, res) => {
     res.status(500).json({ message: "Failed to send OTP" });
   }
 });
-// ✅ Mark a module as complete
 
+// Mark a module as complete
 router.post("/complete-module", async (req, res) => {
   const { token, moduleID } = req.body;
 
@@ -118,7 +114,7 @@ router.post("/complete-module", async (req, res) => {
   }
 });
 
-// ✅ Get completed modules
+// Get completed modules
 router.post("/completed-modules", async (req, res) => {
   const { token } = req.body;
 
@@ -136,6 +132,34 @@ router.post("/completed-modules", async (req, res) => {
   } catch (err) {
     console.error(err);
     res.status(401).json({ message: "Invalid token" });
+  }
+});
+
+// Get current user info
+router.get("/me", async (req, res) => {
+  try {
+    const authHeader = req.headers.authorization;
+    console.log("🔐 authHeader:", authHeader);
+
+    if (!authHeader)
+      return res.status(401).json({ message: "No token provided" });
+
+    const token = authHeader.split(" ")[1];
+    console.log("🧪 token:", token);
+
+    console.log("JWT_SECRET is:", JWT_SECRET);
+    const decoded = jwt.verify(token, JWT_SECRET);
+    console.log("✅ decoded token:", decoded);
+
+    const user = await User.findById(decoded.id).select("name email role");
+    if (!user) return res.status(404).json({ message: "User not found" });
+
+    res.status(200).json({ user });
+  } catch (error) {
+    console.error("❌ /me error:", error.message);
+    return res
+      .status(401)
+      .json({ message: "Invalid token", detail: error.message });
   }
 });
 
