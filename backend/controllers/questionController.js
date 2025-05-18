@@ -1,4 +1,4 @@
-const Question = require("../models/Question.model"); // Adjust the path if needed
+const Question = require("../models/question.model"); // Adjust the path if needed
 
 // Get all questions
 exports.getQuestions = async (req, res) => {

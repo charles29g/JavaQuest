@@ -4,6 +4,7 @@ import Swal from "sweetalert2";
 const UpdateQuestionModal = forwardRef(({ onUpdate }, ref) => {
   const [data, setData] = useState({
     _id: "",
+    id: "",
     question: "",
     choices: ["", "", "", ""],
     answer: "",
@@ -13,11 +14,15 @@ const UpdateQuestionModal = forwardRef(({ onUpdate }, ref) => {
     openModal(questionData) {
       setData({
         _id: questionData._id,
+        id: questionData.id,
+
         question: questionData.question,
         choices: [...questionData.choices],
         answer: questionData.answer,
       });
-      const modal = new window.bootstrap.Modal(document.getElementById("updateQuestionModal"));
+      const modal = new window.bootstrap.Modal(
+        document.getElementById("updateQuestionModal")
+      );
       modal.show();
     },
   }));
@@ -45,17 +50,22 @@ const UpdateQuestionModal = forwardRef(({ onUpdate }, ref) => {
     if (!result.isConfirmed) return;
 
     try {
-      const res = await fetch(`http://localhost:5000/api/questions/${data._id}`, {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
-      });
+      const res = await fetch(
+        `http://localhost:5000/api/questions/${data._id}`,
+        {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(data),
+        }
+      );
 
       const updated = await res.json();
       if (!res.ok) throw new Error(updated.error || "Failed to update");
 
       onUpdate(updated);
-      window.bootstrap.Modal.getInstance(document.getElementById("updateQuestionModal")).hide();
+      window.bootstrap.Modal.getInstance(
+        document.getElementById("updateQuestionModal")
+      ).hide();
       Swal.fire("Updated!", "Question updated successfully.", "success");
     } catch (err) {
       Swal.fire("Error", err.message, "error");
@@ -69,16 +79,30 @@ const UpdateQuestionModal = forwardRef(({ onUpdate }, ref) => {
           <form onSubmit={handleSubmit}>
             <div className="modal-header">
               <h5 className="modal-title text-white">Update Question</h5>
-              <button type="button" className="btn-close" data-bs-dismiss="modal" />
+              <button
+                type="button"
+                className="btn-close"
+                data-bs-dismiss="modal"
+              />
             </div>
             <div className="modal-body text-white">
               <div className="mb-3">
+                <label className="form-label">Question Number</label>
+                <input
+                  type="text"
+                  className="form-control"
+                  value={data.id}
+                  onChange={(e) => setData({ ...data, id: e.target.value })}
+                  required
+                />
                 <label className="form-label">Question</label>
                 <input
                   type="text"
                   className="form-control"
                   value={data.question}
-                  onChange={(e) => setData({ ...data, question: e.target.value })}
+                  onChange={(e) =>
+                    setData({ ...data, question: e.target.value })
+                  }
                   required
                 />
               </div>
@@ -106,7 +130,9 @@ const UpdateQuestionModal = forwardRef(({ onUpdate }, ref) => {
                   onChange={(e) => setData({ ...data, answer: e.target.value })}
                   required
                 >
-                  <option value="" disabled>Select correct answer</option>
+                  <option value="" disabled>
+                    Select correct answer
+                  </option>
                   {data.choices.map((choice, idx) =>
                     choice ? (
                       <option key={idx} value={choice}>

@@ -25,7 +25,7 @@ export default function Admin_QuizQuestion({
         : "bg-dark bg-opacity-10"
     }`}>
       <div className="d-flex justify-content-between">
-        <h5 className="text-white fw-semibold">{question}</h5>
+        <h5 className="text-white fw-semibold">{id} {question}</h5>
         <div>
           <button className="btn btn-sm btn-warning me-2" onClick={onEdit}>✏️</button>
           <button className="btn btn-sm btn-danger" onClick={onDelete}>🗑️</button>
@@ -34,6 +34,7 @@ export default function Admin_QuizQuestion({
 
       {choices.map((choice, idx) => (
         <div key={idx} className="form-check">
+          
           <input
             type="radio"
             name={`quiz-q-${id}`}
@@ -45,7 +46,7 @@ export default function Admin_QuizQuestion({
             disabled={disabled}
           />
           <label htmlFor={`quiz-q-${id}-c${idx}`} className="form-check-label text-white">
-            {choice}
+            {choice} 
           </label>
         </div>
       ))}

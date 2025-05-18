@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { Q1 } from "../data.js";
+import { useState, useEffect } from "react";
+//import { Q1 } from "../data.js";
 import QuizQuestion from "./quizQuestion";
 import { useNavigate } from "react-router-dom";
 
@@ -9,10 +9,25 @@ export default function Quiz({ moduleID }) {
   const [incorrectAnswers, setIncorrectAnswers] = useState([]);
   const [score, setScore] = useState(null);
   const [disabled, setDisabled] = useState(false); // ✅
-
+  const [Q1, setQ1] = useState([]);
   const navigate = useNavigate();
   const questions = Q1.filter((q) => q.moduleid === moduleID);
+  // Fetch questions from the backend
+  useEffect(() => {
+    async function fetchQuestions() {
+      try {
+        const res = await fetch(
+          `http://localhost:5000/api/questions?moduleid=${moduleID}`
+        );
+        const data = await res.json();
+        setQ1(data);
+      } catch (error) {
+        console.error("Failed to fetch questions:", error);
+      }
+    }
 
+    fetchQuestions();
+  }, [moduleID]);
   const handleSelect = (id, answer) => {
     if (!disabled) {
       setSelectedAnswers((prev) => ({
