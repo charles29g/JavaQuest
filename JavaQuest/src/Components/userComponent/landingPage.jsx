@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import '../../Design.css';
 
 export default function LandingPage() {
   const navigate = useNavigate();
@@ -21,7 +22,7 @@ export default function LandingPage() {
     <div className={`transition-container ${startAnimation ? "animate" : ""}`}>
       <div className="backgroundimg">
         <div className="container">
-          <nav className="navbar navbar-expand-lg bg-transparent text-white px-4">
+          <nav className="navbar navbar-expand-lg text-white">
             <button
               className="navbar-toggler"
               type="button"
@@ -49,7 +50,7 @@ export default function LandingPage() {
           </nav>
 
           <div className="row align-items-center justify-content-center">
-            <div className="col-md-6 mb-4 mb-md-0">
+            <div className="col-md-6 mb-md-0">
               <h1 className="titlefont text-white glow-text">JavaQuest</h1>
               <p className="text-white">
                 JavaQuest is an engaging and dynamic online platform designed to

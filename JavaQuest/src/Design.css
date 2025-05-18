@@ -594,3 +594,21 @@ body,
   padding: 40px;
   top: 300px;
 }
+
+@media (max-width: 376px) {
+  .navbar-toggler {
+    background-color: whitesmoke !important;
+  }
+  .custom-flying-car{
+    height: 305px !important;
+    width: 500px !important;
+  }
+
+  .col-6{
+    width: 80% !important;
+    margin-right: 30px !important;
+  }
+  
+}
+
+
