@@ -63,7 +63,7 @@ export default function ModuleItem({
               }}
               disabled={isDisabled}
             >
-              {quiz} {id}
+              {quiz} 
             </button>
           </div>
 

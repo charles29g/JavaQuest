@@ -6,12 +6,13 @@ import UpdateQuestionModal from "./Update/Admin_UpdateQuizQuestion.jsx"; // crea
 import AddQuestionModal from "./Create/Admin_AddQuestionModal.jsx";
 
 export default function Quiz({ moduleID }) {
-  const [questions, setQuestions] = useState([]);
+  const [questions1, setQuestions] = useState([]);
   const [selectedAnswers, setSelectedAnswers] = useState({});
   const [correctAnswers, setCorrectAnswers] = useState([]);
   const [incorrectAnswers, setIncorrectAnswers] = useState([]);
   const [score, setScore] = useState(null);
   const [disabled, setDisabled] = useState(false);
+  const questions = questions1.filter((q) => q.moduleid === moduleID);
 
   const navigate = useNavigate();
   const modalRef = useRef();

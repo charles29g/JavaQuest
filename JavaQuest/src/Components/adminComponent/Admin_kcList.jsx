@@ -78,7 +78,7 @@ export default function Admin_KCList({
         body: JSON.stringify({
           question: updatedData.question,
           choices: updatedData.choices,
-          correctAnswer: updatedData.correctAnswer,
+          answer: updatedData.correctAnswer,
           moduleID: moduleID,
         }),
       });

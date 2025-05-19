@@ -2,14 +2,14 @@ import { useState, useEffect } from "react";
 import KCList from "./kcList";
 import { useNavigate } from "react-router-dom";
 
-export default function KCPage({ KCQA, moduleID }) {
+export default function KCPage({ moduleID }) {
   const [selectedAnswers, setSelectedAnswers] = useState({});
   const [incorrectAnswers, setIncorrectAnswers] = useState([]);
   const [correctAnswers, setCorrectAnswers] = useState([]);
   const [score, setScore] = useState(null);
   const [user, setUser] = useState(null);
   const [moduleUpdated, setModuleUpdated] = useState(false);
-
+  const [KCQA, setKCQA] = useState([]);
   const navigate = useNavigate();
 
   const moduleQuestions = KCQA.filter((item) => item.moduleid === moduleID);
@@ -17,7 +17,13 @@ export default function KCPage({ KCQA, moduleID }) {
 
   const batteryPercent =
     score !== null ? `${(score / moduleQuestions.length) * 100}%` : "0%";
-
+  useEffect(() => {
+    fetch("http://localhost:5000/api/kc")
+      .then((res) => res.json())
+      .then((data) => setKCQA(data))
+      .catch((err) => console.error(err));
+    console.log("KCQA:");
+  }, []);
   const fetchUserInfo = async (token) => {
     try {
       const res = await fetch("http://localhost:5000/api/auth/me", {
@@ -99,6 +105,8 @@ export default function KCPage({ KCQA, moduleID }) {
         wrong.push(item.id);
       }
     });
+    console.log("Selected Answers:", selectedAnswers);
+    console.log("Module Questions:", moduleQuestions);
 
     setScore(calculatedScore);
     setIncorrectAnswers(wrong);
