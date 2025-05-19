@@ -48,7 +48,6 @@ export default function KCItems({
         </small>
       )}
 
-      {/* Correct answer message */}
       {isCorrect && (
         <small className="text-success d-block mt-2 fw-bold">
           Well done! You’ve successfully powered up your car. Keep it going!

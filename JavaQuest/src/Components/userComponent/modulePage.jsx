@@ -14,7 +14,7 @@ export default function ModulePage({
   console.log("User Fetch", user);
 
   console.log(user);
-  // Fetch user info on mount
+
   useEffect(() => {
     const fetchUser = async () => {
       const token = sessionStorage.getItem("token");
@@ -31,7 +31,7 @@ export default function ModulePage({
         setUserID(data.user._id);
       } catch (err) {
         console.error(err);
-        // sessionStorage.removeItem("token");
+
         navigate("/");
       }
     };

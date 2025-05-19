@@ -12,9 +12,8 @@ export default function Admin_KCList({
 }) {
   const [isLoading, setIsLoading] = useState("");
   console.log(isLoading);
-  const refs = useRef({}); // Store refs for each question
+  const refs = useRef({});
 
-  // Scroll to first incorrect item after submit
   useEffect(() => {
     if (incorrectAnswers.length > 0) {
       const firstWrongId = incorrectAnswers[0];

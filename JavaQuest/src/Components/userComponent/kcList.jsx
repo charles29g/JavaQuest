@@ -9,9 +9,8 @@ export default function KCList({
   correctAnswers,
   KCCheckQA,
 }) {
-  const refs = useRef({}); // Store refs for each question
+  const refs = useRef({});
 
-  // Scroll to first incorrect item after submit
   useEffect(() => {
     if (incorrectAnswers.length > 0) {
       const firstWrongId = incorrectAnswers[0];
@@ -44,13 +43,13 @@ export default function KCList({
         {moduleQuestions.map((item) => (
           <div key={item.id} ref={(el) => (refs.current[item.id] = el)}>
             <KCItems
-            moduleID = {moduleID}
+              moduleID={moduleID}
               id={item.id}
               question={item.question}
               choices={item.choices}
               onAnswerSelected={handleAnswerSelected}
               isIncorrect={incorrectAnswers.includes(item.id)}
-              isCorrect={correctAnswers.includes(item.id)} 
+              isCorrect={correctAnswers.includes(item.id)}
             />
           </div>
         ))}

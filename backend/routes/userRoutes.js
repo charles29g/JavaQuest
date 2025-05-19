@@ -4,7 +4,5 @@ const {
   markModuleCompleteDirect,
 } = require("../controllers/userProgressController");
 
-
-
 router.put("/:id/completedModules", markModuleCompleteDirect);
 module.exports = router;

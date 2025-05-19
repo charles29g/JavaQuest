@@ -2,7 +2,7 @@ import { useEffect, useState, useRef } from "react";
 import Admin_QuizQuestion from "./Admin_quizQuestion.jsx";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
-import UpdateQuestionModal from "./Update/Admin_UpdateQuizQuestion.jsx"; // create this next
+import UpdateQuestionModal from "./Update/Admin_UpdateQuizQuestion.jsx";
 import AddQuestionModal from "./Create/Admin_AddQuestionModal.jsx";
 
 export default function Quiz({ moduleID }) {
@@ -21,7 +21,6 @@ export default function Quiz({ moduleID }) {
     addModalRef.current.openModal();
   };
 
-  // Fetch questions from the backend
   useEffect(() => {
     async function fetchQuestions() {
       try {

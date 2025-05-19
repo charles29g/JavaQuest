@@ -65,7 +65,7 @@ export default function Admin_ModuleLessons({
           <button
             style={{ marginTop: "20vh" }}
             className="btn btn-info "
-            onClick={() => addModuleModalRef.current.openModal()} // Use the new ref here
+            onClick={() => addModuleModalRef.current.openModal()}
           >
             Add Another Section
           </button>

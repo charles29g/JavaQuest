@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom"; // <-- import this for redirect
+import { useNavigate } from "react-router-dom";
 import GoogleLoginButton from "./GoogleLoginButton";
 
 export default function LoginForm() {
@@ -11,11 +11,11 @@ export default function LoginForm() {
     confirmPassword: "",
   });
   const [message, setMessage] = useState("");
-  //OTP
+
   const [otpSent, setOtpSent] = useState(false);
   const [otp, setOtp] = useState("");
 
-  const navigate = useNavigate(); // <-- initialize navigate
+  const navigate = useNavigate();
 
   const toggleSignup = () => setIsSignup(!isSignup);
 
@@ -42,7 +42,6 @@ export default function LoginForm() {
       setMessage("✅ Login successful!");
       sessionStorage.setItem("token", data.token);
 
-      // Redirect to /modules after successful login
       navigate("/modules");
     } catch (err) {
       setMessage("❌ " + err.message);
@@ -110,7 +109,6 @@ export default function LoginForm() {
     <div style={{ minHeight: "80vh" }} className="d-flex align-items-center">
       <div className="container">
         <div className="row gx-7 align-items-center">
-          {/* Left Intro Section */}
           <div className="form-col col-md-5 text-md-start mt-2 mb-md-0">
             <h1 className="titlefont text-white glow-text">JavaQuest</h1>
             <p className="text-white small">
@@ -123,7 +121,6 @@ export default function LoginForm() {
             </p>
           </div>
 
-          {/* Right Form Section */}
           <div className="form-col col-md-4 offset-md-3">
             <div
               style={{

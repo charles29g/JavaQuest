@@ -33,7 +33,7 @@ const UpdateQuestionModal = forwardRef(({ onUpdate }, ref) => {
     setData((prev) => ({
       ...prev,
       choices: newChoices,
-      // Reset answer if it's no longer among the updated choices
+
       answer: newChoices.includes(prev.answer) ? prev.answer : "",
     }));
   };

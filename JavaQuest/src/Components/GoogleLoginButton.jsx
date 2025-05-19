@@ -1,11 +1,10 @@
 import { GoogleLogin } from "@react-oauth/google";
-import { jwtDecode } from "jwt-decode"; // fixed import
+import { jwtDecode } from "jwt-decode";
 import { useNavigate } from "react-router-dom";
 
 const GoogleLoginButton = () => {
   const navigate = useNavigate();
 
-  // Helper to fetch user info from /api/auth/me
   const fetchUserInfo = async (token) => {
     try {
       const res = await fetch("http://localhost:5000/api/auth/me", {
@@ -52,7 +51,6 @@ const GoogleLoginButton = () => {
 
         console.log("User info from /me:", user);
 
-        // Navigate based on role
         if (user.role === "admin") {
           navigate("/Admin");
         } else {

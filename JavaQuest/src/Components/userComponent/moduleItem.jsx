@@ -12,13 +12,12 @@ export default function ModuleItem({
   const navigate = useNavigate();
   console.log("user", user);
   console.log("id", id);
-  // Determine if quiz button should be disabled
+
   let isDisabled = true;
 
   if (quizConfig === "open") {
     isDisabled = false;
   } else if (quizConfig === "openUponCompletion") {
-    // Check if user.completedModules contains this module id
     if (user && Array.isArray(user.completedModules)) {
       isDisabled = !user.completedModules.includes(id);
     } else {
@@ -63,7 +62,7 @@ export default function ModuleItem({
               }}
               disabled={isDisabled}
             >
-              {quiz} 
+              {quiz}
             </button>
           </div>
 

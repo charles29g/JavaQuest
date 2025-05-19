@@ -2,7 +2,6 @@ import { useState } from "react";
 import Swal from "sweetalert2";
 import { Trash2, Pencil } from "lucide-react";
 
-
 export default function Admin_KCItems({
   _id,
   id,
@@ -14,19 +13,17 @@ export default function Admin_KCItems({
   handleUpdateQuestion,
   handleDeleteQuestion,
 }) {
-  //console.log("_id" + _id);
-
   const [isEditing, setIsEditing] = useState(false);
   const [editedQuestion, setEditedQuestion] = useState(question);
   const [editedChoices, setEditedChoices] = useState([...choices]);
-  const [editedCorrectAnswer, setEditedCorrectAnswer] = useState(choices[0]); // Default to first choice
+  const [editedCorrectAnswer, setEditedCorrectAnswer] = useState(choices[0]);
 
   const handleAnswerChange = (e) => {
     onAnswerSelected(_id, e.target.value);
   };
 
   const handleDelete = (e) => {
-    e.preventDefault(); // prevent default form behavior (just in case)
+    e.preventDefault();
     Swal.fire({
       title: "Are you sure?",
       text: "This question will be permanently deleted.",
@@ -38,7 +35,6 @@ export default function Admin_KCItems({
       cancelButtonText: "Cancel",
     }).then((result) => {
       if (result.isConfirmed) {
-        // Ensure this doesn't itself call another Swal
         handleDeleteQuestion(_id);
       }
     });
@@ -77,7 +73,7 @@ export default function Admin_KCItems({
     if (editedChoices.length > 1) {
       const newChoices = editedChoices.filter((_, i) => i !== index);
       setEditedChoices(newChoices);
-      // If we're removing the correct answer, reset to first choice
+
       if (editedCorrectAnswer === editedChoices[index]) {
         setEditedCorrectAnswer(newChoices[0]);
       }
@@ -95,7 +91,6 @@ export default function Admin_KCItems({
       }`}
     >
       {isEditing ? (
-        // Edit Mode
         <div className="edit-mode">
           <div className="mb-3">
             <label className="form-label fw-semibold">Question:</label>
@@ -162,15 +157,11 @@ export default function Admin_KCItems({
           </div>
         </div>
       ) : (
-        // View Mode
         <>
           <div className="d-flex justify-content-between align-items-start mb-2">
             <h5 className="fw-semibold mb-0">{question}</h5>
             <div className="d-flex gap-2">
-              <button
-                className="btn btn-sm btn-warning"
-                onClick={handleEdit}
-              >
+              <button className="btn btn-sm btn-warning" onClick={handleEdit}>
                 <Pencil />
               </button>
               <button

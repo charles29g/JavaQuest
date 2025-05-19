@@ -64,7 +64,7 @@ export default function KCPage({ moduleID }) {
 
       const data = await res.json();
       console.log("Module progress updated:", data);
-      setModuleUpdated(true); // prevent duplicate calls
+      setModuleUpdated(true);
     } catch (err) {
       console.error("Error updating module progress:", err);
     }

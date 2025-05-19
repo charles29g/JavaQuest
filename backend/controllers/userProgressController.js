@@ -1,41 +1,5 @@
-const User = require("../models/userModel"); // Adjust if needed
+const User = require("../models/userModel");
 const jwt = require("jsonwebtoken");
-
-// // Update user's completed modules
-// exports.markModuleComplete = async (req, res) => {
-//   try {
-//     const { token, moduleId } = req.body;
-
-//     if (!token || !moduleId) {
-//       return res
-//         .status(400)
-//         .json({ error: "Token and moduleId are required." });
-//     }
-
-//     const decoded = jwt.verify(token, process.env.JWT_SECRET);
-//     const user = await User.findById(decoded.id); // or decoded._id
-
-//     if (!user) {
-//       return res.status(404).json({ error: "User not found." });
-//     }
-
-//     // Initialize modulesDone if not present
-//     if (!Array.isArray(user.modulesDone)) {
-//       user.modulesDone = [];
-//     }
-
-//     // Only add if not already included
-//     if (!user.modulesDone.includes(moduleId)) {
-//       user.modulesDone.push(moduleId);
-//       await user.save();
-//     }
-
-//     res.json({ success: true, modulesDone: user.modulesDone });
-//   } catch (err) {
-//     console.error("Progress Update Error:", err.message);
-//     res.status(500).json({ error: err.message });
-//   }
-// };
 
 exports.markModuleCompleteDirect = async (req, res) => {
   try {
