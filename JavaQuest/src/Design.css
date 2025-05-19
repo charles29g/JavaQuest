@@ -579,6 +579,8 @@ body,
   width: 400px !important;
   margin: 0 auto;
 }
+
+
 @media (max-width: 768px) {
   .title {
     width: 100% !important;
@@ -595,6 +597,7 @@ body,
   top: 300px;
 }
 
+
 @media (max-width: 376px) {
   .navbar-toggler {
     background-color: whitesmoke !important;
@@ -607,6 +610,13 @@ body,
     margin-top: 20px !important;
     margin-left: 0px !important;
   }
+
+  #login-navbar-toggler {
+    background-color: whitesmoke !important;
+    margin-top: 0px !important;
+    margin-left: 0px !important;
+  }
+
 
   .titlefont{
     margin-top: 5px !important;
@@ -666,12 +676,21 @@ body,
   margin: 5px;
 }
 
+.form-col{
+  padding-left: 0px;
+  padding-right: 0px;
+}
+
 .row-container{
   --bs-gutter-x: ;
   margin: 0px;
 }
 
 .landpg-navbar{
+  --bs-navbar-padding-y: 0rem;
+}
+
+.login-navbar{
   --bs-navbar-padding-y: 0rem;
 }
 
@@ -684,9 +703,17 @@ body,
   background-color: transparent !important;
 }
 
+.login-nav{
+  margin-left: 0px !important;
+  background-color: transparent !important;
+}
+
 .landpg-navbar-nav{
   margin-left: 0px !important;
+}
 
+.login-navbar-nav{
+  margin-left: 0px !important;
 }
 
     .nav-content {
@@ -716,6 +743,13 @@ body,
 #intro{
   font-size: 14px !important;
 }
+
+.container-login {
+  height:100%;        /* or any fixed height */
+  overflow-y: auto;     /* 'auto' shows scroll only when needed */
+  padding: 1rem;
+}
+
 
 }
 

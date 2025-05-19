@@ -111,7 +111,7 @@ export default function LoginForm() {
       <div className="container">
         <div className="row gx-7 align-items-center">
           {/* Left Intro Section */}
-          <div className="col-md-5 text-center text-md-start mb-5 mb-md-0">
+          <div className="form-col col-md-5 text-md-start mt-2 mb-md-0">
             <h1 className="titlefont text-white glow-text">JavaQuest</h1>
             <p className="text-white small">
               JavaQuest is an engaging and dynamic online platform designed to
@@ -124,7 +124,7 @@ export default function LoginForm() {
           </div>
 
           {/* Right Form Section */}
-          <div className="col-md-4 offset-md-3">
+          <div className="form-col col-md-4 offset-md-3">
             <div
               style={{
                 backgroundColor: "#fff",

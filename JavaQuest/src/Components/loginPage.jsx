@@ -14,10 +14,11 @@ export default function LandingPage({ GoogleLoginButton }) {
   return (
     <div className="transition-container">
       <div className="backgroundimg">
-        <div className="container">
-          <nav className="navbar navbar-expand-lg bg-transparent text-white px-4">
+        <div className="container container-login">
+          <nav className="login-navbar navbar navbar-expand-lg bg-transparent text-white">
             <button
               className="navbar-toggler"
+              id="login-navbar-toggler"
               type="button"
               data-bs-toggle="collapse"
               data-bs-target="#navbarNav"
@@ -27,8 +28,8 @@ export default function LandingPage({ GoogleLoginButton }) {
             >
               <span className="navbar-toggler-icon"></span>
             </button>
-            <div className="collapse navbar-collapse" id="navbarNav">
-              <div className="navbar-nav d-flex flex-row gap-4">
+            <div className="collapse navbar-collapse login-nav" id="navbarNav">
+              <div className="navbar-nav login-navbar-nav d-flex flex-row gap-4">
                 <a className="nav-link text-white" href="#">
                   About Us
                 </a>
