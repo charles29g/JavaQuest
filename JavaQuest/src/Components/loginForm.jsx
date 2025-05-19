@@ -132,6 +132,7 @@ export default function LoginForm() {
                 borderRadius: "8px",
                 maxWidth: "100%",
                 minWidth: "280px",
+                color: "black",
               }}
               className={isSignup ? "signup-mode" : ""}
             >

@@ -151,7 +151,9 @@ router.get("/me", async (req, res) => {
     const decoded = jwt.verify(token, JWT_SECRET);
     console.log("✅ decoded token:", decoded);
 
-    const user = await User.findById(decoded.id).select("name email role");
+    const user = await User.findById(decoded.id).select(
+      "name email role completedModules"
+    );
     if (!user) return res.status(404).json({ message: "User not found" });
 
     res.status(200).json({ user });
