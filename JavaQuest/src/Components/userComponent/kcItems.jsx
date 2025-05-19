@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 export default function KCItems({
   id,
   question,
@@ -10,40 +9,6 @@ export default function KCItems({
   const handleAnswerChange = (e) => {
     onAnswerSelected(id, e.target.value);
   };
-
-  const [user, setUser] = useState(null);
-
-  const fetchUserInfo = async (token) => {
-    try {
-      const res = await fetch("http://localhost:5000/api/auth/me", {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-
-      if (!res.ok) {
-        throw new Error("Failed to fetch user info");
-      }
-
-      const data = await res.json();
-      return data.user;
-    } catch (error) {
-      console.error("Error fetching user info:", error);
-      return null;
-    }
-  };
-
-  useEffect(() => {
-    const token = sessionStorage.getItem("token");
-    if (token) {
-      fetchUserInfo(token).then((userData) => {
-        if (userData) {
-          console.log("Fetched user:", userData);
-          setUser(userData);
-        }
-      });
-    }
-  }, []);
 
   return (
     <div
@@ -79,14 +44,14 @@ export default function KCItems({
 
       {isIncorrect && (
         <small className="text-danger d-block mt-2 fw-bold">
-          🚩 Oops! That didn’t power up your car. Try again!
+          Oops! That didn’t power up your car. Try again!
         </small>
       )}
 
       {/* Correct answer message */}
       {isCorrect && (
         <small className="text-success d-block mt-2 fw-bold">
-          ✅ Well done! You’ve successfully powered up your car. Keep it going!
+          Well done! You’ve successfully powered up your car. Keep it going!
         </small>
       )}
     </div>

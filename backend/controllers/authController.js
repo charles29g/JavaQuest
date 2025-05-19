@@ -33,6 +33,7 @@ export const googleAuth = async (req, res) => {
         name,
         picture,
         role: isAdmin ? "admin" : "user",
+        completedModules: [],
       });
     }
 
@@ -55,6 +56,7 @@ export const googleAuth = async (req, res) => {
         name: user.name,
         picture: user.picture,
         role: user.role,
+        completedModules: user.completedModules,
       },
     });
   } catch (error) {

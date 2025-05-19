@@ -44,6 +44,7 @@ export default function KCList({
         {moduleQuestions.map((item) => (
           <div key={item.id} ref={(el) => (refs.current[item.id] = el)}>
             <KCItems
+            moduleID = {moduleID}
               id={item.id}
               question={item.question}
               choices={item.choices}
