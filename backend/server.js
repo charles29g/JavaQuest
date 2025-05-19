@@ -1,20 +1,21 @@
-import dotenv from "dotenv";
+import "./config.js";
+
 import express from "express";
 import mongoose from "mongoose";
 import cors from "cors";
 import path from "path";
 import { fileURLToPath } from "url";
+
 import moduleRoutes from "./routes/moduleRoutes.js";
 import questionRoutes from "./routes/questionRoutes.js";
 import moduleContentRoutes from "./routes/moduleContentRoutes.js";
 import JDoodleRoutes from "./routes/JDoodleRoutes.js";
 import authRoutes from "./routes/authRoutes.js";
 import kcRoutes from "./routes/KCRoutes.js";
+
 // Setup for __dirname in ES modules
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-
-dotenv.config();
 
 const app = express();
 
@@ -42,7 +43,6 @@ app.use("/api/modulecontents", moduleContentRoutes);
 app.use("/api/jdoodle", JDoodleRoutes);
 app.use("/api/auth", authRoutes);
 app.use("/api/kc", kcRoutes);
-app.use("/api/questions", questionRoutes);
 
 // Serve frontend in production
 if (process.env.NODE_ENV === "production") {

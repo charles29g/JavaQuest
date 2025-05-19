@@ -11,6 +11,9 @@ export default function LoginForm() {
     confirmPassword: "",
   });
   const [message, setMessage] = useState("");
+  //OTP
+  const [otpSent, setOtpSent] = useState(false);
+  const [otp, setOtp] = useState("");
 
   const navigate = useNavigate(); // <-- initialize navigate
 
@@ -49,33 +52,57 @@ export default function LoginForm() {
   const handleSignupSubmit = async (e) => {
     e.preventDefault();
 
-    if (formData.password !== formData.confirmPassword) {
-      alert("Passwords do not match");
-      return;
-    }
-
-    try {
-      const response = await fetch("http://localhost:5000/api/auth/register", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          name: formData.name,
-          email: formData.email,
-          password: formData.password,
-        }),
-      });
-
-      const data = await response.json();
-
-      if (!response.ok) {
-        throw new Error(data.message || "Signup failed");
+    if (!otpSent) {
+      if (formData.password !== formData.confirmPassword) {
+        alert("Passwords do not match");
+        return;
       }
 
-      alert("✅ Registration successful! You can now log in.");
-      setIsSignup(false);
-    } catch (error) {
-      alert(error.message);
-      console.error("Signup error:", error);
+      try {
+        const res = await fetch("http://localhost:5000/api/auth/send-otp", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email: formData.email }),
+        });
+
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.message || "Failed to send OTP");
+
+        alert("✅ OTP sent to your email");
+        setOtpSent(true);
+      } catch (err) {
+        alert("❌ " + err.message);
+      }
+    } else {
+      try {
+        const response = await fetch(
+          "http://localhost:5000/api/auth/register",
+          {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              name: formData.name,
+              email: formData.email,
+              password: formData.password,
+              otp,
+            }),
+          }
+        );
+
+        const data = await response.json();
+
+        if (!response.ok) {
+          throw new Error(data.message || "Signup failed");
+        }
+
+        alert("✅ Registration successful! You can now log in.");
+        setIsSignup(false);
+        setOtpSent(false);
+        setOtp("");
+      } catch (error) {
+        alert(error.message);
+        console.error("Signup error:", error);
+      }
     }
   };
 
@@ -222,6 +249,20 @@ export default function LoginForm() {
                         required
                       />
                     </label>
+                    {otpSent && (
+                      <label className="form-label w-100 mb-2">
+                        <span>Enter OTP</span>
+                        <input
+                          type="text"
+                          name="otp"
+                          className="form-control"
+                          value={otp}
+                          onChange={(e) => setOtp(e.target.value)}
+                          required
+                        />
+                      </label>
+                    )}
+
                     <button
                       type="submit"
                       className="btn btn-primary w-100 mb-3"

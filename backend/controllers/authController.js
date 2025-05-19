@@ -2,9 +2,12 @@ import { OAuth2Client } from "google-auth-library"; // or use require if you're 
 const client = new OAuth2Client(process.env.VITE_GOOGLE_CLIENT_ID);
 import User from "../models/userModel.js"; // adjust the path to your actual model file
 import jwt from "jsonwebtoken";
+console.log("🔐 ENV JWT_SECRET:", process.env.JWT_SECRET);
+const JWT_SECRET = process.env.JWT_SECRET;
 
 export const googleAuth = async (req, res) => {
   const adminEmails = ["charlesjoseph.gutierrez.cics@ust.edu.ph"];
+  console.log("🧪 JWT_SECRET from env:", process.env.JWT_SECRET);
 
   try {
     const { token } = req.body;
@@ -34,7 +37,7 @@ export const googleAuth = async (req, res) => {
       user.role = isAdmin ? "admin" : "user";
       await user.save();
     }
-
+    console.log("JWT_SECRET is:", JWT_SECRET);
     const jwtToken = jwt.sign(
       { id: user._id, role: user.role },
       process.env.JWT_SECRET,
