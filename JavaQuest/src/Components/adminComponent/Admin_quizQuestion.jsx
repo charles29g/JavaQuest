@@ -1,3 +1,5 @@
+import { Pencil, Trash2, Cross, Check } from "lucide-react";
+
 export default function Admin_QuizQuestion({
   id,
   question,
@@ -32,10 +34,10 @@ export default function Admin_QuizQuestion({
         </h5>
         <div>
           <button className="btn btn-sm btn-warning me-2" onClick={onEdit}>
-            ✏️
+            <Pencil />
           </button>
           <button className="btn btn-sm btn-danger" onClick={onDelete}>
-            🗑️
+            <Trash2 />
           </button>
         </div>
       </div>
@@ -63,11 +65,14 @@ export default function Admin_QuizQuestion({
 
       {isIncorrect && (
         <div className="text-danger mt-2 fw-bold">
-          ❌ That's not the right answer.
+          <Cross /> That's not the right answer.
         </div>
       )}
       {isCorrect && (
-        <div className="text-success mt-2 fw-bold">✅ Correct!</div>
+        <div className="text-success mt-2 fw-bold">
+          {" "}
+          <Check /> Correct!
+        </div>
       )}
     </div>
   );

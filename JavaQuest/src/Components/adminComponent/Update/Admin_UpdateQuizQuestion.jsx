@@ -1,7 +1,7 @@
-import React, { forwardRef, useImperativeHandle, useState } from "react";
+import React, { useState, useEffect } from "react";
 import Swal from "sweetalert2";
 
-const UpdateQuestionModal = forwardRef(({ onUpdate }, ref) => {
+export default function UpdateQuestionModal({ isOpen, onClose, questionData, onUpdate }) {
   const [data, setData] = useState({
     _id: "",
     id: "",
@@ -10,22 +10,17 @@ const UpdateQuestionModal = forwardRef(({ onUpdate }, ref) => {
     answer: "",
   });
 
-  useImperativeHandle(ref, () => ({
-    openModal(questionData) {
+  useEffect(() => {
+    if (isOpen && questionData) {
       setData({
-        _id: questionData._id,
-        id: questionData.id,
-
-        question: questionData.question,
-        choices: [...questionData.choices],
-        answer: questionData.answer,
+        _id: questionData._id || "",
+        id: questionData.id || "",
+        question: questionData.question || "",
+        choices: questionData.choices ? [...questionData.choices] : ["", "", "", ""],
+        answer: questionData.answer || "",
       });
-      const modal = new window.bootstrap.Modal(
-        document.getElementById("updateQuestionModal")
-      );
-      modal.show();
-    },
-  }));
+    }
+  }, [isOpen, questionData]);
 
   const handleChoiceChange = (index, value) => {
     const newChoices = [...data.choices];
@@ -33,13 +28,13 @@ const UpdateQuestionModal = forwardRef(({ onUpdate }, ref) => {
     setData((prev) => ({
       ...prev,
       choices: newChoices,
-      // Reset answer if it's no longer among the updated choices
       answer: newChoices.includes(prev.answer) ? prev.answer : "",
     }));
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     const result = await Swal.fire({
       title: "Update Question?",
       icon: "warning",
@@ -50,44 +45,45 @@ const UpdateQuestionModal = forwardRef(({ onUpdate }, ref) => {
     if (!result.isConfirmed) return;
 
     try {
-      const res = await fetch(
-        `http://localhost:5000/api/questions/${data._id}`,
-        {
-          method: "PUT",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(data),
-        }
-      );
+      const res = await fetch(`http://localhost:5000/api/questions/${data._id}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      });
 
       const updated = await res.json();
       if (!res.ok) throw new Error(updated.error || "Failed to update");
 
       onUpdate(updated);
-      window.bootstrap.Modal.getInstance(
-        document.getElementById("updateQuestionModal")
-      ).hide();
       Swal.fire("Updated!", "Question updated successfully.", "success");
+      onClose();
     } catch (err) {
       Swal.fire("Error", err.message, "error");
     }
   };
 
+  if (!isOpen) return null;
+
   return (
-    <div className="modal fade" id="updateQuestionModal" tabIndex="-1">
-      <div className="modal-dialog">
-        <div className="modal-content glass corner">
+    <div
+      className="modal-backdrop show d-flex w-100 justify-content-center align-items-center"
+      style={{ zIndex: 1050 }}
+    >
+      <div className="modal-dialog" style={{ maxWidth: "700px", width: "90%" }}>
+        <div className="modal-content glass w-100 corner">
           <form onSubmit={handleSubmit}>
             <div className="modal-header">
               <h5 className="modal-title text-white">Update Question</h5>
               <button
                 type="button"
-                className="btn-close"
-                data-bs-dismiss="modal"
+                className="btn-close btn-close-white"
+                aria-label="Close"
+                onClick={onClose}
               />
             </div>
             <div className="modal-body text-white">
               <div className="mb-3">
-                <label className="form-label">Question Number</label>
+                <label className="form-label descfont">Question Number</label>
                 <input
                   type="text"
                   className="form-control"
@@ -95,20 +91,18 @@ const UpdateQuestionModal = forwardRef(({ onUpdate }, ref) => {
                   onChange={(e) => setData({ ...data, id: e.target.value })}
                   required
                 />
-                <label className="form-label">Question</label>
+                <label className="form-label descfont mt-3">Question</label>
                 <input
                   type="text"
                   className="form-control"
                   value={data.question}
-                  onChange={(e) =>
-                    setData({ ...data, question: e.target.value })
-                  }
+                  onChange={(e) => setData({ ...data, question: e.target.value })}
                   required
                 />
               </div>
 
               <div className="mb-3">
-                <label className="form-label">Choices</label>
+                <label className="form-label descfont">Choices</label>
                 {data.choices.map((choice, index) => (
                   <input
                     key={index}
@@ -123,7 +117,7 @@ const UpdateQuestionModal = forwardRef(({ onUpdate }, ref) => {
               </div>
 
               <div className="mb-3">
-                <label className="form-label">Correct Answer</label>
+                <label className="form-label descfont">Correct Answer</label>
                 <select
                   className="form-select"
                   value={data.answer}
@@ -143,8 +137,12 @@ const UpdateQuestionModal = forwardRef(({ onUpdate }, ref) => {
                 </select>
               </div>
 
-              <button type="submit" className="btn btn-success w-100">
-                ✅ Update Question
+              <button
+                type="submit"
+                className="btn btn-primary descfont w-100 glow-on-hover"
+                style={{ backgroundColor: "#033592" }}
+              >
+                Update Question
               </button>
             </div>
           </form>
@@ -152,6 +150,4 @@ const UpdateQuestionModal = forwardRef(({ onUpdate }, ref) => {
       </div>
     </div>
   );
-});
-
-export default UpdateQuestionModal;
+}

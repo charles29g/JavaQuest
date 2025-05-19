@@ -2,7 +2,7 @@ import { useEffect, useState, useRef } from "react";
 import Admin_QuizQuestion from "./Admin_quizQuestion.jsx";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
-import UpdateQuestionModal from "./Update/Admin_UpdateQuizQuestion.jsx"; // create this next
+import UpdateQuestionModal from "./Update/Admin_UpdateQuizQuestion.jsx"; // function component now
 import AddQuestionModal from "./Create/Admin_AddQuestionModal.jsx";
 
 export default function Quiz({ moduleID }) {
@@ -15,8 +15,14 @@ export default function Quiz({ moduleID }) {
   const questions = questions1.filter((q) => q.moduleid === moduleID);
 
   const navigate = useNavigate();
-  const modalRef = useRef();
+
+  // For AddQuestionModal - keep ref if that modal still uses ref/openModal
   const addModalRef = useRef();
+
+  // NEW state to handle UpdateQuestionModal visibility & selected question
+  const [isUpdateModalOpen, setIsUpdateModalOpen] = useState(false);
+  const [questionToEdit, setQuestionToEdit] = useState(null);
+
   const handleAdd = () => {
     addModalRef.current.openModal();
   };
@@ -101,10 +107,19 @@ export default function Quiz({ moduleID }) {
     }
   };
 
+  // UPDATED: open update modal by setting state
   const handleEdit = (question) => {
-    modalRef.current.openModal(question);
+    setQuestionToEdit(question);
+    setIsUpdateModalOpen(true);
   };
 
+  // UPDATED: close update modal
+  const handleCloseUpdateModal = () => {
+    setIsUpdateModalOpen(false);
+    setQuestionToEdit(null);
+  };
+
+  // UPDATED: update question in state after edit
   const handleUpdate = (updated) => {
     setQuestions((prev) =>
       prev.map((q) => (q.id === updated.id ? updated : q))
@@ -180,7 +195,13 @@ export default function Quiz({ moduleID }) {
         setQuestions={setQuestions}
       />
 
-      <UpdateQuestionModal ref={modalRef} onUpdate={handleUpdate} />
+      {/* UPDATED: function component style with isOpen, onClose, questionData */}
+      <UpdateQuestionModal
+        isOpen={isUpdateModalOpen}
+        onClose={handleCloseUpdateModal}
+        questionData={questionToEdit}
+        onUpdate={handleUpdate}
+      />
     </div>
   );
 }
