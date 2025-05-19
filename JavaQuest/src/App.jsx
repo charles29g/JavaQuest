@@ -20,6 +20,7 @@ import Admin_UpdatemoduleItem from "./Components/adminComponent/Update/Admin_Upd
 import GoogleLoginButton from "./Components/GoogleLoginButton.jsx";
 import AboutUs from "./aboutus.jsx";
 import References from "./resources.jsx";
+import Update from "./updates.jsx";
 export default function App() {
   const [ModuleItems, setModuleItems] = useState([]);
   const [ModuleContents, setModuleContents] = useState([]);
@@ -64,6 +65,11 @@ export default function App() {
        <Route
         path="/Resources"
         element={<References/>}
+       />
+
+       <Route
+        path="/Updates"
+        element={<Update/>}
        />
         <Route
           path="/Admin"
