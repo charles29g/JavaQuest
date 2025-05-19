@@ -174,7 +174,7 @@ export default function Admin_ModuleLessonContents({
 
   return (
     <section id={id2}>
-      <div className="row align-items-center justify-content-center padding">
+      <div className="row align-items-center text-dark justify-content-center padding">
         <h3 className="descfont text-center">Edit Module Contents</h3>
         <div className="col-md-6 mb-4 mb-md-0">
           <label className="form-label">Section ID</label>
