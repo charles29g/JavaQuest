@@ -35,7 +35,7 @@ function LandingNavbar() {
           >
             About Us
           </a>
-          <a className="nav-link text-white" onClick={() => navigate("/")}>
+          <a className="nav-link text-white" onClick={() => navigate("/Resources")}>
             Resources
           </a>
           <a className="nav-link text-white" onClick={() => navigate("/")}>

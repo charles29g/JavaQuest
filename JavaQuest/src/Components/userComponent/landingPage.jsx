@@ -41,16 +41,16 @@ export default function LandingPage() {
             </button>
             <div className="collapse navbar-collapse landpg-nav" id="navbarNav">
               <div className="navbar-nav landpg-navbar-nav d-flex flex-row gap-4" >
-                <a className="nav-link text-white"  onClick={navigate("/")}> 
+                <a className="nav-link text-white" onClick={() => navigate("/")}> 
                   Home
                 </a>
-                <a className="nav-link text-white"  onClick={navigate("/AboutUS")}> 
+                <a className="nav-link text-white"  onClick={() => navigate("/AboutUs")}> 
                   About Us
                 </a>
-                <a className="nav-link text-white" onClick={navigate("/")}>
+                <a className="nav-link text-white" onClick={() => navigate("/")}>
                   Resources
                 </a>
-                <a className="nav-link text-white"  onClick={navigate("/")}>
+                <a className="nav-link text-white"  onClick={() => navigate("/")}>
                   Updates
                 </a>
               </div>
