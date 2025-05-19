@@ -14,8 +14,6 @@ export default function Admin_KCList({
   console.log(isLoading);
   const refs = useRef({}); // Store refs for each question
 
- 
-
   // Scroll to first incorrect item after submit
   useEffect(() => {
     if (incorrectAnswers.length > 0) {
@@ -35,8 +33,6 @@ export default function Admin_KCList({
   };
 
   const handleDeleteQuestion = async (_id) => {
-  
-
     setIsLoading(true);
     try {
       const response = await fetch(`http://localhost:5000/api/kc/${_id}`, {
@@ -71,7 +67,7 @@ export default function Admin_KCList({
     });
 
     if (!result.isConfirmed) return;
-
+    console.log(updatedData);
     setIsLoading(true);
     try {
       const response = await fetch(`http://localhost:5000/api/kc/${_id}`, {
@@ -81,7 +77,7 @@ export default function Admin_KCList({
         },
         body: JSON.stringify({
           question: updatedData.question,
-          options: updatedData.choices,
+          choices: updatedData.choices,
           correctAnswer: updatedData.correctAnswer,
           moduleID: moduleID,
         }),
@@ -110,7 +106,6 @@ export default function Admin_KCList({
       <div className="w-100">
         <div className="w-100 d-flex justify-content-between align-items-center">
           <h3 className="text-white">Knowledge Checkpoint</h3>
-        
         </div>
 
         <hr className="text-white mx-auto d-block" />

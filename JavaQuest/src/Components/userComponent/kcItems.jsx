@@ -1,14 +1,49 @@
+import { useEffect, useState } from "react";
 export default function KCItems({
   id,
   question,
   choices,
   onAnswerSelected,
   isIncorrect,
-  isCorrect, 
+  isCorrect,
 }) {
   const handleAnswerChange = (e) => {
     onAnswerSelected(id, e.target.value);
   };
+
+  const [user, setUser] = useState(null);
+
+  const fetchUserInfo = async (token) => {
+    try {
+      const res = await fetch("http://localhost:5000/api/auth/me", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (!res.ok) {
+        throw new Error("Failed to fetch user info");
+      }
+
+      const data = await res.json();
+      return data.user;
+    } catch (error) {
+      console.error("Error fetching user info:", error);
+      return null;
+    }
+  };
+
+  useEffect(() => {
+    const token = sessionStorage.getItem("token");
+    if (token) {
+      fetchUserInfo(token).then((userData) => {
+        if (userData) {
+          console.log("Fetched user:", userData);
+          setUser(userData);
+        }
+      });
+    }
+  }, []);
 
   return (
     <div

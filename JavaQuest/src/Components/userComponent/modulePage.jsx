@@ -3,16 +3,22 @@ import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { ChevronLeft } from "lucide-react";
 
-export default function ModulePage({ ModuleItems, setPage, setModuleID }) {
+export default function ModulePage({
+  ModuleItems,
+  setPage,
+  setModuleID,
+  setUserID,
+}) {
   const navigate = useNavigate();
   const [user, setUser] = useState(null);
+  console.log("Test");
 
+  console.log(user);
   // Fetch user info on mount
   useEffect(() => {
     const fetchUser = async () => {
       const token = sessionStorage.getItem("token");
       if (!token) {
-        navigate("/login"); // No token, redirect to login
         return;
       }
       try {
@@ -22,9 +28,10 @@ export default function ModulePage({ ModuleItems, setPage, setModuleID }) {
         if (!res.ok) throw new Error("Failed to fetch user");
         const data = await res.json();
         setUser(data.user);
+        setUserID(data.user._id);
       } catch (err) {
         console.error(err);
-        sessionStorage.removeItem("token");
+        // sessionStorage.removeItem("token");
         navigate("/login");
       }
     };
@@ -43,8 +50,12 @@ export default function ModulePage({ ModuleItems, setPage, setModuleID }) {
   return (
     <div className="backgroundimg2">
       <nav className="nav navbar d-flex justify-content-between align-items-center px-3">
-        <button className="btn descfont text-white" onClick={() => goBack()} value="landingPage">
-          <ChevronLeft/> Go Back
+        <button
+          className="btn descfont text-white"
+          onClick={() => goBack()}
+          value="landingPage"
+        >
+          <ChevronLeft /> Go Back
         </button>
         <h6 className="titlefont2 text-white m-0 typing mx-auto">JavaQuest</h6>
         {/* User Tab */}
@@ -93,13 +104,19 @@ export default function ModulePage({ ModuleItems, setPage, setModuleID }) {
             />
           </div>
         </div>
-        <h2 className="text-white text-center mt-4">Modules</h2>
-
-        <ModuleList
-          ModuleItems={ModuleItems}
-          setPage={setPage}
-          setModuleID={setModuleID}
-        />
+        {user ? (
+          <>
+            <h2 className="text-white text-center mt-4">Modules</h2>
+            <ModuleList
+              // UserID={userID}
+              ModuleItems={ModuleItems}
+              setPage={setPage}
+              setModuleID={setModuleID}
+            />
+          </>
+        ) : (
+          <div className="text-white text-center mt-4">Loading modules...</div>
+        )}
       </div>
     </div>
   );

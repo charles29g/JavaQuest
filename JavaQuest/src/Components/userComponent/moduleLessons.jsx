@@ -13,6 +13,7 @@ export default function ModuleLessons({
   selectedAnswers,
   setSelectedAnswers,
   KCCheckQA,
+  userID,
 }) {
   const navigate = useNavigate();
 
@@ -70,11 +71,12 @@ export default function ModuleLessons({
                     key={item.id}
                     id={item.id}
                     imgpath={item.sectionImage}
-                    codeInit = {item.code}
+                    codeInit={item.code}
                   />
                 ))}
               </div>
               <KCPage
+                userID={userID}
                 KCQA={KCQA}
                 moduleID={moduleID}
                 selectedAnswers={selectedAnswers}
@@ -86,7 +88,10 @@ export default function ModuleLessons({
             <div className="alert nolesson alert-info text-center shadow-sm p-4 mx-auto d-flex justify-content-center align-items-center min-vh-75">
               <div className="row text-center d-flex justify-content-center align-items-center ">
                 <strong>No lessons available for this module.</strong>
-                <button className="gradient" onClick={() => navigate("/modules")}>
+                <button
+                  className="gradient"
+                  onClick={() => navigate("/modules")}
+                >
                   Go Back
                 </button>
               </div>

@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 
 export default function ModuleItem({
+  UserID,
   id,
   name,
   quiz,
@@ -53,7 +54,7 @@ export default function ModuleItem({
               {quizConfig !== "open" && (
                 <p className="text-white mt-2 mb-0 small">
                   This quiz is currently locked. Please wait for the
-                  administrator to open it.
+                  administrator to open it. {UserID}
                 </p>
               )}
             </div>

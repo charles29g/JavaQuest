@@ -40,6 +40,7 @@ export default function App() {
   console.log(ModuleContents);
 
   const [moduleID, setModuleID] = useState(1);
+  const [userID, setUserID] = useState(null);
 
   return (
     <Router>
@@ -66,7 +67,11 @@ export default function App() {
         <Route
           path="/modules"
           element={
-            <ModulePage ModuleItems={ModuleItems} setModuleID={setModuleID} />
+            <ModulePage
+              ModuleItems={ModuleItems}
+              setUserID={setUserID}
+              setModuleID={setModuleID}
+            />
           }
         />
         <Route
@@ -83,6 +88,8 @@ export default function App() {
           path="/lessons"
           element={
             <ModuleLessons
+              userID={userID}
+              setUserID={setUserID}
               ModuleContents={ModuleContents}
               moduleID={moduleID}
               KCQA={KCQA}
