@@ -1,4 +1,3 @@
-// JDoodleCompiler.jsx
 import React, { useState, useEffect } from "react";
 import MonacoEditor from "@monaco-editor/react";
 
@@ -7,8 +6,6 @@ function JDoodleAPICompiler({ codeInit }) {
   const [output, setOutput] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
-
-  // Return nothing if code is empty or whitespace only
 
   async function runCode() {
     setLoading(true);
@@ -172,7 +169,4 @@ function JDoodleEmbedCompiler() {
   );
 }
 
-// Default export:
 export default JDoodleAPICompiler;
-// To use embed version, switch to:
-// export default JDoodleEmbedCompiler;

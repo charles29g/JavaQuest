@@ -1,11 +1,10 @@
-// If you renamed to lowercase:
-const Module = require("../models/module.model"); // Lowercase to match filename
+const Module = require("../models/module.model");
 
 exports.getModules = async (req, res) => {
   try {
-    console.log("Fetching modules..."); // Check if the request is received
+    console.log("Fetching modules...");
     const modules = await Module.find();
-    console.log(modules); // Ensure modules are fetched correctly
+    console.log(modules);
     res.json(modules);
   } catch (err) {
     res.status(500).json({ error: err.message });
@@ -14,8 +13,8 @@ exports.getModules = async (req, res) => {
 };
 
 exports.updateModule = async (req, res) => {
-  const { id } = req.params; // ID of the module to update
-  const updateData = req.body; // Data to update
+  const { id } = req.params;
+  const updateData = req.body;
 
   try {
     const updatedModule = await Module.findByIdAndUpdate(id, updateData, {
@@ -46,14 +45,14 @@ exports.addModule = async (req, res) => {
 
     res.status(201).json(newModule);
   } catch (err) {
-    console.error("🔥 Error saving module:", err.message); // Log the actual error
+    console.error("🔥 Error saving module:", err.message);
     res.status(500).json({ error: err.message });
   }
 };
 exports.deleteModule = async (req, res) => {
   const { id } = req.params;
 
-  console.log("Attempting to delete module with id:", id); // Add logging to track the ID
+  console.log("Attempting to delete module with id:", id);
 
   try {
     const deletedModule = await Module.findByIdAndDelete(id);

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import '../../Design.css';
+import "../../Design.css";
 
 export default function LandingPage() {
   const navigate = useNavigate();
@@ -13,14 +13,6 @@ export default function LandingPage() {
     setTimeout(() => setStartAnimation(true), 100);
     setTimeout(() => navigate("/modules"), 3000);
   };
-  // const handleStartClick2 = () => {
-  //   setStartTransition(true);
-  //   setTimeout(() => setStartAnimation(true), 100);
-  //   setTimeout(() => navigate("/Adminmodules"), 3000);
-  // };
-
-
-
 
   return (
     <div className={`transition-container ${startAnimation ? "animate" : ""}`}>
@@ -40,17 +32,29 @@ export default function LandingPage() {
               <span className="navbar-toggler-icon"></span>
             </button>
             <div className="collapse navbar-collapse landpg-nav" id="navbarNav">
-              <div className="navbar-nav landpg-navbar-nav d-flex flex-row gap-4" >
-                <a className="nav-link text-white" onClick={() => navigate("/")}> 
+              <div className="navbar-nav landpg-navbar-nav d-flex flex-row gap-4">
+                <a
+                  className="nav-link text-white"
+                  onClick={() => navigate("/")}
+                >
                   Home
                 </a>
-                <a className="nav-link text-white"  onClick={() => navigate("/AboutUs")}> 
+                <a
+                  className="nav-link text-white"
+                  onClick={() => navigate("/AboutUs")}
+                >
                   About Us
                 </a>
-                <a className="nav-link text-white" onClick={() => navigate("/Resources")}>
+                <a
+                  className="nav-link text-white"
+                  onClick={() => navigate("/Resources")}
+                >
                   Resources
                 </a>
-                <a className="nav-link text-white"  onClick={() => navigate("/Updates")}>
+                <a
+                  className="nav-link text-white"
+                  onClick={() => navigate("/Updates")}
+                >
                   Updates
                 </a>
               </div>
@@ -80,17 +84,6 @@ export default function LandingPage() {
                 >
                   <i className="fas fa-running me-3 p-0"></i>Start
                 </button>
-                {/* <button
-                  className="btn gradient descfont fs-1 text-white p-0 glow-on-hover"
-                  onClick={handleStartClick2}
-                  style={{
-                    opacity: startTransition ? 0 : 1,
-                    visibility: startTransition ? "hidden" : "visible",
-                    pointerEvents: startTransition ? "none" : "auto",
-                  }}
-                >
-                  <i className="fas fa-running me-3 p-0"></i>Admin
-                </button> */}
               </div>
             </div>
 
@@ -110,7 +103,11 @@ export default function LandingPage() {
       {startTransition && (
         <>
           <div className="portal-wrapper">
-            <img src="/images/portal.png" className="portal b-0 display d-block" alt="Portal" />
+            <img
+              src="/images/portal.png"
+              className="portal b-0 display d-block"
+              alt="Portal"
+            />
           </div>
           <img src="/images/Module/c1.png" className="car z-10" alt="Car" />
         </>

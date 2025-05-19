@@ -27,7 +27,6 @@ const AddQuestionModal = forwardRef(({ moduleID, setKCQA }, ref) => {
     },
   }));
 
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
@@ -36,7 +35,6 @@ const AddQuestionModal = forwardRef(({ moduleID, setKCQA }, ref) => {
     const numericId = Number(id);
     const numericModuleId = Number(moduleID);
 
-    // Validation
     if (
       isNaN(numericId) ||
       isNaN(numericModuleId) ||
@@ -61,7 +59,6 @@ const AddQuestionModal = forwardRef(({ moduleID, setKCQA }, ref) => {
       answer,
     };
 
-    // Confirmation before submission
     const result = await Swal.fire({
       title: "Are you sure?",
       text: "Do you want to add this question?",
@@ -76,7 +73,6 @@ const AddQuestionModal = forwardRef(({ moduleID, setKCQA }, ref) => {
       return;
     }
 
-    // Proceed with submission
     try {
       const response = await fetch("http://localhost:5000/api/kc", {
         method: "POST",
@@ -94,7 +90,6 @@ const AddQuestionModal = forwardRef(({ moduleID, setKCQA }, ref) => {
 
       setKCQA((prev) => [...prev, resData]);
       modalRef.current.hide();
-      // resetForm();
 
       Swal.fire("Success", "Question added successfully!", "success");
     } catch (error) {
@@ -113,10 +108,8 @@ const AddQuestionModal = forwardRef(({ moduleID, setKCQA }, ref) => {
     });
   };
 
-  // Get non-empty choices for the dropdown
   const nonEmptyChoices = choices.filter((choice) => choice.trim() !== "");
 
-  // Update correct answer if it's no longer in choices
   useEffect(() => {
     if (
       answer &&

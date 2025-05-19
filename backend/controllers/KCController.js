@@ -1,6 +1,5 @@
 const KCQuestion = require("../models/kc.model");
 
-// Get all KC questions
 exports.getKCQuestions = async (req, res) => {
   try {
     const questions = await KCQuestion.find();
@@ -10,7 +9,6 @@ exports.getKCQuestions = async (req, res) => {
   }
 };
 
-// Add a new KC question
 exports.addKCQuestion = async (req, res) => {
   try {
     const newQuestion = new KCQuestion({
@@ -24,12 +22,11 @@ exports.addKCQuestion = async (req, res) => {
     await newQuestion.save();
     res.status(201).json(newQuestion);
   } catch (err) {
-    console.error("Add KC Error:", err.message); // Add logging
+    console.error("Add KC Error:", err.message);
     res.status(500).json({ error: err.message });
   }
 };
 
-// Update a KC question
 exports.updateKCQuestion = async (req, res) => {
   try {
     const { id } = req.params;
@@ -47,7 +44,6 @@ exports.updateKCQuestion = async (req, res) => {
   }
 };
 
-// Delete a KC question
 exports.deleteKCQuestion = async (req, res) => {
   try {
     const { id } = req.params;
@@ -62,4 +58,3 @@ exports.deleteKCQuestion = async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 };
-

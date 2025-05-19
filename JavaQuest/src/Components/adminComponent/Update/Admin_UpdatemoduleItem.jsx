@@ -9,19 +9,17 @@ export default function Admin_ModuleItem({ setModuleItems }) {
   const _id = state._id;
   const navigate = useNavigate();
 
-  // States for inputs
   const [name, setName] = useState(state.moduleName);
   const [quiz, setQuiz] = useState(state.moduleQuiz);
   const [image, setImage] = useState(state.img_path);
   const [id, setCustomId] = useState(state.id);
   const [publish, setPublish] = useState(Boolean(state.publish));
 
-  // console.log(publish);
-console.log("Quiz Config : " + state.quizConfig)
-  // New QuizConfig state, default from state.quizConfig or 'lock'
+  console.log("Quiz Config : " + state.quizConfig);
+
   const [QuizConfig, setQuizConfig] = useState(state.quizConfig || "lock");
   console.log("Quiz Config : " + QuizConfig);
-console.log(state)
+  console.log(state);
   const handleUpdate = async () => {
     const confirmResult = await Swal.fire({
       title: "Are you sure?",
@@ -43,7 +41,6 @@ console.log(state)
       quizConfig: QuizConfig,
     };
 
-    // ✅ Log what you're about to send
     console.log("📤 Updating with data:", updatedData);
 
     try {
@@ -61,7 +58,6 @@ console.log(state)
         throw new Error(result.error || "Failed to update module");
       }
 
-      // ✅ Log what the server responded with
       console.log("✅ Server responded with updated module:", result);
 
       setModuleItems((prevItems) =>
@@ -122,7 +118,6 @@ console.log(state)
                 className="form-control"
                 placeholder="Module Name"
               />
-
               <label className="form-label descfont text-white">
                 Module Quiz Name
               </label>
@@ -133,7 +128,6 @@ console.log(state)
                 className="form-control"
                 placeholder="Module Quiz"
               />
-
               <label className="form-label descfont text-white">
                 Module Number
               </label>
@@ -144,7 +138,6 @@ console.log(state)
                 className="form-control"
                 placeholder="Module ID"
               />
-
               <label className="form-label descfont text-white">
                 Module Image Link
               </label>
@@ -155,8 +148,6 @@ console.log(state)
                 className="form-control"
                 placeholder="Module Image Link"
               />
-
-              {/* Publish Checkbox */}
               <div className="form-check mt-3">
                 <input
                   className="form-check-input"
@@ -172,8 +163,7 @@ console.log(state)
                   Publish
                 </label>
               </div>
-
-              {/* QuizConfig Radio Buttons */}
+              s
               <label className="form-label descfont text-white mt-3">
                 Quiz Configuration
               </label>
@@ -194,7 +184,6 @@ console.log(state)
                   Lock Module Quiz
                 </label>
               </div>
-
               <div className="form-check">
                 <input
                   className="form-check-input"
@@ -212,7 +201,6 @@ console.log(state)
                   Open Module Quiz
                 </label>
               </div>
-
               <div className="form-check">
                 <input
                   className="form-check-input"
@@ -230,7 +218,6 @@ console.log(state)
                   Open Upon Module Completion
                 </label>
               </div>
-
               <div className="d-flex justify-content-center mt-3">
                 <button
                   className="btn btn-primary descfont w-50 glow-on-hover"

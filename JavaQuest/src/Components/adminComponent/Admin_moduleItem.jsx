@@ -4,11 +4,11 @@ import Swal from "sweetalert2";
 
 export default function Admin_ModuleItem({
   _id,
-  id, // custom ID (used for display)
-  name, // moduleName
-  quiz, // moduleQuiz
-  img, // image path
-  setModuleID, // state setter for selected module ID
+  id,
+  name,
+  quiz,
+  img,
+  setModuleID,
   setModuleItems,
   publish,
   quizConfig,

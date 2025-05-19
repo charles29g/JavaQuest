@@ -16,9 +16,9 @@ export default function Admin_ModuleLessonContents({
 }) {
   console.log("module ID(LessonContent): " + moduleid);
   const carouselId = `carousel-${id}`;
-  const [code, setCode] = useState(codeInit); // new code field
+  const [code, setCode] = useState(codeInit);
 
-  const [id2, setID] = useState(id); // ID is immutable
+  const [id2, setID] = useState(id);
   const [name2, setname] = useState(name);
   const [description2, setdescription] = useState(description);
   const [hasRenderedCodeEditor, setHasRenderedCodeEditor] = useState();
@@ -33,7 +33,6 @@ export default function Admin_ModuleLessonContents({
     }
   }, [code, hasRenderedCodeEditor]);
 
-  // ✅ Handle server update
   const handleUpdateContent = async (updatedContent) => {
     const confirmUpdate = await Swal.fire({
       title: "Are you sure?",
@@ -67,7 +66,6 @@ export default function Admin_ModuleLessonContents({
 
       console.log("✅ Module content updated:", result);
 
-      // 🔁 Update local state
       setModuleContents((prevContents) =>
         prevContents.map((item) =>
           item._id === _id ? { ...item, ...result } : item
@@ -90,7 +88,6 @@ export default function Admin_ModuleLessonContents({
     }
   };
 
-  // ✅ Handle local save then server update
   const handleSave = () => {
     const updatedContent = {
       id: id2,
@@ -107,7 +104,7 @@ export default function Admin_ModuleLessonContents({
       )
     );
 
-    handleUpdateContent(updatedContent); // 🔁 Call server update
+    handleUpdateContent(updatedContent);
   };
 
   const handleAddImage = () => {
@@ -152,7 +149,6 @@ export default function Admin_ModuleLessonContents({
         throw new Error(result.error || "Failed to delete module content");
       }
 
-      // ✅ Remove section from local state
       setModuleContents((prevContents) =>
         prevContents.filter((content) => content._id !== _id)
       );
@@ -218,7 +214,10 @@ export default function Admin_ModuleLessonContents({
                 </button>
               </div>
             ))}
-            <button className="btn btn-sm btn-info mt-1" onClick={handleAddImage}>
+            <button
+              className="btn btn-sm btn-info mt-1"
+              onClick={handleAddImage}
+            >
               Add Image
             </button>
           </div>

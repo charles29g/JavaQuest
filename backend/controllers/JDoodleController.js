@@ -1,7 +1,6 @@
-// import fetch from "node-fetch";
-
 const clientId = "c23d3b0abb5131393802463188649488";
-const clientSecret = "9e69cad7b60fb503970facd438698e7de68082807d523adfde9fb77843df96f8";
+const clientSecret =
+  "9e69cad7b60fb503970facd438698e7de68082807d523adfde9fb77843df96f8";
 
 export const runCode = async (req, res) => {
   const { script, language, versionIndex } = req.body;

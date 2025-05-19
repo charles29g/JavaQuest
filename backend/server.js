@@ -1,5 +1,5 @@
 import "./config.js";
-import userRoutes from "./routes/userRoutes.js"; 
+import userRoutes from "./routes/userRoutes.js";
 
 import express from "express";
 import mongoose from "mongoose";
@@ -14,7 +14,6 @@ import JDoodleRoutes from "./routes/JDoodleRoutes.js";
 import authRoutes from "./routes/authRoutes.js";
 import kcRoutes from "./routes/KCRoutes.js";
 
-// Setup for __dirname in ES modules
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
@@ -37,7 +36,6 @@ const connectDB = async () => {
 };
 connectDB();
 
-// Routes
 app.use("/api/modules", moduleRoutes);
 app.use("/api/questions", questionRoutes);
 app.use("/api/modulecontents", moduleContentRoutes);
@@ -45,7 +43,7 @@ app.use("/api/jdoodle", JDoodleRoutes);
 app.use("/api/auth", authRoutes);
 app.use("/api/kc", kcRoutes);
 app.use("/api/users", userRoutes);
-// Serve frontend in production
+
 if (process.env.NODE_ENV === "production") {
   app.use(express.static(path.join(__dirname, "../frontend/build")));
   app.get("*", (req, res) => {
@@ -53,7 +51,6 @@ if (process.env.NODE_ENV === "production") {
   });
 }
 
-// Error handling
 app.use((err, req, res, next) => {
   console.error("🔥 Server Error:", err.stack);
   res.status(500).json({ error: "Internal Server Error" });

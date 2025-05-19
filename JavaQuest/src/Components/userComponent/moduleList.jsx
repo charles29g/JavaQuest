@@ -9,7 +9,7 @@ export default function ModuleList({
 }) {
   return (
     <div className="container-fluid backgroundimg2 px-0">
-      {ModuleItems.filter((item) => item.publish === true) // <-- only published items
+      {ModuleItems.filter((item) => item.publish === true)
         .sort((a, b) => a.id - b.id)
         .map((item) => (
           <ModuleItem

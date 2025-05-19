@@ -1,7 +1,6 @@
 import React, { forwardRef, useImperativeHandle, useState } from "react";
 import Swal from "sweetalert2";
 const AddModuleModal = forwardRef((props, ref) => {
-  // Use Imperative Handle to control modal visibility
   useImperativeHandle(ref, () => ({
     openModal: () => {
       const modal = new window.bootstrap.Modal(
@@ -11,16 +10,11 @@ const AddModuleModal = forwardRef((props, ref) => {
     },
   }));
 
-  // console.log("props: " + props);
-  // console.log(props);
-
-  // State for handling form inputs
   const [moduleName, setModuleName] = useState("");
   const [moduleQuizName, setModuleQuizName] = useState("");
   const [moduleImageLink, setModuleImageLink] = useState("");
-  const [moduleID, setModuleID] = useState(0); // Ensure moduleID is initialized as an empty string
+  const [moduleID, setModuleID] = useState(0);
 
-  // Handle form submission for adding new module
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -33,7 +27,6 @@ const AddModuleModal = forwardRef((props, ref) => {
       quizConfig: "",
     };
 
-    // Show confirmation alert
     const result = await Swal.fire({
       title: "Are you sure?",
       text: "Do you want to confirm adding this module?",
@@ -79,7 +72,6 @@ const AddModuleModal = forwardRef((props, ref) => {
         Swal.fire("Error", "There was an error adding the module.", "error");
       }
     } else {
-      // If cancelled, optionally show a cancellation message
       Swal.fire("Cancelled", "Module addition was cancelled.", "info");
     }
   };

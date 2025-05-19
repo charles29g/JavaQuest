@@ -8,9 +8,8 @@ export default function KCPage({ moduleID }) {
   const [incorrectAnswers, setIncorrectAnswers] = useState([]);
   const [score, setScore] = useState(null);
   const [correctAnswers, setCorrectAnswers] = useState([]);
-  //const [IsLoading, setIsLoading] = useState();
+
   const [KCQA, setKCQA] = useState([]);
-  //const [Error, setError] = useState();
 
   const moduleQuestions = KCQA.filter((item) => item.moduleid === moduleID);
   const navigate = useNavigate();
@@ -21,25 +20,6 @@ export default function KCPage({ moduleID }) {
       addQuestionModalRef.current.openModal();
     }
   };
-  // useEffect(() => {
-  //   const fetchKCQuestions = async () => {
-  //     try {
-  //       setIsLoading(true);
-  //       const response = await fetch("http://localhost:5000/api/kc");
-
-  //       if (!response.ok) {
-  //         throw new Error("Failed to fetch KC questions");
-  //       }
-
-  //       const data = await response.json();
-  //       setKCQA(data);
-  //     } catch (err) {
-  //       setError(err.message);
-  //       console.error("Error fetching KC questions:", err);
-  //     } finally {
-  //       setIsLoading(false);
-  //     }
-  //   };
 
   useEffect(() => {
     fetch("http://localhost:5000/api/kc")
@@ -50,12 +30,6 @@ export default function KCPage({ moduleID }) {
   }, []);
 
   console.log(KCQA);
-
-  //   fetchKCQuestions();
-  //   console.log("KCQA");
-
-  //   console.log(KCQA);
-  // }, [moduleID]);
 
   function KCCheckQA() {
     let calculatedScore = 0;
@@ -91,13 +65,13 @@ export default function KCPage({ moduleID }) {
           <div className="col-12 col-md-10 col-lg-8 col-xl-6 p-0">
             <div className="glass p-4 rounded shadow-sm">
               <div className="d-flex">
-              <button
-                className="btn btn-sm btn-info mt-1 ms-auto"
-                onClick={handleAddQuestion}
-                title="Add new question"
-              >
-                + Add
-              </button>
+                <button
+                  className="btn btn-sm btn-info mt-1 ms-auto"
+                  onClick={handleAddQuestion}
+                  title="Add new question"
+                >
+                  + Add
+                </button>
               </div>
               <Admin_KCList
                 KCQA={KCQA}

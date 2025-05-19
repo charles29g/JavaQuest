@@ -11,7 +11,6 @@ export default function LandingPage({ GoogleLoginButton }) {
     alert("Login");
   }
 
-
   return (
     <div className="transition-container">
       <div className="backgroundimg">
@@ -32,33 +31,36 @@ export default function LandingPage({ GoogleLoginButton }) {
             <div className="collapse navbar-collapse login-nav" id="navbarNav">
               <div className="navbar-nav login-navbar-nav d-flex flex-row gap-4">
                 <a
-            className="nav-link text-white"
-            onClick={() => navigate("/")}
-            style={{ cursor: "pointer" }}
-          >
-            Home
-          </a>
-          <a
-            className="nav-link text-white"
-            onClick={() => navigate("/AboutUS")}
-            style={{ cursor: "pointer" }}
-          >
-            About Us
-          </a>
-          <a className="nav-link text-white" onClick={() => navigate("/Resources")}>
-            Resources
-          </a>
-          <a className="nav-link text-white" onClick={() => navigate("/Updates")}>
-            Updates
-          </a>
+                  className="nav-link text-white"
+                  onClick={() => navigate("/")}
+                  style={{ cursor: "pointer" }}
+                >
+                  Home
+                </a>
+                <a
+                  className="nav-link text-white"
+                  onClick={() => navigate("/AboutUS")}
+                  style={{ cursor: "pointer" }}
+                >
+                  About Us
+                </a>
+                <a
+                  className="nav-link text-white"
+                  onClick={() => navigate("/Resources")}
+                >
+                  Resources
+                </a>
+                <a
+                  className="nav-link text-white"
+                  onClick={() => navigate("/Updates")}
+                >
+                  Updates
+                </a>
               </div>
             </div>
           </nav>
 
-          {/* <div className="row align-items-center justify-content-center"> */}
-            {/* Right Column - Login Card */}
-            <LoginForm></LoginForm>
-          {/* </div> */}
+          <LoginForm></LoginForm>
         </div>
       </div>
     </div>

@@ -34,7 +34,7 @@ const AddModuleContentModal = forwardRef(
       });
 
       if (!result.isConfirmed) {
-        return; // Stop if user cancelled
+        return;
       }
 
       const data = {

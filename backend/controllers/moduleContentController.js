@@ -1,11 +1,10 @@
-// If you renamed to lowercase:
-const ModuleContent = require("../models/moduleContent.model"); // Lowercase to match filename
+const ModuleContent = require("../models/moduleContent.model");
 
 exports.getModuleContents = async (req, res) => {
   try {
-    console.log("Fetching modules..."); // Check if the request is received
+    console.log("Fetching modules...");
     const moduleContents = await ModuleContent.find();
-    console.log(moduleContents); // Ensure modules are fetched correctly
+    console.log(moduleContents);
     res.json(moduleContents);
   } catch (err) {
     res.status(500).json({ error: err.message });

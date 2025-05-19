@@ -8,11 +8,11 @@ export default function Quiz({ moduleID }) {
   const [correctAnswers, setCorrectAnswers] = useState([]);
   const [incorrectAnswers, setIncorrectAnswers] = useState([]);
   const [score, setScore] = useState(null);
-  const [disabled, setDisabled] = useState(false); // ✅
+  const [disabled, setDisabled] = useState(false);
   const [Q1, setQ1] = useState([]);
   const navigate = useNavigate();
   const questions = Q1.filter((q) => q.moduleid === moduleID);
-  // Fetch questions from the backend
+
   useEffect(() => {
     async function fetchQuestions() {
       try {
@@ -54,7 +54,7 @@ export default function Quiz({ moduleID }) {
     setScore(newScore);
     setCorrectAnswers(correct);
     setIncorrectAnswers(incorrect);
-    setDisabled(true); // ✅ lock answers
+    setDisabled(true);
   };
 
   const handleRetry = () => {
@@ -62,7 +62,7 @@ export default function Quiz({ moduleID }) {
     setCorrectAnswers([]);
     setIncorrectAnswers([]);
     setScore(null);
-    setDisabled(false); // ✅ unlock
+    setDisabled(false);
   };
 
   const percentage =
@@ -70,9 +70,10 @@ export default function Quiz({ moduleID }) {
 
   return (
     <div className="backgroundimg4 min-vh-100 px-3 py-5">
-      <div className="container glass p-4 rounded shadow mt-5 mb-5"
-        style={{ maxWidth: '1000px' }}
->
+      <div
+        className="container glass p-4 rounded shadow mt-5 mb-5"
+        style={{ maxWidth: "1000px" }}
+      >
         <h2 className="text-white text-center mb-4"> Final Quiz</h2>
 
         {questions.map((q) => (
@@ -85,15 +86,17 @@ export default function Quiz({ moduleID }) {
             onSelect={handleSelect}
             isCorrect={correctAnswers.includes(q.id)}
             isIncorrect={incorrectAnswers.includes(q.id)}
-            disabled={disabled} 
+            disabled={disabled}
           />
         ))}
 
         <div className="text-center mt-4">
           {score === null ? (
-            <button className="btn gradient6 text-white"
-             style={{ width: 'auto',height:'auto'}}
-                onClick={handleSubmit}>
+            <button
+              className="btn gradient6 text-white"
+              style={{ width: "auto", height: "auto" }}
+              onClick={handleSubmit}
+            >
               Submit Quiz
             </button>
           ) : (
@@ -107,9 +110,9 @@ export default function Quiz({ moduleID }) {
               </p>
               <div className="d-flex justify-content-center">
                 <button
-                  className="btn gradient6 text-white mt-3 me-3" 
+                  className="btn gradient6 text-white mt-3 me-3"
                   onClick={handleRetry}
-                   style={{ width: 'auto',height:'auto'}}
+                  style={{ width: "auto", height: "auto" }}
                 >
                   Try Again
                 </button>

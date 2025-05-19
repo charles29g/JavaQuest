@@ -9,10 +9,8 @@ import OTP from "../models/otpModel.js";
 const router = express.Router();
 const JWT_SECRET = process.env.JWT_SECRET;
 
-// Google route
 router.post("/google", googleAuth);
 
-// Register route
 router.post("/register", async (req, res) => {
   const { name, email, password, otp } = req.body;
 
@@ -32,7 +30,7 @@ router.post("/register", async (req, res) => {
       password: hashedPassword,
     });
 
-    await OTP.deleteMany({ email }); // clean up OTPs
+    await OTP.deleteMany({ email });
 
     res.status(201).json({ message: "User registered successfully" });
   } catch (err) {
@@ -41,7 +39,6 @@ router.post("/register", async (req, res) => {
   }
 });
 
-// Login route
 router.post("/login", async (req, res) => {
   const { email, password } = req.body;
 
@@ -68,7 +65,6 @@ router.post("/login", async (req, res) => {
   }
 });
 
-// OTP route
 router.post("/send-otp", async (req, res) => {
   console.log("✅ /send-otp route hit");
   const { email } = req.body;
@@ -84,7 +80,6 @@ router.post("/send-otp", async (req, res) => {
   }
 });
 
-// Mark a module as complete
 router.post("/complete-module", async (req, res) => {
   const { token, moduleID } = req.body;
 
@@ -114,7 +109,6 @@ router.post("/complete-module", async (req, res) => {
   }
 });
 
-// Get completed modules
 router.post("/completed-modules", async (req, res) => {
   const { token } = req.body;
 
@@ -135,7 +129,6 @@ router.post("/completed-modules", async (req, res) => {
   }
 });
 
-// Get current user info
 router.get("/me", async (req, res) => {
   try {
     const authHeader = req.headers.authorization;

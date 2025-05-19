@@ -27,7 +27,6 @@ export default function Quiz({ moduleID }) {
     addModalRef.current.openModal();
   };
 
-  // Fetch questions from the backend
   useEffect(() => {
     async function fetchQuestions() {
       try {

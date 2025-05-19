@@ -1,6 +1,5 @@
-const Question = require("../models/question.model"); // Adjust the path if needed
+const Question = require("../models/question.model");
 
-// Get all questions
 exports.getQuestions = async (req, res) => {
   try {
     const questions = await Question.find();
@@ -10,7 +9,6 @@ exports.getQuestions = async (req, res) => {
   }
 };
 
-// Add a new question
 exports.addQuestion = async (req, res) => {
   try {
     const newQuestion = new Question({
@@ -29,7 +27,6 @@ exports.addQuestion = async (req, res) => {
   }
 };
 
-// Update a question
 exports.updateQuestion = async (req, res) => {
   try {
     const { id } = req.params;
@@ -47,7 +44,6 @@ exports.updateQuestion = async (req, res) => {
   }
 };
 
-// Delete a question
 exports.deleteQuestion = async (req, res) => {
   try {
     const { id } = req.params;
