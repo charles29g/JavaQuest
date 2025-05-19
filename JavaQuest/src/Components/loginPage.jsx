@@ -11,6 +11,7 @@ export default function LandingPage({ GoogleLoginButton }) {
     alert("Login");
   }
 
+
   return (
     <div className="transition-container">
       <div className="backgroundimg">
