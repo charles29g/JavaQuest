@@ -35,10 +35,10 @@ function LandingNavbar() {
           >
             About Us
           </a>
-          <a className="nav-link text-white" onClick={() => navigate("/Resources")}>
+          <a className="nav-link text-white" onClick={() => navigate("/Resources")} style={{ cursor: "pointer" }}>
             Resources
           </a>
-          <a className="nav-link text-white" onClick={() => navigate("/Updates")}>
+          <a className="nav-link text-white" onClick={() => navigate("/Updates")} style={{ cursor: "pointer" }}>
             Updates
           </a>
         </div>
