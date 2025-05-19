@@ -11,7 +11,7 @@ export default function ModulePage({
 }) {
   const navigate = useNavigate();
   const [user, setUser] = useState(null);
-  console.log("Test");
+  console.log("User Fetch", user);
 
   console.log(user);
   // Fetch user info on mount
@@ -108,7 +108,7 @@ export default function ModulePage({
           <>
             <h2 className="text-white text-center mt-4">Modules</h2>
             <ModuleList
-              // UserID={userID}
+              user = {user}
               ModuleItems={ModuleItems}
               setPage={setPage}
               setModuleID={setModuleID}

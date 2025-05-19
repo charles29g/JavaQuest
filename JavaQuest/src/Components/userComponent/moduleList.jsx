@@ -1,6 +1,7 @@
 import ModuleItem from "./moduleItem.jsx";
 
 export default function ModuleList({
+  user,
   ModuleItems,
   setPage,
   setModuleID,
@@ -12,6 +13,7 @@ export default function ModuleList({
         .sort((a, b) => a.id - b.id)
         .map((item) => (
           <ModuleItem
+            user={user}
             UserID={UserID}
             key={item.id}
             id={item.id}

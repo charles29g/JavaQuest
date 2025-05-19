@@ -46,12 +46,12 @@ export default function App() {
     <Router>
       <Routes>
         <Route
-          path="/Login"
+          path="/"
           element={<LoginPage GoogleLoginButton={GoogleLoginButton} />}
         />
 
         <Route
-          path="/"
+          path="/User"
           element={<LandingPage GoogleLoginButton={GoogleLoginButton} />}
         />
         <Route

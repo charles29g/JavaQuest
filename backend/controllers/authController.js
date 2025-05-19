@@ -50,6 +50,7 @@ export const googleAuth = async (req, res) => {
     res.status(200).json({
       token: jwtToken,
       user: {
+        completedModules: user.completedModules,
         id: user._id,
         email: user.email,
         name: user.name,
