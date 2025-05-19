@@ -22,9 +22,10 @@ export default function LandingPage() {
     <div className={`transition-container ${startAnimation ? "animate" : ""}`}>
       <div className="backgroundimg">
         <div className="container">
-          <nav className="navbar navbar-expand-lg text-white">
+          <nav className="landpg-navbar navbar navbar-expand-lg text-white">
             <button
               className="navbar-toggler"
+              id="landpg-navbar-toggler"
               type="button"
               data-bs-toggle="collapse"
               data-bs-target="#navbarNav"
@@ -34,8 +35,8 @@ export default function LandingPage() {
             >
               <span className="navbar-toggler-icon"></span>
             </button>
-            <div className="collapse navbar-collapse" id="navbarNav">
-              <div className="navbar-nav d-flex flex-row gap-4">
+            <div className="collapse navbar-collapse landpg-nav" id="navbarNav">
+              <div className="navbar-nav landpg-navbar-nav d-flex flex-row gap-4" >
                 <a className="nav-link text-white" href="#">
                   About Us
                 </a>
@@ -49,10 +50,10 @@ export default function LandingPage() {
             </div>
           </nav>
 
-          <div className="row align-items-center justify-content-center">
-            <div className="col-md-6 mb-md-0">
+          <div className="landpg-row row align-items-center justify-content-center">
+            <div className="col-md-6 mt-2 mb-md-0">
               <h1 className="titlefont text-white glow-text">JavaQuest</h1>
-              <p className="text-white">
+              <p className="text-white" id="intro">
                 JavaQuest is an engaging and dynamic online platform designed to
                 empower individuals in learning the fundamentals of Java
                 programming. Whether you're a complete beginner or looking to

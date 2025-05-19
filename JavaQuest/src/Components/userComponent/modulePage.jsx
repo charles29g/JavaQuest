@@ -18,7 +18,7 @@ export default function ModulePage({ ModuleItems, setPage, setModuleID }) {
       </nav>
 
       <div className="container-fluid px-0 pt-2">
-        <div className="row g-0 gradient2 overflow-hidden position-relative">
+        <div className="row-container row g-0 gradient2 overflow-hidden position-relative">
           <div className="col-4 ">
             <img
               src="/images/Module/c1.png"

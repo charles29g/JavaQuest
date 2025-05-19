@@ -84,7 +84,7 @@ export default function ModuleLessons({
             </>
           ) : (
             <div className="alert nolesson alert-info text-center shadow-sm p-4 mx-auto d-flex justify-content-center align-items-center min-vh-75">
-              <div className="row text-center   d-flex justify-content-center align-items-center ">
+              <div className="row text-center d-flex justify-content-center align-items-center ">
                 <strong>No lessons available for this module.</strong>
                 <button className="gradient" onClick={() => navigate("/modules")}>
                   Go Back
