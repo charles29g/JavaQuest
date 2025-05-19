@@ -18,6 +18,8 @@ import Admin_QuizPageInstructions from "./Components/adminComponent/Admin_quizPa
 import Admin_Quiz from "./Components/adminComponent/Admin_quiz";
 import Admin_UpdatemoduleItem from "./Components/adminComponent/Update/Admin_UpdatemoduleItem";
 import GoogleLoginButton from "./Components/GoogleLoginButton.jsx";
+import AboutUs from "./aboutus.jsx";
+import References from "./resources.jsx";
 export default function App() {
   const [ModuleItems, setModuleItems] = useState([]);
   const [ModuleContents, setModuleContents] = useState([]);
@@ -54,6 +56,15 @@ export default function App() {
           path="/User"
           element={<LandingPage GoogleLoginButton={GoogleLoginButton} />}
         />
+        <Route
+        path="/AboutUS"
+        element={<AboutUs/>}
+       />
+
+       <Route
+        path="/Resources"
+        element={<References/>}
+       />
         <Route
           path="/Admin"
           element={<Admin_LandingPage GoogleLoginButton={GoogleLoginButton} />}
