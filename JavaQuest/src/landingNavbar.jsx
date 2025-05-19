@@ -5,7 +5,7 @@ function LandingNavbar() {
   const navigate = useNavigate();
 
   return (
-    <nav className="landpg-navbar navbar navbar-expand-lg text-white">
+    <nav className="landpg-navbar navbar navbar-expand-lg text-white" >
       <button
         className="navbar-toggler"
         id="landpg-navbar-toggler"

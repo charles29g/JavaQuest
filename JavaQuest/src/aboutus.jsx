@@ -31,9 +31,11 @@ function AboutUs() {
   const team = getTeam();
   
   return (
+    <div>
+    <div className="navbar text-white" style={{ marginLeft: '2.5rem', padding:'0px' }}>
+            <LandingNavbar />
+    </div>
     <div className="team-section container py-5">
-      <LandingNavbar />
-
       <h2 className="text-center team-heading mb-3">
         Meet the <em>visionaries</em> powering JavaQuest — where learning Java
         transforms into <em>conquering code</em>
@@ -62,6 +64,8 @@ function AboutUs() {
         })}
       </div>
     </div>
+    </div>
+
   );
 }
 

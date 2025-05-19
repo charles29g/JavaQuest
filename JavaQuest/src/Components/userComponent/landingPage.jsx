@@ -47,7 +47,7 @@ export default function LandingPage() {
                 <a className="nav-link text-white"  onClick={() => navigate("/AboutUs")}> 
                   About Us
                 </a>
-                <a className="nav-link text-white" onClick={() => navigate("/")}>
+                <a className="nav-link text-white" onClick={() => navigate("/Resources")}>
                   Resources
                 </a>
                 <a className="nav-link text-white"  onClick={() => navigate("/")}>

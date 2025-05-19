@@ -173,8 +173,10 @@ const modules = [
 
 function References() {
   return (      
-    <div className="landpg-navbar">
-      <LandingNavbar/>     
+    <div>
+      <div className="navbar text-white" style={{ marginLeft: '2.5rem', padding: '0px' }}>
+      <LandingNavbar/> 
+      </div>    
     <div className="references-section">
       <div className="references-overlay">
         <h2 className="references-heading">Resources</h2>
