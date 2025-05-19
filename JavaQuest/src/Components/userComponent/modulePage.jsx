@@ -32,7 +32,7 @@ export default function ModulePage({
       } catch (err) {
         console.error(err);
         // sessionStorage.removeItem("token");
-        navigate("/login");
+        navigate("/");
       }
     };
     fetchUser();
@@ -44,7 +44,7 @@ export default function ModulePage({
 
   const handleSignOut = () => {
     sessionStorage.removeItem("token");
-    navigate("/login");
+    navigate("/");
   };
 
   return (
@@ -108,7 +108,7 @@ export default function ModulePage({
           <>
             <h2 className="text-white text-center mt-4">Modules</h2>
             <ModuleList
-              user = {user}
+              user={user}
               ModuleItems={ModuleItems}
               setPage={setPage}
               setModuleID={setModuleID}
