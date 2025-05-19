@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
+import { Trash2, Pencil } from "lucide-react";
+
 import AddModuleContentModal from "../adminComponent/Create/Admin_AddModuleContentModal";
 
 export default function Admin_ModuleLessonContents({
@@ -212,11 +214,11 @@ export default function Admin_ModuleLessonContents({
                   type="button"
                   onClick={() => handleDeleteImage(index)}
                 >
-                  Delete
+                  <Trash2 />
                 </button>
               </div>
             ))}
-            <button className="btn btn-success" onClick={handleAddImage}>
+            <button className="btn btn-sm btn-info mt-1" onClick={handleAddImage}>
               Add Image
             </button>
           </div>

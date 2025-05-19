@@ -6,7 +6,7 @@ export default function QuizQuestion({
   selected,
   isCorrect,
   isIncorrect,
-  disabled, // ✅ NEW
+  disabled, 
 }) {
   const handleChange = (e) => {
     if (!disabled) {
@@ -24,7 +24,7 @@ export default function QuizQuestion({
           : "bg-dark bg-opacity-10"
       }`}
     >
-      <h5 className="text-white fw-semibold">{question}</h5>
+      <h5 className="text-white fw-semibold">{id}. {question}</h5>
       {choices.map((choice, idx) => (
         <div key={idx} className="form-check">
           <input
@@ -35,7 +35,7 @@ export default function QuizQuestion({
             checked={selected === choice}
             onChange={handleChange}
             className="form-check-input"
-            disabled={disabled} // ✅ disable input
+            disabled={disabled} 
           />
           <label
             htmlFor={`quiz-q-${id}-c${idx}`}
@@ -48,11 +48,11 @@ export default function QuizQuestion({
 
       {isIncorrect && (
         <div className="text-danger mt-2 fw-bold">
-          ❌ That's not the right answer.
+          That's not the right answer.
         </div>
       )}
       {isCorrect && (
-        <div className="text-success mt-2 fw-bold">✅ Correct!</div>
+        <div className="text-success mt-2 fw-bold">Correct!</div>
       )}
     </div>
   );

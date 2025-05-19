@@ -70,8 +70,10 @@ export default function Quiz({ moduleID }) {
 
   return (
     <div className="backgroundimg4 min-vh-100 px-3 py-5">
-      <div className="container glass p-4 rounded shadow">
-        <h2 className="text-white text-center mb-4">🧪 Final Quiz</h2>
+      <div className="container glass p-4 rounded shadow mt-5 mb-5"
+        style={{ maxWidth: '1000px' }}
+>
+        <h2 className="text-white text-center mb-4"> Final Quiz</h2>
 
         {questions.map((q) => (
           <QuizQuestion
@@ -83,30 +85,33 @@ export default function Quiz({ moduleID }) {
             onSelect={handleSelect}
             isCorrect={correctAnswers.includes(q.id)}
             isIncorrect={incorrectAnswers.includes(q.id)}
-            disabled={disabled} // ✅ pass prop
+            disabled={disabled} 
           />
         ))}
 
         <div className="text-center mt-4">
           {score === null ? (
-            <button className="btn gradient6 text-white" onClick={handleSubmit}>
+            <button className="btn gradient6 text-white"
+             style={{ width: 'auto',height:'auto'}}
+                onClick={handleSubmit}>
               Submit Quiz
             </button>
           ) : (
             <>
               <h4 className="text-white mt-3">
                 Your Score: {percentage}%{" "}
-                {percentage >= 70 ? "✅ Passed!" : "❌ Not Yet"}
+                {percentage >= 70 ? "Passed!" : "Not Yet"}
               </h4>
               <p className="text-white">
                 Your answers are locked. Try again to retake the quiz.
               </p>
               <div className="d-flex justify-content-center">
                 <button
-                  className="btn gradient6 text-white mt-3 me-3" // ✅ me-3 for margin-right
+                  className="btn gradient6 text-white mt-3 me-3" 
                   onClick={handleRetry}
+                   style={{ width: 'auto',height:'auto'}}
                 >
-                  🔁 Try Again
+                  Try Again
                 </button>
                 <button
                   className="btn btn-light mt-3"

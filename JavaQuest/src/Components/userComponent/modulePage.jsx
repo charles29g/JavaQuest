@@ -1,6 +1,7 @@
 import ModuleList from "./moduleList.jsx";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
+import { ChevronLeft } from "lucide-react";
 
 export default function ModulePage({ ModuleItems, setPage, setModuleID }) {
   const navigate = useNavigate();
@@ -42,8 +43,8 @@ export default function ModulePage({ ModuleItems, setPage, setModuleID }) {
   return (
     <div className="backgroundimg2">
       <nav className="nav navbar d-flex justify-content-between align-items-center px-3">
-        <button className="btn" onClick={() => goBack()} value="landingPage">
-          <i className="fa fa-arrow-left text-white"> Go Back</i>
+        <button className="btn descfont text-white" onClick={() => goBack()} value="landingPage">
+          <ChevronLeft/> Go Back
         </button>
         <h6 className="titlefont2 text-white m-0 typing mx-auto">JavaQuest</h6>
         {/* User Tab */}

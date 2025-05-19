@@ -51,8 +51,8 @@ export default function ModuleItem({
           <div className="d-flex justify-content-md-end justify-content-center py-2">
             <div>
               {quizConfig !== "open" && (
-                <p className="text-danger mt-2 mb-0 small">
-                  🚫 This quiz is currently locked. Please wait for the
+                <p className="text-white mt-2 mb-0 small">
+                  This quiz is currently locked. Please wait for the
                   administrator to open it.
                 </p>
               )}

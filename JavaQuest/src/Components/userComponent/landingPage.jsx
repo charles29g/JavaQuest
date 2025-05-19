@@ -73,7 +73,7 @@ export default function LandingPage() {
                 >
                   <i className="fas fa-running me-3 p-0"></i>Start
                 </button>
-                <button
+                {/* <button
                   className="btn gradient descfont fs-1 text-white p-0 glow-on-hover"
                   onClick={handleStartClick2}
                   style={{
@@ -83,7 +83,7 @@ export default function LandingPage() {
                   }}
                 >
                   <i className="fas fa-running me-3 p-0"></i>Admin
-                </button>
+                </button> */}
               </div>
             </div>
 
@@ -103,7 +103,7 @@ export default function LandingPage() {
       {startTransition && (
         <>
           <div className="portal-wrapper">
-            <img src="/images/portal.png" className="portal b-0" alt="Portal" />
+            <img src="/images/portal.png" className="portal b-0 display d-block" alt="Portal" />
           </div>
           <img src="/images/Module/c1.png" className="car z-10" alt="Car" />
         </>

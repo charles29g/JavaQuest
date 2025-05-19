@@ -1,5 +1,7 @@
 import Admin_ModuleNavItems from "./Admin_moduleItem.jsx";
 import { useNavigate } from "react-router-dom";
+import { Trash2, Pencil, ChevronLeft } from "lucide-react";
+
 
 export default function Admin_ModuleNavbar({ activeSection, ModuleContents }) {
   const navigate = useNavigate();
@@ -23,11 +25,11 @@ export default function Admin_ModuleNavbar({ activeSection, ModuleContents }) {
           <div className="d-flex flex-column flex-lg-row w-100 gap-5 justify-content-center align-items-center p-0 m-0">
             <div className="w-100 w-lg-auto text-center title d-flex flex-column justify-content-center align-items-center p-0 m-0">
               <button
-                className="btn"
+                className="btn descfont text-white"
                 onClick={() => navigate("/Adminmodules")}
                 value="landingPage"
               >
-                <i className="fa fa-arrow-left text-white"> Go Back</i>
+                <ChevronLeft/> Go Back
               </button>
               Module 1: Introduction to Java & Syntax
             </div>

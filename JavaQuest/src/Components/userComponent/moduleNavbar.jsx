@@ -1,5 +1,6 @@
 import ModuleNavItems from "./moduleItem.jsx";
 import { useNavigate } from "react-router-dom";
+import { ChevronLeft } from "lucide-react";
 
 export default function ModuleNavbar({ activeSection, ModuleContents }) {
   const navigate = useNavigate();
@@ -23,11 +24,11 @@ export default function ModuleNavbar({ activeSection, ModuleContents }) {
           <div className="d-flex flex-column flex-lg-row width-100 gap-5 justify-content-center align-items-center p-0 m-0">
             <div className=" w-lg-auto text-center title d-flex flex-column justify-content-center align-items-center p-0 m-0">
               <button
-                className="btn"
+                className="btn descfont text-white"
                 onClick={() => navigate("/modules")}
                 value="landingPage"
               >
-                <i className="fa fa-arrow-left text-white"> Go Back</i>
+                <ChevronLeft/> Go Back
               </button>
               Module 1: Introduction to Java & Syntax
             </div>

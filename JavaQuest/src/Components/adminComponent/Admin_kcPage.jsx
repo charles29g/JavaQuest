@@ -90,13 +90,15 @@ export default function KCPage({ moduleID }) {
         <div className="row g-0 m-0 mt-5">
           <div className="col-12 col-md-10 col-lg-8 col-xl-6 p-0">
             <div className="glass p-4 rounded shadow-sm">
+              <div className="d-flex">
               <button
-                className="btn btn-success btn-sm"
+                className="btn btn-sm btn-info mt-1 ms-auto"
                 onClick={handleAddQuestion}
                 title="Add new question"
               >
                 + Add
               </button>
+              </div>
               <Admin_KCList
                 KCQA={KCQA}
                 moduleID={moduleID}

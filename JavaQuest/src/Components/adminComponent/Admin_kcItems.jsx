@@ -1,5 +1,7 @@
 import { useState } from "react";
 import Swal from "sweetalert2";
+import { Trash2, Pencil } from "lucide-react";
+
 
 export default function Admin_KCItems({
   _id,
@@ -98,7 +100,7 @@ export default function Admin_KCItems({
           <div className="mb-3">
             <label className="form-label fw-semibold">Question:</label>
             <textarea
-              className="form-control glass mb-2"
+              className="form-control mb-2"
               value={editedQuestion}
               onChange={(e) => setEditedQuestion(e.target.value)}
               rows="3"
@@ -111,7 +113,7 @@ export default function Admin_KCItems({
               <div key={index} className="input-group mb-2">
                 <input
                   type="text"
-                  className="form-control glass"
+                  className="form-control"
                   value={choice}
                   onChange={(e) => handleChoiceChange(index, e.target.value)}
                 />
@@ -125,7 +127,7 @@ export default function Admin_KCItems({
               </div>
             ))}
             <button
-              className="btn btn-sm btn-outline-info mt-1"
+              className="btn btn-sm btn-outline -info mt-1"
               onClick={addChoice}
             >
               + Add Choice
@@ -135,7 +137,7 @@ export default function Admin_KCItems({
           <div className="mb-3">
             <label className="form-label fw-semibold">Correct Answer:</label>
             <select
-              className="form-select glass"
+              className="form-select"
               value={editedCorrectAnswer}
               onChange={(e) => setEditedCorrectAnswer(e.target.value)}
             >
@@ -149,12 +151,12 @@ export default function Admin_KCItems({
 
           <div className="d-flex justify-content-end gap-2 mt-3">
             <button
-              className="btn btn-sm btn-outline-secondary"
+              className="btn btn-sm btn-danger text-white"
               onClick={handleCancel}
             >
               Cancel
             </button>
-            <button className="btn btn-sm btn-primary" onClick={handleSave}>
+            <button className="btn btn-sm btn-success" onClick={handleSave}>
               Save
             </button>
           </div>
@@ -166,16 +168,16 @@ export default function Admin_KCItems({
             <h5 className="fw-semibold mb-0">{question}</h5>
             <div className="d-flex gap-2">
               <button
-                className="btn btn-sm btn-outline-warning"
+                className="btn btn-sm btn-warning"
                 onClick={handleEdit}
               >
-                Edit
+                <Pencil />
               </button>
               <button
-                className="btn btn-sm btn-outline-danger"
+                className="btn btn-sm btn-danger text-dark"
                 onClick={handleDelete}
               >
-                Delete
+                <Trash2 />
               </button>
             </div>
           </div>
