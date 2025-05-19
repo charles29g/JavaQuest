@@ -41,10 +41,8 @@ const GoogleLoginButton = () => {
       console.log("Backend response:", data);
 
       if (res.ok) {
-        // ✅ Store your backend token
         sessionStorage.setItem("token", data.token);
 
-        // ✅ Use the correct token here
         const user = await fetchUserInfo(data.token);
 
         if (!user) {
@@ -58,7 +56,7 @@ const GoogleLoginButton = () => {
         if (user.role === "admin") {
           navigate("/Admin");
         } else {
-          navigate("/modules");
+          navigate("/User");
         }
       } else {
         console.error("Login failed", data.error);

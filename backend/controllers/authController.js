@@ -10,7 +10,7 @@ export const googleAuth = async (req, res) => {
     "charlesjoseph.gutierrez.cics@ust.edu.ph",
     "aaronjoshua.bagain.cics@ust.edu.ph",
   ];
-  console.log("🧪 JWT_SECRET from env:", process.env.JWT_SECRET);
+  console.log(" JWT_SECRET from env:", process.env.JWT_SECRET);
 
   try {
     const { token } = req.body;

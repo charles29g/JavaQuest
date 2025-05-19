@@ -17,8 +17,12 @@ export default function ModuleLessonContents({
   }, [codeInit, hasRenderedCodeEditor]);
   return (
     <section id={id}>
-      <div className="module-row row align-items-center text-dark justify-content-center padding">
-        <div className="col-md-6 mb-4 mb-md-0">
+  <div className={`module-row row align-items-center text-dark justify-content-center ${id === 1 ? "padding" : ""}`}>
+
+        <div
+          className="col-md-6 mb-4 mb-md-0"
+          style={{ height: "auto", overflow: "visible" }}
+        >
           <h4>{name}</h4>
           <hr />
           {description.split("//").map((part, index) => {

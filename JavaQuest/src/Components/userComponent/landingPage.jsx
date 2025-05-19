@@ -57,9 +57,9 @@ export default function LandingPage() {
             </div>
           </nav>
 
-          <div className="landpg-row row align-items-center justify-content-center">
-            <div className="col-md-6 mt-2 mb-md-0">
-              <h1 className="titlefont text-white glow-text">JavaQuest</h1>
+          <div className="landpg-row row align-items-center justify-content-center mt-5 ">
+            <div className="col-md-6 mt-2 mb-md-0 mt-5">
+              <h1 className="titlefont text-white glow-text mt-5">JavaQuest</h1>
               <p className="text-white" id="intro">
                 JavaQuest is an engaging and dynamic online platform designed to
                 empower individuals in learning the fundamentals of Java
@@ -70,7 +70,7 @@ export default function LandingPage() {
               </p>
               <div className="d-flex justify-content-center">
                 <button
-                  className="btn gradient descfont fs-1 text-white p-0 glow-on-hover"
+                  className="btn gradient descfont mt-5 fs-1 text-white p-0 glow-on-hover"
                   onClick={handleStartClick}
                   style={{
                     opacity: startTransition ? 0 : 1,
