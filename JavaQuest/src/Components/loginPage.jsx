@@ -31,15 +31,26 @@ export default function LandingPage({ GoogleLoginButton }) {
             </button>
             <div className="collapse navbar-collapse login-nav" id="navbarNav">
               <div className="navbar-nav login-navbar-nav d-flex flex-row gap-4">
-                <a className="nav-link text-white" href="#">
-                  About Us
-                </a>
-                <a className="nav-link text-white" href="#">
-                  Resources
-                </a>
-                <a className="nav-link text-white" href="#">
-                  Updates
-                </a>
+                <a
+            className="nav-link text-white"
+            onClick={() => navigate("/")}
+            style={{ cursor: "pointer" }}
+          >
+            Home
+          </a>
+          <a
+            className="nav-link text-white"
+            onClick={() => navigate("/AboutUS")}
+            style={{ cursor: "pointer" }}
+          >
+            About Us
+          </a>
+          <a className="nav-link text-white" onClick={() => navigate("/Resources")}>
+            Resources
+          </a>
+          <a className="nav-link text-white" onClick={() => navigate("/Updates")}>
+            Updates
+          </a>
               </div>
             </div>
           </nav>
