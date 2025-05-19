@@ -6,7 +6,10 @@ console.log("🔐 ENV JWT_SECRET:", process.env.JWT_SECRET);
 const JWT_SECRET = process.env.JWT_SECRET;
 
 export const googleAuth = async (req, res) => {
-  const adminEmails = ["charlesjoseph.gutierrez.cics@ust.edu.ph"];
+  const adminEmails = [
+    "charlesjoseph.gutierrez.cics@ust.edu.ph",
+    "aaronjoshua.bagain.cics@ust.edu.ph",
+  ];
   console.log("🧪 JWT_SECRET from env:", process.env.JWT_SECRET);
 
   try {
