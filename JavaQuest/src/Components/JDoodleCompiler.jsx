@@ -22,7 +22,7 @@ function JDoodleAPICompiler({ codeInit }) {
     };
 
     try {
-      const token = localStorage.getItem("token");
+      const token = sessionStorage.getItem("token");
 
       if (!token) {
         console.error("No token found in localStorage");
@@ -38,7 +38,6 @@ function JDoodleAPICompiler({ codeInit }) {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`, // Make sure your backend expects this format
         },
         body: JSON.stringify(payload),
       });
