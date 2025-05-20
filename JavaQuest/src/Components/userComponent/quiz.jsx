@@ -118,7 +118,7 @@ export default function Quiz({ moduleID }) {
                 </button>
                 <button
                   className="btn btn-light mt-3"
-                  onClick={() => navigate("/")}
+                  onClick={() => navigate("/modules")}
                 >
                   Back to Dashboard
                 </button>

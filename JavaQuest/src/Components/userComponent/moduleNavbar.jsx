@@ -28,9 +28,8 @@ export default function ModuleNavbar({ activeSection, ModuleContents }) {
                 onClick={() => navigate("/modules")}
                 value="landingPage"
               >
-                <ChevronLeft/> Go Back
+                <ChevronLeft /> Go Back
               </button>
-              Module 1: Introduction to Java & Syntax
             </div>
 
             {ModuleContents.map((items) => (
@@ -41,7 +40,7 @@ export default function ModuleNavbar({ activeSection, ModuleContents }) {
                   activeSection === `${items.id}` ? "active-navbar-item" : ""
                 }`}
               >
-                {items.sectionName} 1
+                {items.sectionName}
               </a>
             ))}
           </div>

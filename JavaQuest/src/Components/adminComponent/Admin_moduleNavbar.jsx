@@ -2,7 +2,6 @@ import Admin_ModuleNavItems from "./Admin_moduleItem.jsx";
 import { useNavigate } from "react-router-dom";
 import { Trash2, Pencil, ChevronLeft } from "lucide-react";
 
-
 export default function Admin_ModuleNavbar({ activeSection, ModuleContents }) {
   const navigate = useNavigate();
 
@@ -29,9 +28,8 @@ export default function Admin_ModuleNavbar({ activeSection, ModuleContents }) {
                 onClick={() => navigate("/Adminmodules")}
                 value="landingPage"
               >
-                <ChevronLeft/> Go Back
+                <ChevronLeft /> Go Back
               </button>
-              Module 1: Introduction to Java & Syntax
             </div>
 
             {ModuleContents.map((items) => (
@@ -42,7 +40,7 @@ export default function Admin_ModuleNavbar({ activeSection, ModuleContents }) {
                   activeSection === `${items.id}` ? "active-navbar-item" : ""
                 }`}
               >
-                {items.sectionName} 1
+                {items.sectionName}
               </a>
             ))}
           </div>

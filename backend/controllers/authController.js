@@ -1,6 +1,6 @@
-import { OAuth2Client } from "google-auth-library"; // or use require if you're not using ES modules
+import { OAuth2Client } from "google-auth-library";
 const client = new OAuth2Client(process.env.VITE_GOOGLE_CLIENT_ID);
-import User from "../models/userModel.js"; // adjust the path to your actual model file
+import User from "../models/userModel.js";
 import jwt from "jsonwebtoken";
 console.log("🔐 ENV JWT_SECRET:", process.env.JWT_SECRET);
 const JWT_SECRET = process.env.JWT_SECRET;

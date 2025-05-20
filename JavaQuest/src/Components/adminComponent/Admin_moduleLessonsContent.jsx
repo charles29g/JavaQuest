@@ -22,6 +22,8 @@ export default function Admin_ModuleLessonContents({
   const [name2, setname] = useState(name);
   const [description2, setdescription] = useState(description);
   const [hasRenderedCodeEditor, setHasRenderedCodeEditor] = useState();
+  const sortBySectionId = (arr) =>
+    [...arr].sort((a, b) => Number(a.id) - Number(b.id));
 
   const [imgpath2, setimgpath] = useState(
     Array.isArray(imgpath) ? imgpath : [imgpath]
@@ -67,8 +69,10 @@ export default function Admin_ModuleLessonContents({
       console.log("✅ Module content updated:", result);
 
       setModuleContents((prevContents) =>
-        prevContents.map((item) =>
-          item._id === _id ? { ...item, ...result } : item
+        sortBySectionId(
+          prevContents.map((item) =>
+            item._id === _id ? { ...item, ...result } : item
+          )
         )
       );
 
@@ -99,8 +103,10 @@ export default function Admin_ModuleLessonContents({
     };
 
     setModuleContents((prevContents) =>
-      prevContents.map((content) =>
-        content.id === id2 ? { ...content, ...updatedContent } : content
+      sortBySectionId(
+        prevContents.map((content) =>
+          content._id === _id ? { ...content, ...updatedContent } : content
+        )
       )
     );
 
@@ -150,7 +156,7 @@ export default function Admin_ModuleLessonContents({
       }
 
       setModuleContents((prevContents) =>
-        prevContents.filter((content) => content._id !== _id)
+        sortBySectionId(prevContents.filter((content) => content._id !== _id))
       );
 
       await Swal.fire({

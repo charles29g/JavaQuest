@@ -51,9 +51,9 @@ export default function Admin_ModuleLessons({
     };
   }, [activeSection]);
 
-  const filteredContents = ModuleContents.filter(
-    (item) => item.moduleid === moduleID
-  );
+  const filteredContents = [...ModuleContents]
+    .filter((item) => item.moduleid === moduleID)
+    .sort((a, b) => Number(a.id) - Number(b.id));
 
   return (
     <>

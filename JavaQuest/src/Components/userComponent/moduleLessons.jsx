@@ -49,9 +49,9 @@ export default function ModuleLessons({
     };
   }, [activeSection]);
 
-  const filteredContents = ModuleContents.filter(
-    (item) => item.moduleid === moduleID
-  );
+  const filteredContents = [...ModuleContents]
+    .filter((item) => item.moduleid === moduleID)
+    .sort((a, b) => Number(a.id) - Number(b.id));
 
   return (
     <>
@@ -64,16 +64,18 @@ export default function ModuleLessons({
                 ModuleContents={filteredContents}
               />
               <div className="bg-light">
-                {filteredContents.map((item) => (
-                  <ModuleLessonContents
-                    name={item.sectionName}
-                    description={item.sectionDescription}
-                    key={item.id}
-                    id={item.id}
-                    imgpath={item.sectionImage}
-                    codeInit={item.code}
-                  />
-                ))}
+                {[...filteredContents]
+                  .sort((a, b) => Number(a.id) - Number(b.id))
+                  .map((item) => (
+                    <ModuleLessonContents
+                      name={item.sectionName}
+                      description={item.sectionDescription}
+                      key={item.id}
+                      id={item.id}
+                      imgpath={item.sectionImage}
+                      codeInit={item.code}
+                    />
+                  ))}
               </div>
               <KCPage
                 userID={userID}

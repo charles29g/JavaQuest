@@ -39,7 +39,7 @@ export default function ModulePage({
   }, [navigate]);
 
   const goBack = () => {
-    navigate("/");
+    navigate("/User");
   };
 
   const handleSignOut = () => {
