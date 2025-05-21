@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-
+import LandingNavbar from "../../landingNavbar";
 export default function Admin_LandingPage() {
   const navigate = useNavigate();
 
@@ -9,8 +9,8 @@ export default function Admin_LandingPage() {
 
   const handleStartClick = () => {
     setStartTransition(true);
-    setTimeout(() => setStartAnimation(true), 100); 
-    setTimeout(() => navigate("/Adminmodules"), 3000); 
+    setTimeout(() => setStartAnimation(true), 100);
+    setTimeout(() => navigate("/Adminmodules"), 3000);
   };
 
   return (
@@ -29,18 +29,8 @@ export default function Admin_LandingPage() {
             >
               <span className="navbar-toggler-icon"></span>
             </button>
-            <div className="collapse navbar-collapse" id="navbarNav">
-              <div className="navbar-nav d-flex flex-row gap-4">
-                <a className="nav-link text-white" href="#">
-                  About Us
-                </a>
-                <a className="nav-link text-white" href="#">
-                  Resources
-                </a>
-                <a className="nav-link text-white" href="#">
-                  Updates
-                </a>
-              </div>
+            <div className="container">
+              <LandingNavbar />
             </div>
           </nav>
 
@@ -53,19 +43,19 @@ export default function Admin_LandingPage() {
                 and interactive way...
               </p>
 
-                <div className="d-flex justify-content-center">
-                  <button
-                    className="btn gradient descfont fs-1 text-white p-0 glow-on-hover"
-                    onClick={handleStartClick}
-                    style={{
-                      opacity: startTransition ? 0 : 1,
-                      visibility: startTransition ? "hidden" : "visible", 
-                      pointerEvents: startTransition ? "none" : "auto", 
-                    }}
-                  >
-                    <i className="fas fa-running me-3 p-0"></i>Start
-                  </button>
-                </div>
+              <div className="d-flex justify-content-center">
+                <button
+                  className="btn gradient descfont fs-1 text-white p-0 glow-on-hover"
+                  onClick={handleStartClick}
+                  style={{
+                    opacity: startTransition ? 0 : 1,
+                    visibility: startTransition ? "hidden" : "visible",
+                    pointerEvents: startTransition ? "none" : "auto",
+                  }}
+                >
+                  <i className="fas fa-running me-3 p-0"></i>Start
+                </button>
+              </div>
             </div>
 
             <div className="col-6 col-m-6">
@@ -84,7 +74,11 @@ export default function Admin_LandingPage() {
       {startTransition && (
         <>
           <div className="portal-wrapper">
-            <img src="/images/portal.png" className="portal b-0" alt="Portal" />
+            <img
+              src="/images/portal.png"
+              className="portal d-block b-0"
+              alt="Portal"
+            />
           </div>
           <img src="/images/Module/c1.png" className="car z-10" alt="Car" />
         </>

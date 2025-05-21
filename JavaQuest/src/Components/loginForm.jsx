@@ -111,13 +111,10 @@ export default function LoginForm() {
         <div className="row gx-7 align-items-center">
           <div className="form-col col-md-5 text-md-start mt-2 mb-md-0">
             <h1 className="titlefont text-white glow-text">JavaQuest</h1>
-            <p className="text-white small">
-              JavaQuest is an engaging and dynamic online platform designed to
-              empower individuals in learning the fundamentals of Java
-              programming. Whether you're a complete beginner or looking to
-              strengthen your coding foundation, JavaQuest offers interactive
-              lessons, hands-on challenges, and a fun, game-like experience that
-              makes learning Java both effective and enjoyable.
+            <p className="text-white">
+              JavaQuest is an engaging online platform designed to help
+              individuals learn the basics of Java programming in a fun and
+              interactive way...
             </p>
           </div>
 

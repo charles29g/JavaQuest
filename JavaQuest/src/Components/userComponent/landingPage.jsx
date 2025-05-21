@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../../Design.css";
+import LandingNavbar from "../../landingNavbar";
 
 export default function LandingPage() {
   const navigate = useNavigate();
@@ -31,47 +32,20 @@ export default function LandingPage() {
             >
               <span className="navbar-toggler-icon"></span>
             </button>
-            <div className="collapse navbar-collapse landpg-nav" id="navbarNav">
-              <div className="navbar-nav landpg-navbar-nav d-flex flex-row gap-4">
-                <a
-                  className="nav-link text-white"
-                  onClick={() => navigate("/")}
-                >
-                  Home
-                </a>
-                <a
-                  className="nav-link text-white"
-                  onClick={() => navigate("/AboutUs")}
-                >
-                  About Us
-                </a>
-                <a
-                  className="nav-link text-white"
-                  onClick={() => navigate("/Resources")}
-                >
-                  Resources
-                </a>
-                <a
-                  className="nav-link text-white"
-                  onClick={() => navigate("/Updates")}
-                >
-                  Updates
-                </a>
-              </div>
+            <div className="container">
+              <LandingNavbar />
             </div>
           </nav>
 
-          <div className="landpg-row row align-items-center justify-content-center mt-5 ">
+          <div className="landpg-row row align-items-center justify-content-center ">
             <div className="col-md-6 mt-2 mb-md-0 mt-5">
               <h1 className="titlefont text-white glow-text mt-5">JavaQuest</h1>
-              <p className="text-white" id="intro">
-                JavaQuest is an engaging and dynamic online platform designed to
-                empower individuals in learning the fundamentals of Java
-                programming. Whether you're a complete beginner or looking to
-                strengthen your coding foundation, JavaQuest offers interactive
-                lessons, hands-on challenges, and a fun, game-like experience
-                that makes learning Java both effective and enjoyable.
+              <p className="text-white">
+                JavaQuest is an engaging online platform designed to help
+                individuals learn the basics of <br /> Java programming in a fun
+                and interactive way...
               </p>
+
               <div className="d-flex justify-content-center">
                 <button
                   className="btn gradient descfont mt-5 fs-1 text-white p-0 glow-on-hover"

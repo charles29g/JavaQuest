@@ -121,7 +121,6 @@ export default function ModulePage({
         </div>
 
         <AddModuleModal ref={modalRef} setModuleItems={setModuleItems} />
-
         <Admin_ModuleList
           setModuleItems={setModuleItems}
           ModuleItems={ModuleItems}

@@ -1070,3 +1070,14 @@ em {
   padding: 12px 25px;
   border-radius: 8px;
 }
+.scroll-container {
+  flex: 1;
+  overflow-y: auto !important;
+  scroll-snap-type: y mandatory;
+  scroll-behavior: smooth;
+}
+
+.scroll-item {
+  scroll-snap-align: start;
+  flex-shrink: 0;
+}

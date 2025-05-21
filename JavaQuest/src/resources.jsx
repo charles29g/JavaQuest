@@ -173,7 +173,7 @@ const modules = [
 
 function References() {
   return (      
-    <div>
+    <div className="container">
       <div className="navbar text-white" style={{ marginLeft: '2.5rem', padding: '0px' }}>
       <LandingNavbar/> 
       </div>    
