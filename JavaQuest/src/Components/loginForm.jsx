@@ -4,6 +4,11 @@ import GoogleLoginButton from "./GoogleLoginButton";
 
 export default function LoginForm() {
   const [isSignup, setIsSignup] = useState(false);
+  const [isForgotPassword, setIsForgotPassword] = useState(false);
+  const [resetStep, setResetStep] = useState(1);
+  const [resetOtp, setResetOtp] = useState("");
+  const [newPassword, setNewPassword] = useState("");
+
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -105,6 +110,53 @@ export default function LoginForm() {
     }
   };
 
+  const handleForgotPasswordRequest = async () => {
+    try {
+      const res = await fetch(
+        "http://localhost:5000/api/auth/forgot-password",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email: formData.email }),
+        }
+      );
+
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.message || "Failed to send OTP");
+
+      alert("✅ OTP sent to your email");
+      setResetStep(2);
+    } catch (err) {
+      alert("❌ " + err.message);
+    }
+  };
+
+  const handleResetPassword = async () => {
+    try {
+      const res = await fetch("http://localhost:5000/api/auth/reset-password", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          email: formData.email,
+          otp: resetOtp,
+          newPassword,
+        }),
+      });
+
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.message || "Reset failed");
+
+      alert("✅ Password reset successfully! You can now log in.");
+      setIsForgotPassword(false);
+      setResetStep(1);
+      setFormData({ ...formData, password: "", confirmPassword: "" });
+      setResetOtp("");
+      setNewPassword("");
+    } catch (err) {
+      alert("❌ " + err.message);
+    }
+  };
+
   return (
     <div style={{ minHeight: "80vh" }} className="d-flex align-items-center">
       <div className="container">
@@ -135,7 +187,7 @@ export default function LoginForm() {
                   {message}
                 </div>
               )}
-              {!isSignup ? (
+              {!isSignup && !isForgotPassword ? (
                 <>
                   <h2 className="mb-4">Login</h2>
                   <form onSubmit={handleLoginSubmit}>
@@ -170,9 +222,16 @@ export default function LoginForm() {
                         />
                         Remember me
                       </label>
-                      <a href="#!" className="small text-primary">
+                      <button
+                        type="button"
+                        className="btn btn-link p-0 small"
+                        onClick={() => {
+                          setIsForgotPassword(true);
+                          setResetStep(1);
+                        }}
+                      >
                         Forgot password?
-                      </a>
+                      </button>
                     </div>
                     <button
                       type="submit"
@@ -196,6 +255,76 @@ export default function LoginForm() {
                     </p>
                   </form>
                 </>
+              ) : isForgotPassword ? (
+                <div>
+                  <h2 className="mb-4">Reset Password</h2>
+                  <form
+                    onSubmit={(e) => {
+                      e.preventDefault();
+                      if (resetStep === 1) {
+                        handleForgotPasswordRequest();
+                      } else {
+                        handleResetPassword();
+                      }
+                    }}
+                  >
+                    <label className="form-label w-100 mb-2">
+                      <span>Email</span>
+                      <input
+                        type="email"
+                        name="email"
+                        className="form-control"
+                        value={formData.email}
+                        onChange={handleChange}
+                        required
+                      />
+                    </label>
+
+                    {resetStep === 2 && (
+                      <>
+                        <label className="form-label w-100 mb-2">
+                          <span>OTP</span>
+                          <input
+                            type="text"
+                            name="otp"
+                            className="form-control"
+                            value={resetOtp}
+                            onChange={(e) => setResetOtp(e.target.value)}
+                            required
+                          />
+                        </label>
+
+                        <label className="form-label w-100 mb-2">
+                          <span>New Password</span>
+                          <input
+                            type="password"
+                            className="form-control"
+                            value={newPassword}
+                            onChange={(e) => setNewPassword(e.target.value)}
+                            required
+                          />
+                        </label>
+                      </>
+                    )}
+
+                    <button
+                      type="submit"
+                      className="btn btn-primary w-100 mb-3"
+                    >
+                      {resetStep === 1 ? "Send OTP" : "Reset Password"}
+                    </button>
+
+                    <p className="text-center">
+                      <button
+                        type="button"
+                        onClick={() => setIsForgotPassword(false)}
+                        className="btn btn-link p-0"
+                      >
+                        Back to Login
+                      </button>
+                    </p>
+                  </form>
+                </div>
               ) : (
                 <>
                   <h2 className="mb-4">Create New Account</h2>

@@ -80,6 +80,45 @@ router.post("/send-otp", async (req, res) => {
   }
 });
 
+router.post("/forgot-password", async (req, res) => {
+  const { email } = req.body;
+
+  try {
+    const user = await User.findOne({ email });
+    if (!user) return res.status(404).json({ message: "User not found" });
+
+    await sendOTP(email);
+    res.status(200).json({ message: "OTP sent for password reset" });
+  } catch (err) {
+    console.error("Forgot password error:", err);
+    res.status(500).json({ message: "Failed to send OTP" });
+  }
+});
+
+router.post("/reset-password", async (req, res) => {
+  const { email, otp, newPassword } = req.body;
+
+  try {
+    const matchedOTP = await OTP.findOne({ email, otp });
+    if (!matchedOTP)
+      return res.status(400).json({ message: "Invalid or expired OTP" });
+
+    const user = await User.findOne({ email });
+    if (!user) return res.status(404).json({ message: "User not found" });
+
+    const hashedPassword = await bcrypt.hash(newPassword, 10);
+    user.password = hashedPassword;
+    await user.save();
+
+    await OTP.deleteMany({ email });
+
+    res.status(200).json({ message: "Password has been reset successfully" });
+  } catch (err) {
+    console.error("Reset password error:", err);
+    res.status(500).json({ message: "Server error" });
+  }
+});
+
 router.post("/complete-module", async (req, res) => {
   const { token, moduleID } = req.body;
 
